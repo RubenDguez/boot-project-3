@@ -1,8 +1,7 @@
-import { Box, Button, colors, Container, FormControl, IconButton, Paper, TextField, Typography } from '@mui/material';
-import { FormEvent, useCallback, useRef, useState } from 'react';
-import { Form } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Box, Button, Container, FormControl, Paper, TextField, Typography } from '@mui/material';
+import { FormEvent, useCallback, useRef, useState } from 'react';
+import { Form, useNavigate } from 'react-router-dom';
 
 interface IUser {
   firstName: string;
@@ -68,7 +67,9 @@ export default function SignUp() {
               <ArrowBackIcon /> Back
             </Button>
           </Box>
-          <Typography variant="h4" color='primary'>Sign Up</Typography>
+          <Typography variant="h4" color="primary">
+            Sign Up
+          </Typography>
           <Form
             ref={formRef}
             autoComplete="off"
