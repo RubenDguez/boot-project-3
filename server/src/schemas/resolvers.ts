@@ -6,7 +6,6 @@ interface User {
   username: string;
   email: string;
   password: string;
-  bookCount: number;
 }
 interface AddUser {
   input: {
