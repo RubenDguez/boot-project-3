@@ -43,7 +43,7 @@ export default function useAuth() {
 
   useEffect(() => {
     if (!getToken() || !isTokenExpired(getToken()!)) {
-      navigate('/authenticate');
+      navigate('/login');
     }
   }, []);
 
