@@ -19,7 +19,7 @@ export default function SignUp() {
   const [addUser] = useMutation(ADD_USER);
   const navigate = useNavigate();
 
-  const [inputError, setInputError] = useState<IUser | null>(null);
+  const [inputError, setInputError] = useState<Partial<IUser & { passwordMatch: string }> | null>(null);
 
   const formRef = useRef<HTMLFormElement>(null);
   const firstNameInputRef = useRef<HTMLInputElement>(null);
@@ -27,6 +27,7 @@ export default function SignUp() {
   const usernameInputRef = useRef<HTMLInputElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
+  const passwordMatchInputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = useCallback(async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,12 +47,18 @@ export default function SignUp() {
         username: !inputData.username ? 'Username is a required field' : '',
         email: !inputData.email ? 'Email is a required field' : '',
         password: !inputData.password ? 'Password is a required field' : '',
+        passwordMatch: !(passwordMatchInputRef.current?.value ?? '') ? 'Password is a required field' : '',
       });
 
       return;
     }
 
-    setInputError({ firstName: '', lastName: '', username: '', email: '', password: '' });
+    if (inputData.password !== passwordMatchInputRef.current?.value) {
+      setInputError((inputError) => ({ ...inputError, passwordMatch: 'Passwords do not match' }));
+      return;
+    }
+
+    setInputError({ firstName: '', lastName: '', username: '', email: '', password: '', passwordMatch: '' });
 
     const { data } = await addUser({ variables: { input: inputData } });
     login(data.addUser.token);
@@ -71,15 +78,15 @@ export default function SignUp() {
               justifyContent: 'end',
             }}
           >
-            <Button data-testId="back-button" color="secondary" onClick={() => navigate(-1)}>
+            <Button data-testid="back-button" color="secondary" onClick={() => navigate(-1)}>
               <ArrowBackIcon /> Back
             </Button>
           </Box>
-          <Typography data-testId="signup-header" variant="h4" color="primary">
+          <Typography data-testid="signup-header" variant="h4" color="primary">
             Sign Up
           </Typography>
           <form
-            data-testId="signup-form"
+            data-testid="signup-form"
             ref={formRef}
             autoComplete="off"
             onSubmit={handleSubmit}
@@ -92,7 +99,7 @@ export default function SignUp() {
           >
             <FormControl>
               <TextField
-                data-testId="firstName"
+                data-testid="firstName"
                 required
                 fullWidth
                 id="firstName"
@@ -107,7 +114,7 @@ export default function SignUp() {
             </FormControl>
             <FormControl>
               <TextField
-                data-testId="lastName"
+                data-testid="lastName"
                 required
                 fullWidth
                 id="lastName"
@@ -122,7 +129,7 @@ export default function SignUp() {
             </FormControl>
             <FormControl>
               <TextField
-                data-testId="username"
+                data-testid="username"
                 required
                 fullWidth
                 id="username"
@@ -137,7 +144,7 @@ export default function SignUp() {
             </FormControl>
             <FormControl>
               <TextField
-              data-testId="email"
+                data-testid="email"
                 required
                 fullWidth
                 id="email"
@@ -152,7 +159,7 @@ export default function SignUp() {
             </FormControl>
             <FormControl>
               <TextField
-              data-testId="password"
+                data-testid="password"
                 required
                 fullWidth
                 id="password"
@@ -166,7 +173,22 @@ export default function SignUp() {
               />
             </FormControl>
             <FormControl>
-              <Button data-testId="submit" id='submit' type="submit" variant="outlined">
+              <TextField
+                data-testid="password-match"
+                required
+                fullWidth
+                id="password-match"
+                type="password"
+                size="small"
+                variant="standard"
+                inputRef={passwordInputRef}
+                label="Password"
+                helperText={inputError?.passwordMatch}
+                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } } }}
+              />
+            </FormControl>
+            <FormControl>
+              <Button data-testid="submit" id="submit" type="submit" variant="outlined">
                 Submit
               </Button>
             </FormControl>

@@ -60,15 +60,15 @@ export default function Login() {
               justifyContent: 'end',
             }}
           >
-            <Button data-testId="back-button" color="secondary" onClick={() => navigate(-1)}>
+            <Button data-testid="back-button" color="secondary" onClick={() => navigate(-1)}>
               <ArrowBackIcon /> Back
             </Button>
           </Box>
-          <Typography data-testId="login-header" variant="h4" color="primary">
+          <Typography data-testid="login-header" variant="h4" color="primary">
             Login
           </Typography>
           <form
-            data-testId="login-form"
+            data-testid="login-form"
             ref={formRef}
             autoComplete="off"
             onSubmit={handleSubmit}
@@ -81,7 +81,7 @@ export default function Login() {
           >
             <FormControl>
               <TextField
-                data-testId="username"
+                data-testid="username"
                 required
                 fullWidth
                 id="username"
@@ -96,7 +96,7 @@ export default function Login() {
             </FormControl>
             <FormControl>
               <TextField
-                data-testId="password"
+                data-testid="password"
                 required
                 fullWidth
                 id="password"
@@ -110,7 +110,7 @@ export default function Login() {
               />
             </FormControl>
             <FormControl>
-              <Button data-testId="submit" id='submit' type="submit" variant="outlined">
+              <Button data-testid="submit" id='submit' type="submit" variant="outlined">
                 Submit
               </Button>
             </FormControl>
