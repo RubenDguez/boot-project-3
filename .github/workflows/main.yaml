@@ -23,7 +23,7 @@ jobs:
 
       - name: Install Dependencies
         id: install-dependencies
-        run: npm intall
+        run: npm install
 
       - name: Run Component Tests
         id: run-component-test
