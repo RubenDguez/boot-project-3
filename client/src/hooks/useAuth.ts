@@ -7,7 +7,7 @@ interface UserToken {
   exp: number;
 }
 
-export default function useAuth() {
+export default function useAuth(options: { needsAuth: boolean } = {needsAuth: true}) {
   const navigate = useNavigate();
   const isTokenExpired = useCallback((token: string) => {
     try {
@@ -42,7 +42,7 @@ export default function useAuth() {
   }, []);
 
   useEffect(() => {
-    if (!getToken() || !isTokenExpired(getToken()!)) {
+    if (options.needsAuth && (!getToken() || isTokenExpired(getToken()!))) {
       navigate('/login');
     }
   }, []);

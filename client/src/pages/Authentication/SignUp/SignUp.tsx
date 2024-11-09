@@ -1,7 +1,10 @@
+import { useMutation } from '@apollo/client';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Box, Button, Container, FormControl, Paper, TextField, Typography } from '@mui/material';
 import { FormEvent, useCallback, useRef, useState } from 'react';
 import { Form, useNavigate } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
+import { ADD_USER } from '../../../utils/mutations';
 
 interface IUser {
   firstName: string;
@@ -12,7 +15,9 @@ interface IUser {
 }
 
 export default function SignUp() {
+  const { login } = useAuth({ needsAuth: false });
   const navigate = useNavigate();
+  const [addUser] = useMutation(ADD_USER);
 
   const [inputError, setInputError] = useState<IUser | null>(null);
 
@@ -23,10 +28,10 @@ export default function SignUp() {
   const emailInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback(async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const data: IUser = {
+    const inputData: IUser = {
       firstName: firstNameInputRef.current?.value ?? '',
       lastName: lastNameInputRef.current?.value ?? '',
       username: usernameInputRef.current?.value ?? '',
@@ -34,19 +39,22 @@ export default function SignUp() {
       password: passwordInputRef.current?.value ?? '',
     };
 
-    if (!data.firstName || !data.lastName || !data.username || !data.email || !data.password) {
+    if (!inputData.firstName || !inputData.lastName || !inputData.username || !inputData.email || !inputData.password) {
       setInputError({
-        firstName: !data.firstName ? 'First Name is a required field' : '',
-        lastName: !data.lastName ? 'Last Name is a required field' : '',
-        username: !data.username ? 'Username is a required field' : '',
-        email: !data.email ? 'Email is a required field' : '',
-        password: !data.password ? 'Password is a required field' : '',
+        firstName: !inputData.firstName ? 'First Name is a required field' : '',
+        lastName: !inputData.lastName ? 'Last Name is a required field' : '',
+        username: !inputData.username ? 'Username is a required field' : '',
+        email: !inputData.email ? 'Email is a required field' : '',
+        password: !inputData.password ? 'Password is a required field' : '',
       });
 
       return;
     }
 
     setInputError({ firstName: '', lastName: '', username: '', email: '', password: '' });
+
+    const { data } = await addUser({ variables: { input: inputData } });
+    login(data.addUser.token);
 
     formRef.current?.reset();
     navigate('/app');
