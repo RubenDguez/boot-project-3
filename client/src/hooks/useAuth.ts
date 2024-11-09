@@ -41,6 +41,7 @@ export default function useAuth(options: { needsAuth: boolean } = {needsAuth: tr
 
   useEffect(() => {
     if (options.needsAuth && (!getToken() || isTokenExpired(getToken()!))) {
+      logout();
       navigate('/login');
     }
   }, []);
