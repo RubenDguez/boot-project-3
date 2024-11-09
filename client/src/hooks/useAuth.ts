@@ -33,12 +33,10 @@ export default function useAuth(options: { needsAuth: boolean } = {needsAuth: tr
 
   const login = useCallback((idToken: string) => {
     localStorage.setItem('id_token', idToken);
-    window.location.assign('/');
   }, []);
 
   const logout = useCallback(() => {
     localStorage.removeItem('id_token');
-    window.location.assign('/');
   }, []);
 
   useEffect(() => {

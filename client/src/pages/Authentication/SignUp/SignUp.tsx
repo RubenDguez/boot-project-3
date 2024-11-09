@@ -16,8 +16,8 @@ interface IUser {
 
 export default function SignUp() {
   const { login } = useAuth({ needsAuth: false });
-  const navigate = useNavigate();
   const [addUser] = useMutation(ADD_USER);
+  const navigate = useNavigate();
 
   const [inputError, setInputError] = useState<IUser | null>(null);
 

@@ -1,7 +1,10 @@
+import { useMutation } from '@apollo/client';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Box, Button, Container, FormControl, Paper, TextField, Typography } from '@mui/material';
 import { FormEvent, useCallback, useRef, useState } from 'react';
 import { Form, useNavigate } from 'react-router-dom';
+import useAuth from '../../../hooks/useAuth';
+import { LOGIN_USER } from '../../../utils/mutations';
 
 interface IUser {
   username: string;
@@ -9,6 +12,8 @@ interface IUser {
 }
 
 export default function Login() {
+  const { login } = useAuth({ needsAuth: false });
+  const [Login] = useMutation(LOGIN_USER);
   const navigate = useNavigate();
 
   const [inputError, setInputError] = useState<IUser | null>(null);
@@ -17,24 +22,28 @@ export default function Login() {
   const usernameInputRef = useRef<HTMLInputElement>(null);
   const passwordInputRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback(async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const data: IUser = {
+    const inputData: IUser = {
       username: usernameInputRef.current?.value ?? '',
       password: passwordInputRef.current?.value ?? '',
     };
 
-    if (!data.username || !data.password) {
+    if (!inputData.username || !inputData.password) {
       setInputError({
-        username: !data.username ? 'Username is a required field' : '',
-        password: !data.password ? 'Password is a required field' : '',
+        username: !inputData.username ? 'Username is a required field' : '',
+        password: !inputData.password ? 'Password is a required field' : '',
       });
 
       return;
     }
 
     setInputError({ username: '', password: '' });
+
+    const { data } = await Login({ variables: { ...inputData } });
+
+    login(data.login.token);
 
     formRef.current?.reset();
     navigate('/app');
