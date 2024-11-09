@@ -5,7 +5,8 @@ import './App.css';
 import useAuth from './hooks/useAuth';
 
 function App() {
-  const { getToken } = useAuth();
+  const { getToken } = useAuth({ needsAuth: false });
+
   const httpLink = createHttpLink({ uri: '/graphql' });
 
   const authLink = setContext((_, { headers }) => {

@@ -3,6 +3,8 @@ import gql from 'graphql-tag';
 const typeDefs = gql`
   type User {
     _id: ID!
+    firstName: String
+    lastName: String
     username: String
     email: String
   }
@@ -13,6 +15,8 @@ const typeDefs = gql`
   }
 
   input UserInput {
+    firstName: String!
+    lastName: String!
     username: String!
     email: String!
     password: String!
@@ -23,7 +27,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    login(email: String!, password: String!): Auth
+    login(username: String!, password: String!): Auth
     addUser(input: UserInput!): Auth
   }
 `;

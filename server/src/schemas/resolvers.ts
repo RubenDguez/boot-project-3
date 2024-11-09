@@ -6,7 +6,6 @@ interface User {
   username: string;
   email: string;
   password: string;
-  bookCount: number;
 }
 interface AddUser {
   input: {
@@ -29,8 +28,8 @@ const resolvers = {
   },
 
   Mutation: {
-    login: async (_: unknown, { email, password }: { email: string; password: string }): Promise<{ token: string; user: User }> => {
-      const user = await User.findOne({ email });
+    login: async (_: unknown, { username, password }: { username: string; password: string }): Promise<{ token: string; user: User }> => {
+      const user = await User.findOne({ username });
       if (!user) throw AuthenticationError;
 
       const isCorrectPassword = await user.isCorrectPassword(password);

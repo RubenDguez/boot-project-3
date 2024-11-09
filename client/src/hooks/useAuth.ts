@@ -1,12 +1,14 @@
 import { jwtDecode } from 'jwt-decode';
-import { useCallback } from 'react';
+import { useCallback, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface UserToken {
   name: string;
   exp: number;
 }
 
-export default function useAuth() {
+export default function useAuth(options: { needsAuth: boolean } = {needsAuth: true}) {
+  const navigate = useNavigate();
   const isTokenExpired = useCallback((token: string) => {
     try {
       const decoded = jwtDecode<UserToken>(token);
@@ -31,13 +33,18 @@ export default function useAuth() {
 
   const login = useCallback((idToken: string) => {
     localStorage.setItem('id_token', idToken);
-    window.location.assign('/');
   }, []);
 
   const logout = useCallback(() => {
     localStorage.removeItem('id_token');
-    window.location.assign('/');
   }, []);
 
-  return { getToken, loggedIn, login, logout };
+  useEffect(() => {
+    if (options.needsAuth && (!getToken() || isTokenExpired(getToken()!))) {
+      logout();
+      navigate('/login');
+    }
+  }, []);
+
+  return { getToken, loggedIn, login, logout, isTokenExpired };
 }
