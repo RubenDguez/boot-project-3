@@ -182,7 +182,7 @@ export default function SignUp() {
                 size="small"
                 variant="standard"
                 inputRef={passwordInputRef}
-                label="Password"
+                label="Match Password"
                 helperText={inputError?.passwordMatch}
                 slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } } }}
               />
