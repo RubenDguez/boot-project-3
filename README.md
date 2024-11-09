@@ -7,3 +7,5 @@
 ![React](https://img.shields.io/badge/frontend-React-blue)
 ![Node.js](https://img.shields.io/badge/backend-Node.js-yellow)
 ![npm](https://img.shields.io/badge/npm-v10.8.3-blue)
+![CI - Cypress Tests](https://img.shields.io/github/actions/workflow/status/RubenDguez/boot-project-3/main.yaml?label=CI%20-%20Cypress%20Tests&style=flat-square)
+![CD - Deploy to Render](https://img.shields.io/github/actions/workflow/status/RubenDguez/boot-project-3/deploy.yaml?label=CD%20-%20Deploy%20to%20Render&style=flat-square)
