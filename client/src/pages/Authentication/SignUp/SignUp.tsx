@@ -2,7 +2,7 @@ import { useMutation } from '@apollo/client';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Box, Button, Container, FormControl, Paper, TextField, Typography } from '@mui/material';
 import { FormEvent, useCallback, useRef, useState } from 'react';
-import { Form, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 import { ADD_USER } from '../../../utils/mutations';
 
@@ -71,14 +71,15 @@ export default function SignUp() {
               justifyContent: 'end',
             }}
           >
-            <Button color="secondary" onClick={() => navigate(-1)}>
+            <Button data-testId="back-button" color="secondary" onClick={() => navigate(-1)}>
               <ArrowBackIcon /> Back
             </Button>
           </Box>
-          <Typography variant="h4" color="primary">
+          <Typography data-testId="signup-header" variant="h4" color="primary">
             Sign Up
           </Typography>
-          <Form
+          <form
+            data-testId="signup-form"
             ref={formRef}
             autoComplete="off"
             onSubmit={handleSubmit}
@@ -91,6 +92,7 @@ export default function SignUp() {
           >
             <FormControl>
               <TextField
+                data-testId="firstName"
                 required
                 fullWidth
                 id="firstName"
@@ -105,6 +107,7 @@ export default function SignUp() {
             </FormControl>
             <FormControl>
               <TextField
+                data-testId="lastName"
                 required
                 fullWidth
                 id="lastName"
@@ -119,6 +122,7 @@ export default function SignUp() {
             </FormControl>
             <FormControl>
               <TextField
+                data-testId="username"
                 required
                 fullWidth
                 id="username"
@@ -133,6 +137,7 @@ export default function SignUp() {
             </FormControl>
             <FormControl>
               <TextField
+              data-testId="email"
                 required
                 fullWidth
                 id="email"
@@ -147,6 +152,7 @@ export default function SignUp() {
             </FormControl>
             <FormControl>
               <TextField
+              data-testId="password"
                 required
                 fullWidth
                 id="password"
@@ -160,11 +166,11 @@ export default function SignUp() {
               />
             </FormControl>
             <FormControl>
-              <Button type="submit" variant="outlined">
+              <Button data-testId="submit" id='submit' type="submit" variant="outlined">
                 Submit
               </Button>
             </FormControl>
-          </Form>
+          </form>
         </Paper>
       </Container>
     </Box>
