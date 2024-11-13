@@ -1,12 +1,11 @@
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { LocalizationProvider } from '@mui/x-date-pickers-pro/LocalizationProvider';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 
-function App({ children }) {
+export default function Calendar() {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      {children}
+       <DateCalendar />
     </LocalizationProvider>
   );
 }

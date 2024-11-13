@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
-import { Authentication, Landing, Main, NotFound } from '../pages';
+import { Authentication, Landing, Main, NotFound, Calendar } from '../pages';
 
 const router = createBrowserRouter([
   {
@@ -24,6 +24,10 @@ const router = createBrowserRouter([
         path: '/app',
         element: <Main />,
       },
+      {
+        path: '/calendar',
+        element: <Calendar />,
+      }
     ],
   },
 ]);
