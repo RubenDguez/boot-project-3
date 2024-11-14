@@ -1,4 +1,5 @@
-import { User } from '../models/index.js';
+import { Query } from 'mongoose';
+import { User, Charity } from '../models/index.js';
 import { AuthenticationError, signToken } from '../utils/auth.js';
 
 interface User {
@@ -17,6 +18,15 @@ interface AddUser {
 interface Context {
   user?: User;
 }
+interface Charity {
+  _id: string;
+  name: string;
+  description: string;
+  image: string;
+  website: string;
+  locationAddress: string;
+  nonprofitTags: string[];
+}
 
 const resolvers = {
   Query: {
@@ -25,7 +35,17 @@ const resolvers = {
 
       return await User.findOne({ _id: context.user._id });
     },
+    charities: async (): Promise<Charity[]> => {
+      return await Charity.find({});
+    },
+    charity: async (_: unknown, { _id }: { _id: string }): Promise<Charity | null> => {
+      return await Charity.findOne ({ _id });
+    }
   },
+
+
+  
+    
 
   Mutation: {
     login: async (_: unknown, { username, password }: { username: string; password: string }): Promise<{ token: string; user: User }> => {
