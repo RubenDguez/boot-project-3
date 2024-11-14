@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
-import { Authentication, Landing, Main, NotFound, Calendar } from '../pages';
+import { Authentication, CharitySearch, HelpBoard, Landing, Main, NotFound, ServiceCalendar } from '../pages';
 
 const router = createBrowserRouter([
   {
@@ -23,11 +23,21 @@ const router = createBrowserRouter([
       {
         path: '/app',
         element: <Main />,
+        children: [
+          {
+            path: '/app/charity-search',
+            element: <CharitySearch />,
+          },
+          {
+            path: '/app/service-calendar',
+            element: <ServiceCalendar />,
+          },
+          {
+            path: '/app/help-board',
+            element: <HelpBoard />,
+          },
+        ],
       },
-      {
-        path: '/calendar',
-        element: <Calendar />,
-      }
     ],
   },
 ]);
