@@ -78,7 +78,7 @@ export default function SignUp() {
               justifyContent: 'end',
             }}
           >
-            <Button data-testid="back-button" color="secondary" onClick={() => navigate(-1)}>
+            <Button data-testid="back-button" color="secondary" onClick={() => navigate('/')}>
               <ArrowBackIcon /> Back
             </Button>
           </Box>
