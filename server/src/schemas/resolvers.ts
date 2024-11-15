@@ -7,6 +7,7 @@ interface User {
   email: string;
   password: string;
 }
+
 interface AddUser {
   input: {
     username: string;
@@ -14,6 +15,7 @@ interface AddUser {
     password: string;
   };
 }
+
 interface Context {
   user?: User;
 }
@@ -23,13 +25,24 @@ const resolvers = {
     me: async (_: unknown, _args: unknown, context: Context): Promise<User | null> => {
       if (!context.user) throw new AuthenticationError('Could not find user');
 
-      return await User.findOne({ _id: context.user._id });
+      return User.findOne({ _id: context.user._id });
     },
   },
 
   Mutation: {
-    login: async (_: unknown, { username, password }: { username: string; password: string }): Promise<{ token: string; user: User }> => {
-      const user = await User.findOne({ username });
+    login: async (
+      _: unknown,
+      {
+        username,
+        password,
+      }: {
+        username: string;
+        password: string;
+      },
+    ): Promise<{ token: string; user: User }> => {
+      const user = await User.findOne({
+        $or: [{ username }, { email: username }],
+      });
       if (!user) throw AuthenticationError;
 
       const isCorrectPassword = await user.isCorrectPassword(password);
