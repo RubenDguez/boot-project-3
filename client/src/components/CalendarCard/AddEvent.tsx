@@ -38,33 +38,62 @@ export default function AddEvent() {
             event.preventDefault();
             const formData = new FormData(event.currentTarget);
             const formJson = Object.fromEntries((formData as any).entries());
-            const email = formJson.email;
-            console.log(email);
+            const eventName = formJson.eventName;
+            console.log(eventName);
             handleClose();
           },
         }}
       >
+      
         <DialogTitle>AddEvent</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            To subscribe to this website, please enter your email address here.
-            We will send updates occasionally.
+            Confirm Event Information before adding to the calendar.
           </DialogContentText>
           <TextField
             autoFocus
             required
             margin="dense"
             id="name"
-            name="email"
-            label="Email Address"
+            name="Name"
+            label="Event Name"
+            type="text"
+            fullWidth
+            variant="standard"
+          />
+          <DialogContentText>
+            Add Event Location
+          </DialogContentText>
+          <TextField
+            autoFocus
+            required
+            margin="dense"
+            id="location"
+            name="Location"
+            label="Event Location"
+            type="text"
+            fullWidth
+            variant="standard"
+          />
+          <DialogContentText>
+            Confirm Time
+          </DialogContentText>
+          <TextField 
+            autoFocus
+            required
+            margin="dense"
+            id="time"
+            name="eventTime"
             type="email"
             fullWidth
             variant="standard"
+            disabled
+            defaultValue="Hello World"
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit">Subscribe</Button>
+          <Button type="submit">ADD</Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>
