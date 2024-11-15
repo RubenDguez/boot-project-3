@@ -15,7 +15,7 @@ import FormDialog from '../../components/CalendarCard/AddEvent';
 export default function ServiceCalendar() {
   const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
   console.log(value);
-  // useAuth();
+  useAuth();
 
   return (
     < Grid container spacing={2} >
@@ -41,7 +41,7 @@ export default function ServiceCalendar() {
           <IconButton aria-label='add event' sx={{ color: '#E7DECD' }} onClick={FormDialog}>
             <AddCircleIcon  fontSize='large' />
           </IconButton>  
-          {/* <CalendarCard /> */}
+          <CalendarCard />
         </Stack>
       </Grid>
 

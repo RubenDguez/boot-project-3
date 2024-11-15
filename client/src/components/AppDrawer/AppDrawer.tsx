@@ -1,7 +1,8 @@
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import NotListedLocationIcon from '@mui/icons-material/NotListedLocation';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
-import { Avatar, Divider } from '@mui/material';
+import HomeIcon from '@mui/icons-material/Home';
+import { Avatar, Divider, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -13,6 +14,7 @@ import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const drawerOptions1 = [
+  { label: 'Home', icon: <HomeIcon />, to: '/app' },
   { label: 'Charity Search', icon: <VolunteerActivismIcon />, to: '/app/charity-search' },
   { label: 'Service Calendar', icon: <CalendarMonthIcon />, to: '/app/service-calendar'},
   { label: 'Help Board', icon: <NotListedLocationIcon />, to: '/app/help-board' },
@@ -39,8 +41,9 @@ export default function AppDrawer({ open, setOpen }: { open: boolean; setOpen: R
   return (
     <div>
       <Drawer open={open} onClose={() => setOpen(false)} PaperProps={{ sx: { backgroundColor: '#9ac171', color: '#2e382e' } }}>
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '2rem 0px' }}>
-          <Avatar sx={{ backgroundColor: '#34471f', color: 'white', width: 112, height: 112 }} alt="Ruben Dominguez" src="/static/images/avatar/1.jpg" />
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '2rem', justifyContent: 'center', alignItems: 'center', padding: '2rem 0px' }}>
+          <Avatar sx={{ backgroundColor: '#34471f', color: 'white', width: 112, height: 112 }} alt="Seek Help" src="/magnifier.jpg" />
+          <Typography variant='h5'>Help Seeker</Typography>
         </Box>
         <Divider />
         {DrawerList}
