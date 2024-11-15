@@ -11,3 +11,14 @@ export const GET_ME = gql`
     }
   }
 `;
+
+export const GET_EVENTS = gql`
+  query GetEvents {
+    events {
+      _id
+      eventName
+      eventDate
+      eventLocation
+    }
+  }
+`;
