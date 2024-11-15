@@ -129,5 +129,9 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
+.DS_Store
+
+.idea
+
 # cypress screenshot
 screenshots/

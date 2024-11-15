@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Button, Container, FormControl, Paper, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, Container, FormControl, Paper, TextField, Typography } from '@mui/material';
 import { FormEvent, useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
@@ -17,6 +17,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   const [inputError, setInputError] = useState<IUser | null>(null);
+  const [loginError, setLoginError] = useState<string | null>(null);
 
   const formRef = useRef<HTMLFormElement>(null);
   const usernameInputRef = useRef<HTMLInputElement>(null);
@@ -41,12 +42,14 @@ export default function Login() {
 
     setInputError({ username: '', password: '' });
 
-    const { data } = await Login({ variables: { ...inputData } });
-
-    login(data.login.token);
-
-    formRef.current?.reset();
-    navigate('/app');
+    try {
+      const { data } = await Login({ variables: { ...inputData } });
+      login(data.login.token);
+      formRef.current?.reset();
+      navigate('/app');
+    } catch (error) {
+      setLoginError('Invalid username or password');
+    }
   }, []);
 
   return (
@@ -64,7 +67,12 @@ export default function Login() {
               <ArrowBackIcon /> Back
             </Button>
           </Box>
-          <Typography data-testid="login-header" variant="h4" color="primary">
+          {loginError !== null && (
+            <Alert severity='error'>
+              <Typography>{loginError}</Typography>
+            </Alert>
+          )}
+          <Typography data-testid="login-header" variant="h4">
             Login
           </Typography>
           <form
@@ -110,7 +118,7 @@ export default function Login() {
               />
             </FormControl>
             <FormControl>
-              <Button data-testid="submit" id='submit' type="submit" variant="outlined">
+              <Button data-testid="submit" id="submit" type="submit" variant="outlined" color="secondary">
                 Submit
               </Button>
             </FormControl>
