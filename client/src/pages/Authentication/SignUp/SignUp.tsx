@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Box, Button, Container, FormControl, Paper, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, Container, FormControl, Paper, TextField, Typography } from '@mui/material';
 import { FormEvent, useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
@@ -20,6 +20,7 @@ export default function SignUp() {
   const navigate = useNavigate();
 
   const [inputError, setInputError] = useState<Partial<IUser & { passwordMatch: string }> | null>(null);
+  const [loginError, setLoginError] = useState<string | null>(null);
 
   const formRef = useRef<HTMLFormElement>(null);
   const firstNameInputRef = useRef<HTMLInputElement>(null);
@@ -60,17 +61,35 @@ export default function SignUp() {
 
     setInputError({ firstName: '', lastName: '', username: '', email: '', password: '', passwordMatch: '' });
 
-    const { data } = await addUser({ variables: { input: inputData } });
-    login(data.addUser.token);
+    try {
+      const { data } = await addUser({ variables: { input: inputData } });
+      login(data.addUser.token);
 
-    formRef.current?.reset();
-    navigate('/app');
+      formRef.current?.reset();
+      navigate('/app');
+    } catch (error) {
+      const ERROR = error as Error;
+      ERROR.stack = '';
+
+      if (ERROR.message.includes('E11000')) {
+        const errorMessage = ERROR.message.includes('username') ? 'Username already in use' : 'Email already in use';
+        setLoginError(errorMessage);
+        return
+      }
+
+      setLoginError(ERROR.message);
+    }
   }, []);
 
   return (
     <Box sx={{ display: 'grid', height: '100vh', gridTemplateRows: 'auto', alignItems: 'center' }}>
       <Container maxWidth="sm">
         <Paper elevation={4} sx={{ padding: '2rem 5rem 3rem 5rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
+          {loginError !== null && (
+            <Alert severity="error">
+              <Typography>{loginError}</Typography>
+            </Alert>
+          )}
           <Box
             sx={{
               display: 'flex',
@@ -78,7 +97,7 @@ export default function SignUp() {
               justifyContent: 'end',
             }}
           >
-            <Button data-testid="back-button" color="secondary" onClick={() => navigate(-1)}>
+            <Button data-testid="back-button" color="secondary" onClick={() => navigate('/')}>
               <ArrowBackIcon /> Back
             </Button>
           </Box>
