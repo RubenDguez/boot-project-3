@@ -1,10 +1,12 @@
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
-import { AppBar, Box, IconButton, InputBase } from '@mui/material';
+import { AppBar, Box, Button, IconButton, InputBase } from '@mui/material';
 import { alpha, styled } from '@mui/material/styles';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import React, { Dispatch, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -49,9 +51,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function SearchAppBar({ setOpenDrawer }: { setOpenDrawer: Dispatch<React.SetStateAction<boolean>> }) {
-    const handleOpenDrawer = useCallback(() => {
-        setOpenDrawer((val) => !val)
-    }, []);
+  const { logout } = useAuth({ needsAuth: false });
+  const navigate = useNavigate();
+
+  const handleOpenDrawer = useCallback(() => {
+    setOpenDrawer((val) => !val);
+  }, []);
+
+  const handleLogout = useCallback(() => {
+    logout();
+    navigate('/');
+  }, [logout, navigate]);
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" color="secondary">
@@ -68,6 +79,9 @@ export default function SearchAppBar({ setOpenDrawer }: { setOpenDrawer: Dispatc
             </SearchIconWrapper>
             <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
           </Search>
+          <Button variant="contained" color="secondary" sx={{ color: 'white', marginLeft: '3rem' }} onClick={handleLogout}>
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>
