@@ -1,4 +1,4 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 const typeDefs = gql`
   type User {
@@ -46,10 +46,6 @@ const typeDefs = gql`
     charity(_id: ID!): Charity
   }
 
-  type Mutation {
-    addCharity(input: CharityInput!): Charity
-  }
-
   input CharityInput {
     name: String!
     description: String!
@@ -60,10 +56,8 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addCharity(input: CharityInput!): Charity
+    addCharity(input: CharityInput!): User
   }
-
-  
 `;
 
 export default typeDefs;
