@@ -9,13 +9,18 @@ import Grid from '@mui/material/Grid2';
 import CalendarCard from '../../components/CalendarCard/CalendarCard';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { IconButton } from '@mui/material';
-// import theme from '../../theme/index';
 import FormDialog from '../../components/CalendarCard/AddEvent';
+// import {useQuery} from '@apollo/client';
+// import { GET_EVENTS } from '../../utils/queries';
 
 export default function ServiceCalendar() {
   const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
   console.log(value);
   useAuth();
+//   const { data } = useQuery(GET_EVENTS);
+// const AddEvent = () => {
+  
+// }
 
   return (
     < Grid container spacing={2} >

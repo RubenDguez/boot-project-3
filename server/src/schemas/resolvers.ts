@@ -1,4 +1,4 @@
-import { User, Charity } from '../models/index.js';
+import { User, Charity, Event } from '../models/index.js';
 import { AuthenticationError, signToken } from '../utils/auth.js';
 
 interface User {
@@ -29,6 +29,13 @@ interface Charity {
   nonprofitTags: string[];
 }
 
+interface Event {
+  _id: string;
+  eventName: string;
+  eventDate: string;
+  eventLocation: string;
+}
+
 const resolvers = {
   Query: {
     me: async (_: unknown, _args: unknown, context: Context): Promise<User | null> => {
@@ -36,7 +43,15 @@ const resolvers = {
 
       return User.findOne({ _id: context.user._id });
     },
+    events: async () => {
+      try {
+        return await Event.find({});
+      } catch (error) {
+        console.error(error);
+      }
+    }
   },
+    
 
   Mutation: {
     login: async (_: unknown, { username, password }: { username: string; password: string }): Promise<{ token: string; user: User }> => {
@@ -64,6 +79,11 @@ const resolvers = {
       if (!context.user) throw new AuthenticationError('Not Authorized');
       return await User.findOneAndUpdate({ _id: context.user._id }, { $push: { charities: input } }, { new: true });
     },
+
+    // addEvent: async (_: unknown, { input }: { input: Event }, context: Context): Promise<User | null> => {
+    //   if (!context.user) throw new AuthenticationError('Not Authorized');
+    //   return await User.findOneAndUpdate({ _id: context.user._id }, { $push: { events: input } }, { new: true });
+    // },    
   },
 };
 

@@ -24,6 +24,13 @@ const typeDefs = gql`
     nonprofitTags: [String]!
   }
 
+  type Event {
+    _id: ID!
+    eventName: String!
+    eventDate: String!
+    eventLocation: String!
+  }
+
   input UserInput {
     firstName: String!
     lastName: String!
@@ -43,6 +50,7 @@ const typeDefs = gql`
 
   type Query {
     me: User
+    events: [Event]
   }
 
   type Mutation {
