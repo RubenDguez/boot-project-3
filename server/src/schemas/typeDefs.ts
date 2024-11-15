@@ -29,6 +29,7 @@ const typeDefs = gql`
     eventName: String!
     eventDate: String!
     eventLocation: String!
+    eventImage: String!
   }
 
   input UserInput {
@@ -47,6 +48,12 @@ const typeDefs = gql`
     locationAddress: String!
     nonprofitTags: [String]!
   }
+  input EventInput {
+    eventName: String!
+    eventDate: String!
+    eventLocation: String!
+    eventImage: String!
+  }
 
   type Query {
     me: User
@@ -57,6 +64,7 @@ const typeDefs = gql`
     login(username: String!, password: String!): Auth
     addUser(input: UserInput!): Auth
     addCharity(input: CharityInput!): User
+    addEvent(input: EventInput!): Event
   }
 `;
 

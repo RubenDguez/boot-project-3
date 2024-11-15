@@ -1,4 +1,12 @@
-import { User, Charity, Event } from '../models/index.js';
+import { User, Charity } from '../models/index.js';
+import Event from '../models/event.js';
+
+interface Event {
+  eventName: string;
+  eventDate: string;
+  eventLocation: string;
+  eventImage: string;
+}
 import { AuthenticationError, signToken } from '../utils/auth.js';
 
 interface User {
@@ -29,11 +37,13 @@ interface Charity {
   nonprofitTags: string[];
 }
 
-interface Event {
-  _id: string;
-  eventName: string;
-  eventDate: string;
-  eventLocation: string;
+interface AddEvent {
+  input: {
+    eventName: string;
+    eventDate: string;
+    eventLocation: string;
+    eventImage: string;
+  };
 }
 
 const resolvers = {
@@ -43,13 +53,6 @@ const resolvers = {
 
       return User.findOne({ _id: context.user._id });
     },
-    events: async () => {
-      try {
-        return await Event.find({});
-      } catch (error) {
-        console.error(error);
-      }
-    }
   },
     
 
@@ -80,10 +83,17 @@ const resolvers = {
       return await User.findOneAndUpdate({ _id: context.user._id }, { $push: { charities: input } }, { new: true });
     },
 
-    // addEvent: async (_: unknown, { input }: { input: Event }, context: Context): Promise<User | null> => {
-    //   if (!context.user) throw new AuthenticationError('Not Authorized');
-    //   return await User.findOneAndUpdate({ _id: context.user._id }, { $push: { events: input } }, { new: true });
-    // },    
+    addEvent: async (_: unknown, { input }: AddEvent, context: Context): Promise<Event | null> => {
+      if (!context.user) throw new AuthenticationError('Not Authorized');
+
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $addToSet: { events: input } },
+        { new: true }
+      );
+
+      return updatedUser ? input : null;
+    },
   },
 };
 

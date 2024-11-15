@@ -9,10 +9,6 @@ export interface IEvent extends Document {
 }
 
 const EventSchema = new Schema<IEvent>({
-    id: {
-        type: String,
-        required: true,
-    },
     eventName: {
         type: String,
         required: true,

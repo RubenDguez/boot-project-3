@@ -7,20 +7,13 @@ import useAuth from '../../hooks/useAuth';
 import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Grid2';
 import CalendarCard from '../../components/CalendarCard/CalendarCard';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { IconButton } from '@mui/material';
-import FormDialog from '../../components/CalendarCard/AddEvent';
-// import {useQuery} from '@apollo/client';
-// import { GET_EVENTS } from '../../utils/queries';
+import AddEvent from '../../components/CalendarCard/AddEvent';
 
 export default function ServiceCalendar() {
   const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
   console.log(value);
   useAuth();
-//   const { data } = useQuery(GET_EVENTS);
-// const AddEvent = () => {
-  
-// }
+  const addEventRef = React.useRef<{ handleClickOpen: () => void }>(null);
 
   return (
     < Grid container spacing={2} >
@@ -31,7 +24,9 @@ export default function ServiceCalendar() {
             openTo='day'
             value={value}
             onChange={(newValue) => setValue(newValue)}
-            sx={{ backgroundColor: '#9AC171'}}
+            sx={{ backgroundColor: '#9AC171', 
+              '& .MuiSvgIcon-root': { color: '#34471F' },
+              '& .MuiPickersToolbar-content':{textAlign: 'center'}  }}
             slotProps={{
               actionBar: {
                 actions: ["today", "accept",],
@@ -43,9 +38,7 @@ export default function ServiceCalendar() {
       </Grid>
       <Grid size={6}>
         <Stack spacing={1} >
-          <IconButton aria-label='add event' sx={{ color: '#E7DECD' }} onClick={FormDialog}>
-            <AddCircleIcon  fontSize='large' />
-          </IconButton>  
+          <AddEvent/>  
           <CalendarCard />
         </Stack>
       </Grid>
