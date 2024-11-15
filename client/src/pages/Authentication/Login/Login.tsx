@@ -97,7 +97,7 @@ export default function Login() {
                 size="small"
                 variant="standard"
                 inputRef={usernameInputRef}
-                label="Username"
+                label="Username / Password"
                 helperText={inputError?.username}
                 slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } } }}
               />
