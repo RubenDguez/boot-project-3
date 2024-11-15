@@ -79,9 +79,14 @@ export default function SearchAppBar({ setOpenDrawer }: { setOpenDrawer: Dispatc
             </SearchIconWrapper>
             <StyledInputBase placeholder="Search…" inputProps={{ 'aria-label': 'search' }} />
           </Search>
-          <Button variant="contained" color="secondary" sx={{ color: 'white', marginLeft: '3rem' }} onClick={handleLogout}>
-            Logout
-          </Button>
+          <Box sx={{ marginLeft: '3rem', display: 'flex', gap: '1rem' }}>
+            <Button variant="contained" color="secondary" sx={{ color: 'white'}} onClick={handleLogout}>
+              Logout
+            </Button>
+            <Button variant="contained" color="secondary" sx={{ color: 'white' }} onClick={() => navigate('/app/about')}>
+              About
+            </Button>
+          </Box>
         </Toolbar>
       </AppBar>
     </Box>
