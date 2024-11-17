@@ -37,8 +37,15 @@ export default function ServiceCalendar() {
       </Grid>
       <Grid size={6}>
         <Stack spacing={1} >
-          <AddEvent value={value}/>  
-          <CalendarCard />
+          <AddEvent value={value}/>
+            {Object.keys(localStorage).map((key) => {
+              if (key.startsWith('event')) {
+                const event = JSON.parse(localStorage.getItem(key) || '{}');
+                return <CalendarCard key={key} event={event} />;
+              }
+              return null;
+            })}
+          {/* <CalendarCard /> */}
         </Stack>
       </Grid>
 

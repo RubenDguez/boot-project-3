@@ -16,6 +16,9 @@ interface AddEventProps {
 
 export default function AddEvent(AddEventProps: AddEventProps) {
   const [open, setOpen] = React.useState(false);
+  const [eventName, setEventName] = React.useState("");
+  const [eventLocation, setEventLocation] = React.useState("");
+  const [eventDetails, setEventDetails] = React.useState("");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,9 +46,16 @@ export default function AddEvent(AddEventProps: AddEventProps) {
             event.preventDefault();
             const formData = new FormData(event.currentTarget);
             const formJson = Object.fromEntries((formData as any).entries());
-            const eventName = formJson.eventName;
-            console.log(eventName);
+            const eventName = formJson.name;
+            const eventLocation = formJson.location;
+            const eventDetails = formJson.details;
+            const eventTime = formJson.time
+            console.log(formJson);
+            localStorage.setItem("event", JSON.stringify({ eventName, eventLocation, eventDetails, eventTime }));
+            console.log(eventName, eventLocation, eventDetails, eventTime);
             handleClose();
+            return formJson;
+
           },
         }}
       >
@@ -60,7 +70,10 @@ export default function AddEvent(AddEventProps: AddEventProps) {
             required
             margin="dense"
             id="name"
+            name="name"
             label="Event Name"
+            value={eventName}
+            onChange={(event) => setEventName(event.target.value)}
             type="text"
             fullWidth
             variant="standard"
@@ -73,10 +86,13 @@ export default function AddEvent(AddEventProps: AddEventProps) {
             required
             margin="dense"
             id="location"
+            name="location"
             label="Event Location"
             type="text"
             fullWidth
             variant="standard"
+            value={eventLocation}
+            onChange={(event) => setEventLocation(event.target.value)}
           />
           <DialogContentText>
             Event Details
@@ -86,10 +102,13 @@ export default function AddEvent(AddEventProps: AddEventProps) {
             required
             margin="dense"
             id="details"
+            name="details"
             label="Event Details"
             type="text"
             fullWidth
             variant="standard"
+            value={eventDetails}
+            onChange={(event) => setEventDetails(event.target.value)} 
           />
           <DialogContentText>
             Confirm Time
@@ -99,10 +118,10 @@ export default function AddEvent(AddEventProps: AddEventProps) {
             required
             margin="dense"
             id="time"
+            name="time"
             type="datetime-local"
             fullWidth
             variant="standard"
-            disabled
             defaultValue={AddEventProps.value?.format("YYYY-MM-DDTHH:mm")}
           />
         </DialogContent>
