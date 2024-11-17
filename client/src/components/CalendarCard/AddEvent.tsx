@@ -99,11 +99,11 @@ export default function AddEvent(AddEventProps: AddEventProps) {
             required
             margin="dense"
             id="time"
-            type="time"
+            type="datetime-local"
             fullWidth
             variant="standard"
             disabled
-            defaultValue={AddEventProps.value?.format("YYYY-MM-DD HH:mm")}
+            defaultValue={AddEventProps.value?.format("YYYY-MM-DDTHH:mm")}
           />
         </DialogContent>
         <DialogActions>
