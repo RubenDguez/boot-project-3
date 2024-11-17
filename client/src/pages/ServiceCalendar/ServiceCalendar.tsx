@@ -13,7 +13,6 @@ export default function ServiceCalendar() {
   const [value, setValue] = React.useState<Dayjs | null>(dayjs('2022-04-17'));
   console.log(value);
   useAuth();
-  const addEventRef = React.useRef<{ handleClickOpen: () => void }>(null);
 
   return (
     < Grid container spacing={2} >

@@ -60,7 +60,6 @@ export default function AddEvent(AddEventProps: AddEventProps) {
             required
             margin="dense"
             id="name"
-            name="Name"
             label="Event Name"
             type="text"
             fullWidth
@@ -74,8 +73,20 @@ export default function AddEvent(AddEventProps: AddEventProps) {
             required
             margin="dense"
             id="location"
-            name="Location"
             label="Event Location"
+            type="text"
+            fullWidth
+            variant="standard"
+          />
+          <DialogContentText>
+            Event Details
+          </DialogContentText>
+          <TextField
+            autoFocus
+            required
+            margin="dense"
+            id="details"
+            label="Event Details"
             type="text"
             fullWidth
             variant="standard"
@@ -88,8 +99,7 @@ export default function AddEvent(AddEventProps: AddEventProps) {
             required
             margin="dense"
             id="time"
-            name="eventTime"
-            type="email"
+            type="time"
             fullWidth
             variant="standard"
             disabled
