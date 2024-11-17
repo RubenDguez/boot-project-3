@@ -1,5 +1,6 @@
 import * as React from "react";
 import Button from "@mui/material/Button";
+import { Dayjs } from "dayjs";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -9,7 +10,11 @@ import DialogTitle from "@mui/material/DialogTitle";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { IconButton } from "@mui/material";
 
-export default function AddEvent() {
+interface AddEventProps {
+  value: Dayjs | null;
+}
+
+export default function AddEvent(AddEventProps: AddEventProps) {
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -88,7 +93,7 @@ export default function AddEvent() {
             fullWidth
             variant="standard"
             disabled
-            defaultValue="Hello World"
+            defaultValue={AddEventProps.value?.format("YYYY-MM-DD HH:mm")}
           />
         </DialogContent>
         <DialogActions>

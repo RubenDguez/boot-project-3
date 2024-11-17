@@ -38,7 +38,7 @@ export default function ServiceCalendar() {
       </Grid>
       <Grid size={6}>
         <Stack spacing={1} >
-          <AddEvent/>  
+          <AddEvent value={value}/>  
           <CalendarCard />
         </Stack>
       </Grid>
