@@ -1,10 +1,13 @@
-import { CardMedia, Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
+import CardMedia from '@mui/material/CardMedia';
 import Charity from './Charity.png';
+
+
 const CalendarCard = () => {
   return (
 
@@ -27,10 +30,12 @@ const CalendarCard = () => {
       <Button size="small">Mark Complete</Button>
     </CardActions>
     </Box>
-    <CardMedia sx={{width:'200px', display:'flex'}}>
-      <img src={Charity} alt="random" style={{width:'100%'}} />
-      {/* placeholder for charity image */}
-    </CardMedia>
+    <CardMedia
+      component="img"
+      sx={{ width: '200px', display: 'flex' }}
+      image={Charity}
+      alt="random"
+    />
   </Card>
 );
 };
