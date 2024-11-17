@@ -51,11 +51,12 @@ export default function AddEvent(AddEventProps: AddEventProps) {
             const eventDetails = formJson.details;
             const eventTime = formJson.time
             console.log(formJson);
-            localStorage.setItem("event", JSON.stringify({ eventName, eventLocation, eventDetails, eventTime }));
+          
+            const events = JSON.parse(localStorage.getItem("events") || "[]");
+            events.push({ eventName, eventLocation, eventDetails, eventTime });
+            localStorage.setItem("events", JSON.stringify(events));
             console.log(eventName, eventLocation, eventDetails, eventTime);
             handleClose();
-            return formJson;
-
           },
         }}
       >

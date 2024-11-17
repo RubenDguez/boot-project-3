@@ -7,21 +7,31 @@ import Box from '@mui/material/Box';
 import CardMedia from '@mui/material/CardMedia';
 import Charity from './Charity.png';
 
+interface CalendarCardProps {
+  key: number;
+  title: string;
+  date: string;
+  details: string;
+  location: string;
+}
 
-const CalendarCard = () => {
+const CalendarCard: React.FC<CalendarCardProps> = ({title,date,details,location}) => {
   return (
 
   <Card sx={{ backgroundColor: '#9AC171', display:'flex',justifyContent:'space-around'}}>
     <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent:'space-around' }}>
     <CardContent>
       <Typography gutterBottom variant="h4" component="div">
-        Chairty Event Title
+        {title}
       </Typography>
       <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-        Event Time & Date
+        {date}
       </Typography>
       <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-        Event Location
+        {location}
+      </Typography>
+      <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+        {details}
       </Typography>
     </CardContent>
     <CardActions>
