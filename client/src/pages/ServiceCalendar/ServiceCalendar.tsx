@@ -8,22 +8,27 @@ import Stack from "@mui/material/Stack";
 import Grid from "@mui/material/Grid2";
 import CalendarCard from "../../components/CalendarCard/CalendarCard";
 import AddEvent from "../../components/CalendarCard/AddEvent";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@mui/material/styles";
 
 export default function ServiceCalendar() {
   const [value, setValue] = React.useState<Dayjs | null>(dayjs("2022-04-17"));
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   console.log(value);
   useAuth();
 
   return (
     <Grid container spacing={2}>
-      <Grid size={6}>
+      <Grid size={{lg:6,xs:12}}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <StaticDateTimePicker
-            orientation="landscape"
+            orientation={isSmallScreen ? "portrait" : "landscape"}
             openTo="day"
             value={value}
             onChange={(newValue) => setValue(newValue)}
             sx={{
+              height: "100%",
               backgroundColor: "#9AC171",
               "& .MuiSvgIcon-root": { color: "#34471F" },
               "& .MuiPickersToolbar-content": { textAlign: "center" },
@@ -36,7 +41,7 @@ export default function ServiceCalendar() {
           />
         </LocalizationProvider>
       </Grid>
-      <Grid size={6}>
+      <Grid size={{lg:6,xs:12}}>
         <Stack spacing={1}>
           <AddEvent value={value} />
           {JSON.parse(localStorage.getItem("events") || "[]").map((event: any, index: number) => (
