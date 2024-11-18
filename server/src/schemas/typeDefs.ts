@@ -12,6 +12,7 @@ const typeDefs = gql`
     lastName: String
     username: String
     email: String
+    charities: [Charity]
   }
 
   type Charity {
@@ -43,13 +44,19 @@ const typeDefs = gql`
 
   type Query {
     me: User
+    charities: [Charity]
+    charity(_id: ID!): Charity
   }
 
   type Mutation {
     login(username: String!, password: String!): Auth
     addUser(input: UserInput!): Auth
     addCharity(input: CharityInput!): User
+    removeCharity(charityId: ID!): User
   }
+
+
 `;
 
 export default typeDefs;
+
