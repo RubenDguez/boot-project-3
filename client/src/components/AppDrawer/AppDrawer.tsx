@@ -10,6 +10,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import InfoIcon from '@mui/icons-material/Info';
 import ListItemText from '@mui/material/ListItemText';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -57,8 +58,14 @@ export default function AppDrawer({ open, setOpen }: { open: boolean; setOpen: R
         {DrawerList}
         <Box sx={{ width: 250, height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'end' }}>
           <Divider />
-          <ListItem key="logout" disablePadding>
-            <ListItemButton onClick={handleLogout}>
+          <ListItem key="logout" disablePadding sx={{ width: 250, display: 'flex', flexDirection: 'column', alignItems: 'start' }}>
+            <ListItemButton sx={{ width: '100%' }} onClick={() => {navigate('/app/about'); setOpen(false);}}>
+              <ListItemIcon>
+                <InfoIcon />
+              </ListItemIcon>
+              <ListItemText primary="About" />
+            </ListItemButton>
+            <ListItemButton sx={{ width: '100%' }} onClick={handleLogout}>
               <ListItemIcon>
                 <LogoutIcon />
               </ListItemIcon>

@@ -1,0 +1,21 @@
+.about {
+    line-height: 2rem;
+    font-size: larger;
+}
+
+.about h1, h2, h3, h4, h5, h6 {
+    margin-top: 2rem;
+}
+
+.about p {
+    margin: 1rem 0px;
+}
+
+.about a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.about ul, ol {
+    margin-left: 2rem;
+}
