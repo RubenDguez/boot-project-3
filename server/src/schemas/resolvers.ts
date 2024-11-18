@@ -64,6 +64,18 @@ const resolvers = {
       if (!context.user) throw new AuthenticationError('Not Authorized');
       return await User.findOneAndUpdate({ _id: context.user._id }, { $push: { charities: input } }, { new: true });
     },
+    removeCharity: async (
+      _: unknown,
+      { charityId }: { charityId: string },
+      context: Context
+    ): Promise<User | null> => {
+      if (!context.user) throw new AuthenticationError("Not Authorized");
+      return await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $pull: { charities: { _id: charityId } } },
+        { new: true }
+      );
+    },
   },
 };
 
