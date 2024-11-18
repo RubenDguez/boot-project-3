@@ -1,7 +1,7 @@
 import { Typography, TextField, Card, CardContent, Grid, Button } from '@mui/material';
 import useAuth from '../../hooks/useAuth';
 import { useState, useEffect } from 'react';
-import { searchCharities } from '../../utils/API';
+import { searchCharities } from '../../utils/API.js';
 
 interface Charity {
   id: number;
@@ -12,6 +12,7 @@ interface Charity {
 export default function CharitySearch() {
   useAuth();
   const [searchTerm, setSearchTerm] = useState('');
+  const [cityName, setCityName] = useState('');
   const [charities, setCharities] = useState<Charity[]>([]);
   const [searchTriggered, setSearchTriggered] = useState(false);
 
@@ -20,7 +21,7 @@ export default function CharitySearch() {
 
     const getCharities = async () => {
       try {
-        const data = await searchCharities(searchTerm);
+        const data = await searchCharities(searchTerm, cityName);
         setCharities(data);
       } catch (error) {
         console.error('Error fetching charities:', error);
@@ -30,7 +31,7 @@ export default function CharitySearch() {
     };
 
     getCharities();
-  }, [searchTriggered, searchTerm]);
+  }, [searchTriggered, searchTerm, cityName]);
 
   const handleSearch = () => {
     setSearchTriggered(true);
@@ -38,13 +39,22 @@ export default function CharitySearch() {
 
   return (
     <div>
-      <TextField
+      <Typography variant="h2">Charity Search</Typography>
+      {/* <TextField
         label="Search Charities"
         variant="outlined"
         fullWidth
         margin="normal"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
+      /> */}
+      <TextField
+        label="City Name"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        value={cityName}
+        onChange={(e) => setCityName(e.target.value)}
       />
       <Button variant="contained" color="primary" onClick={handleSearch}>
         Search
