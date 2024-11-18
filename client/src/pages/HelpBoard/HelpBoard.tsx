@@ -2,13 +2,13 @@ import {
   Typography, 
   Card, 
   CardContent, 
- Grid2, 
   Button, 
   Dialog, 
   DialogTitle, 
   DialogContent,
   TextField,
-  Box
+  Box,
+  Grid
 } from "@mui/material";
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
@@ -17,7 +17,7 @@ interface Post {
   id: string;
   title: string;
   description: string;
-  payment: string;
+  date: string;
   status: 'open' | 'completed';
   createdBy: string;
   completedBy?: string;
@@ -27,10 +27,11 @@ export default function HelpBoard() {
     useAuth();
     const [Posts, setPosts] = useState<Post[]>([]);
     const [open, setOpen] = useState(false);
+    const [openOffered, setOpenOffered] = useState(false);
     const [newPost, setNewPost] = useState({
         title: '',
         description: '',
-        payment: ''
+        date: ''
     });
 
     const handleAddPost = () => {
@@ -42,7 +43,8 @@ export default function HelpBoard() {
         };
         setPosts([...Posts, Post]);
         setOpen(false);
-        setNewPost({ title: '', description: '', payment: '' });
+        setOpenOffered(false);
+        setNewPost({ title: '', description: '', date: '' });
     };
 
     const handleComplete = (PostId: string) => {
@@ -55,49 +57,54 @@ export default function HelpBoard() {
 
     return (
         <Box sx={{ p: 3 }}>
-            <Grid2 container spacing={3}>
-                <Grid2 item xs={12} display="flex" justifyContent="space-between" alignItems="center">
+            <Grid container spacing={3}>
+                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Typography variant="h2">Help Board</Typography>
-                    <Button variant="contained" color="primary" onClick={() => setOpen(true)}>
-                        Post New Post
-                    </Button>
-                </Grid2>
+                    <Box sx={{ display: 'flex', gap: 2 }}>
+                        <Button variant="contained" color="primary" onClick={() => setOpen(true)}>
+                            Request Help
+                        </Button>
+                        <Button variant="contained" color="secondary" onClick={() => setOpenOffered(true)}>
+                            Offer Help
+                        </Button>
+                    </Box>
+                </Grid>
                 
-                <Grid2 item xs={12}>
-                    <Grid2 container spacing={2}>
-                        {Posts.map((Post) => (
-                            <Grid2 item xs={12} md={6} lg={4} key={Post.id}>
+                <Grid item xs={12}>
+                    <Grid container spacing={2}>
+                        {Posts && Posts.length > 0 && Posts.map((post) => (
+                            <Grid item xs={12} md={6} lg={4} key={post.id}>
                                 <Card>
                                     <CardContent>
-                                        <Typography variant="h5">{Post.title}</Typography>
-                                        <Typography variant="body1">{Post.description}</Typography>
+                                        <Typography variant="h5">{post.title}</Typography>
+                                        <Typography variant="body1">{post.description}</Typography>
                                         <Typography variant="h6" color="primary">
-                                            ${Post.payment}
+                                           Help Needed on: {new Date(post.date).toLocaleDateString()}
                                         </Typography>
-                                        <Typography variant="caption" color={Post.status === 'open' ? 'success.main' : 'text.secondary'}>
-                                            Status: {Post.status}
+                                        <Typography variant="caption" color={post.status === 'open' ? 'success.main' : 'text.secondary'}>
+                                            Status: {post.status}
                                         </Typography>
-                                        {Post.status === 'open' && (
+                                        {post.status === 'open' && (
                                             <Button 
                                                 variant="contained" 
                                                 color="success" 
                                                 fullWidth 
                                                 sx={{ mt: 2 }}
-                                                onClick={() => handleComplete(Post.id)}
+                                                onClick={() => handleComplete(post.id)}
                                             >
                                                 Complete Post
                                             </Button>
                                         )}
                                     </CardContent>
                                 </Card>
-                            </Grid2>
+                            </Grid>
                         ))}
-                    </Grid2>
-                </Grid2>
-            </Grid2>
+                    </Grid>
+                </Grid>
+            </Grid>
 
             <Dialog open={open} onClose={() => setOpen(false)}>
-                <DialogTitle>Post New Post</DialogTitle>
+                <DialogTitle>Help Needed</DialogTitle>
                 <DialogContent>
                     <TextField
                         fullWidth
@@ -108,7 +115,7 @@ export default function HelpBoard() {
                     />
                     <TextField
                         fullWidth
-                        label="Description"
+                        label="Description of Help Needed"
                         margin="normal"
                         multiline
                         rows={4}
@@ -117,20 +124,67 @@ export default function HelpBoard() {
                     />
                     <TextField
                         fullWidth
-                        label="Payment Amount"
+                        label="Date Help is Needed"
                         margin="normal"
-                        type="number"
-                        value={newPost.payment}
-                        onChange={(e) => setNewPost({...newPost, payment: e.target.value})}
+                        type="date"
+                        value={newPost.date}
+                        onChange={(e) => setNewPost({...newPost, date: e.target.value})}
                     />
                     <Button 
                         variant="contained" 
-                        color="primary" 
+                        color="secondary" 
                         fullWidth 
                         sx={{ mt: 2 }}
                         onClick={handleAddPost}
                     >
-                        Post Post
+                        Post Help Needed
+                    </Button>
+                </DialogContent>
+            </Dialog>
+
+            <Dialog 
+                open={openOffered} 
+                onClose={() => setOpenOffered(false)}
+                aria-labelledby="offer-dialog-title"
+            >
+                <DialogTitle id="offer-dialog-title">Offer Help Services</DialogTitle>
+                <DialogContent>
+                    <TextField
+                        fullWidth
+                        label="Post Title"
+                        margin="normal"
+                        value={newPost.title}
+                        onChange={(e) => setNewPost({...newPost, title: e.target.value})}
+                        autoFocus
+                    />
+                    <TextField
+                        fullWidth
+                        label="Description of Help Offered"
+                        margin="normal"
+                        multiline
+                        rows={4}
+                        value={newPost.description}
+                        onChange={(e) => setNewPost({...newPost, description: e.target.value})}
+                    />
+                    <TextField
+                        fullWidth
+                        label="Date Help is Available"
+                        margin="normal"
+                        type="date"
+                        value={newPost.date}
+                        onChange={(e) => setNewPost({...newPost, date: e.target.value})}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
+                    />
+                    <Button 
+                        variant="contained" 
+                        color="secondary" 
+                        fullWidth 
+                        sx={{ mt: 2 }}
+                        onClick={handleAddPost}
+                    >
+                        Post Offer
                     </Button>
                 </DialogContent>
             </Dialog>
