@@ -29,3 +29,30 @@ export const ADD_USER = gql`
     }
   }
 `;
+
+export const CREATE_POST = gql`
+    mutation CreatePost($title: String!, $description: String!, $payment: String!) {
+        createPost(title: $title, description: $description, payment: $payment) {
+            _id
+            title
+            description
+            payment
+            status
+            createdBy {
+                username
+            }
+        }
+    }
+`;
+
+export const COMPLETE_POST = gql`
+    mutation CompletePost($postId: ID!) {
+        completePost(postId: $postId) {
+            _id
+            status
+            completedBy {
+                username
+            }
+        }
+    }
+`;
