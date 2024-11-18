@@ -1,12 +1,7 @@
-import { Typography } from '@mui/material';
+import { Typography, TextField, Card, CardContent, Grid, Button } from '@mui/material';
 import useAuth from '../../hooks/useAuth';
-
-// export default function CharitySearch() {
-//   useAuth();
-//   return <Typography variant="h2">Charity Search</Typography>;
-// }
 import { useState, useEffect } from 'react';
-import { TextField, Card, CardContent, Grid } from '@mui/material';
+import { searchCharities } from '../../utils/API';
 
 interface Charity {
   id: number;
@@ -18,17 +13,31 @@ export default function CharitySearch() {
   useAuth();
   const [searchTerm, setSearchTerm] = useState('');
   const [charities, setCharities] = useState<Charity[]>([]);
+  const [searchTriggered, setSearchTriggered] = useState(false);
 
   useEffect(() => {
-    fetch(`https://api.example.com/charities?search=${searchTerm}`)
-      .then(response => response.json())
-      .then(data => setCharities(data))
-      .catch(error => console.error('Error fetching charities:', error));
-  }, [searchTerm]);
+    if (!searchTriggered) return;
+
+    const getCharities = async () => {
+      try {
+        const data = await searchCharities(searchTerm);
+        setCharities(data);
+      } catch (error) {
+        console.error('Error fetching charities:', error);
+      } finally {
+        setSearchTriggered(false);
+      }
+    };
+
+    getCharities();
+  }, [searchTriggered, searchTerm]);
+
+  const handleSearch = () => {
+    setSearchTriggered(true);
+  };
 
   return (
     <div>
-      <Typography variant="h2">Charity Search</Typography>
       <TextField
         label="Search Charities"
         variant="outlined"
@@ -37,6 +46,9 @@ export default function CharitySearch() {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
+      <Button variant="contained" color="primary" onClick={handleSearch}>
+        Search
+      </Button>
       <Grid container spacing={2}>
         {charities.map((charity) => (
           <Grid item xs={12} sm={6} md={4} key={charity.id}>
