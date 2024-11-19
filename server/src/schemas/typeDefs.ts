@@ -40,6 +40,14 @@ const typeDefs = gql`
     nonprofitTags: [String]!
   }
 
+  type Event {
+    _id: ID!
+    eventName: String!
+    eventDate: String!
+    eventLocation: String!
+    eventImage: String!
+  }
+
   input UserInput {
     firstName: String!
     lastName: String!
@@ -56,6 +64,12 @@ const typeDefs = gql`
     locationAddress: String!
     nonprofitTags: [String]!
   }
+  input EventInput {
+    eventName: String!
+    eventDate: String!
+    eventLocation: String!
+    eventImage: String!
+  }
 
   type Query {
     me: User
@@ -69,6 +83,7 @@ const typeDefs = gql`
     createPost(title: String!, description: String!, payment: String!): Post
     completePost(postId: ID!): Post
     addCharity(input: CharityInput!): User
+    addEvent(input: EventInput!): Event
   }
 `;
 
