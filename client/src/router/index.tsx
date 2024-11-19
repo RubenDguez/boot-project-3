@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
-import { Authentication, CharitySearch, HelpBoard, Landing, Main, NotFound, ServiceCalendar } from '../pages';
+import { About, Authentication, CharitySearch, HelpBoard, Landing, Main, NotFound, ServiceCalendar } from '../pages';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +21,10 @@ const router = createBrowserRouter([
         element: <Authentication.Login />,
       },
       {
+        path: '/about',
+        element: <About />,
+      },
+      {
         path: '/app',
         element: <Main />,
         children: [
@@ -35,6 +39,10 @@ const router = createBrowserRouter([
           {
             path: '/app/help-board',
             element: <HelpBoard />,
+          },
+          {
+            path: '/app/about',
+            element: <About />,
           },
         ],
       },

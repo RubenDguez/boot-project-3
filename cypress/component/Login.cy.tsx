@@ -36,7 +36,7 @@ describe('<Login />', () => {
   it('should display username label', () => {
     cy.get('#username-label').should('exist');
     cy.get('#username-label').should('be.visible');
-    cy.get('#username-label').should('have.text', 'Username *');
+    cy.get('#username-label').should('have.text', 'Username / Email *');
   });
   it('should display username input', () => {
     cy.get('#username').should('exist');

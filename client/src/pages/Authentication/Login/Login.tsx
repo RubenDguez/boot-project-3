@@ -63,7 +63,7 @@ export default function Login() {
               justifyContent: 'end',
             }}
           >
-            <Button data-testid="back-button" color="secondary" onClick={() => navigate(-1)}>
+            <Button data-testid="back-button" color="secondary" onClick={() => navigate('/')}>
               <ArrowBackIcon /> Back
             </Button>
           </Box>
@@ -97,7 +97,7 @@ export default function Login() {
                 size="small"
                 variant="standard"
                 inputRef={usernameInputRef}
-                label="Username"
+                label="Username / Email"
                 helperText={inputError?.username}
                 slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } } }}
               />

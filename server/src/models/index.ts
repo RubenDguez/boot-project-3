@@ -1,3 +1,4 @@
 import User from './User.js';
-
-export { User };
+import Charity from './charity.js';
+import Event from './event.js';
+export { User , Charity, Event };

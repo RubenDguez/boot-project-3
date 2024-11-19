@@ -34,6 +34,9 @@ export default function Hero() {
           <Button variant="text" size="small" color="inherit" onClick={() => navigate('/signup')}>
             Sign Up
           </Button>
+          <Button variant="text" size="small" color="inherit" onClick={() => navigate('/about')}>
+            About
+          </Button>
         </Box>
       </Box>
       <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0px 2rem', height: '80%' }}>

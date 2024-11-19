@@ -1,6 +1,8 @@
 import { Schema, model, type Document } from 'mongoose';
 import bcrypt from 'bcrypt';
-
+import type {CharityDocument} from './charity.js';
+import CharitySchema from './charity.js';
+import EventSchema from './event.js';
 
 export interface UserDocument extends Document {
   _id: string;
@@ -9,6 +11,8 @@ export interface UserDocument extends Document {
   username: string;
   email: string;
   password: string;
+  charities:  CharityDocument[];
+  events: typeof EventSchema[];
   isCorrectPassword(password: string): Promise<boolean>;
 }
 
@@ -39,6 +43,15 @@ const userSchema = new Schema<UserDocument>(
       type: String,
       required: true,
     },
+    charities: [
+      CharitySchema
+    ],
+    events: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Event',
+      }
+    ]
   },
   {
     toJSON: {
