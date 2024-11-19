@@ -1,5 +1,6 @@
 import { User, Charity } from '../models/index.js';
-import Event from '../models/event.js';
+// import Event from '../models/event.js';
+import fetch from 'node-fetch';
 
 interface Event {
   eventName: string;
@@ -31,8 +32,8 @@ interface Charity {
   _id: string;
   name: string;
   description: string;
-  image: string;
-  website: string;
+  image?: string;
+  website?: string;
   locationAddress: string;
   nonprofitTags: string[];
 }
@@ -52,6 +53,24 @@ const resolvers = {
       if (!context.user) throw new AuthenticationError('Could not find user');
 
       return User.findOne({ _id: context.user._id });
+    },
+    searchCharities: async (_: unknown, _args: {city: String, cause: String}, _context: Context): Promise<Array<Charity> | null> => {
+      const {REACT_APP_EVERY_API_KEY} = process.env;
+      const response = await fetch(`https://partners.every.org/v0.2/search/${_args.city}?causes=${_args.cause}&apiKey=${REACT_APP_EVERY_API_KEY}`);
+      const json = await response.json();
+      const data = await json
+
+      // console.log(data);
+
+      return data.nonprofits.map((obj: any) => ({
+        _id: obj.ein,
+        name: obj.name,
+        description: obj.description,
+        image: obj.logoUrl,
+        website: obj.websiteUrl,
+        locationAddress: obj.location,
+        nonprofitTags: obj.tags,
+      }))
     },
   },
     

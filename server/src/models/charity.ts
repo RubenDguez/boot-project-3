@@ -31,10 +31,7 @@ const CharitySchema = new Schema<CharityDocument>({
     type: String,
     required: true,
   },
-  nonprofitTags: {
-    type: [String],
-    required: true,
-  },
+ 
 });
 
 export default CharitySchema;

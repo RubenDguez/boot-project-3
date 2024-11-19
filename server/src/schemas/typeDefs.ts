@@ -34,10 +34,18 @@ const typeDefs = gql`
     _id: ID!
     name: String!
     description: String!
-    image: String!
-    website: String!
+    image: String
+    website: String
     locationAddress: String!
-    nonprofitTags: [String]!
+    # nonprofitTags: [String]!
+  }
+
+  type Event {
+    _id: ID!
+    eventName: String!
+    eventDate: String!
+    eventLocation: String!
+    eventImage: String!
   }
 
   type Event {
@@ -75,6 +83,7 @@ const typeDefs = gql`
     me: User
     posts: [Post]!
     post(id: ID!): Post
+    searchCharities(city: String, cause: String): [Charity]
   }
 
   type Mutation {
