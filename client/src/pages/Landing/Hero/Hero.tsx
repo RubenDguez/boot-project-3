@@ -8,7 +8,7 @@ export default function Hero() {
       component="section"
       sx={{
         height: '60vh',
-        backgroundImage: `url(/yellow.png)`,
+        backgroundImage: `url(together.jpg)`,
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
@@ -25,7 +25,7 @@ export default function Hero() {
         }}
       >
         <Box>
-          <Typography>App Name Here</Typography>
+          <Typography>BETTER TOGETHER</Typography>
         </Box>
         <Box>
           <Button variant="text" size="small" color="inherit" onClick={() => navigate('/login')}>
@@ -40,8 +40,8 @@ export default function Hero() {
         </Box>
       </Box>
       <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', padding: '0px 2rem', height: '80%' }}>
-        <Typography variant="h3">The Title Goes Here</Typography>
-        <Typography variant="h5">Subtitle</Typography>
+        <Typography variant="h3"></Typography>
+        <Typography variant="h5"></Typography>
       </Box>
     </Box>
   );
