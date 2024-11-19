@@ -51,8 +51,8 @@ export default function AppDrawer({ open, setOpen }: { open: boolean; setOpen: R
     <div>
       <Drawer open={open} onClose={() => setOpen(false)} PaperProps={{ sx: { backgroundColor: '#9ac171', color: '#2e382e' } }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '2rem', justifyContent: 'center', alignItems: 'center', padding: '2rem 0px' }}>
-          <Avatar sx={{ backgroundColor: '#34471f', color: 'white', width: 112, height: 112 }} alt="Seek Help" src="/magnifier.jpg" />
-          <Typography variant="h5">Help Seeker</Typography>
+          <Avatar sx={{ backgroundColor: '#34471f', color: 'white', width: 112, height: 112 }} alt="Better Together Logo" src="/logoimage.png" />
+          <Typography variant="h5">Better Together</Typography>
         </Box>
         <Divider />
         {DrawerList}
