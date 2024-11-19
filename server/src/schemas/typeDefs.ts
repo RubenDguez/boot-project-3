@@ -48,6 +48,14 @@ const typeDefs = gql`
     eventImage: String!
   }
 
+  type Event {
+    _id: ID!
+    eventName: String!
+    eventDate: String!
+    eventLocation: String!
+    eventImage: String!
+  }
+
   input UserInput {
     firstName: String!
     lastName: String!
