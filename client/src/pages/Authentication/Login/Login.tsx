@@ -72,8 +72,8 @@ export default function Login() {
               <Typography>{loginError}</Typography>
             </Alert>
           )}
-          <Typography data-testid="login-header" variant="h4">
-            Login
+          <Typography data-testid="login-header" variant="h4" sx={{ textAlign: 'center', color: '#e7decd' }}>
+        LOGIN
           </Typography>
           <form
             data-testid="login-form"
@@ -99,7 +99,13 @@ export default function Login() {
                 inputRef={usernameInputRef}
                 label="Username / Email"
                 helperText={inputError?.username}
-                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } } }}
+                InputProps={{
+                  sx: {
+                    '& .MuiInputBase-input::placeholder': {
+                      color: '#e7decd',
+                    },
+                  },
+                }}
               />
             </FormControl>
             <FormControl>
@@ -114,7 +120,13 @@ export default function Login() {
                 inputRef={passwordInputRef}
                 label="Password"
                 helperText={inputError?.password}
-                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } } }}
+                InputProps={{
+                  sx: {
+                    '& .MuiInputBase-input::placeholder': {
+                      color: '#e7decd',
+                    },
+                  },
+                }}
               />
             </FormControl>
             <FormControl>
