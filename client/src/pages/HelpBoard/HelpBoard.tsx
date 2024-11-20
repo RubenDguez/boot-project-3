@@ -57,7 +57,7 @@ export default function HelpBoard() {
     };
 
     const getLabel = (type: 'needed' | 'offered') => {
-        return type === 'needed' ? 'Help Needed on:' : 'Help Available on:';
+        return type === 'needed' ? 'Help Needed on: ' : 'Help Available on: ';
 };
 
     return (
@@ -83,10 +83,10 @@ export default function HelpBoard() {
                                     <CardContent>
                                         <Typography variant="h5">{post.title}</Typography>
                                         <Typography variant="body1">{post.description}</Typography>
-                                        <Typography variant="body2">{getLabel(post.type)}{post.date}</Typography>
-                                        <Typography variant="h6" color="secondary">
+                                        <Typography variant="h6">{getLabel(post.type)}{post.date}</Typography>
+                                        {/* <Typography variant="h6" color="secondary">
                                            Help Needed on: {new Date(post.date).toLocaleDateString()}
-                                        </Typography>
+                                        </Typography> */}
                                         <Typography variant="caption" color={post.status === 'open' ? 'success.main' : 'text.secondary'}>
                                             Status: {post.status}
                                         </Typography>
@@ -98,7 +98,7 @@ export default function HelpBoard() {
                                                 sx={{ mt: 2 }}
                                                 onClick={() => handleComplete(post.id)}
                                             >
-                                                Complete Post
+                                              Offer Help
                                             </Button>
                                         )}
                                     </CardContent>
