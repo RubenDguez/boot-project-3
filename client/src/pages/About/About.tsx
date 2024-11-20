@@ -46,7 +46,8 @@ export default function About() {
           <ArrowBackIcon /> Back
         </Button>
       </Box>
-      <Markdown>{text}</Markdown>
+      <div style={{ color: '#2e382e' }}><Markdown >{text}</Markdown>
+      </div>
       <Box sx={{ padding: '5rem 0px', textAlign: 'center' }}>
         <Typography variant="h6">Your Team</Typography>
         <Divider />
