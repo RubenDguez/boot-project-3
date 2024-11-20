@@ -47,10 +47,7 @@ const userSchema = new Schema<UserDocument>(
       CharitySchema
     ],
     events: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Event',
-      }
+      EventSchema
     ]
   },
   {

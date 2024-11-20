@@ -76,11 +76,10 @@ export const COMPLETE_POST = gql`
         }
     }
 `;
-
-
+// create event for user calendar
 export const CREATE_EVENT = gql`
   mutation CreateEvent($input: EventInput!) {
-    createEvent(input: $input) {
+    createEvent(userInput: $input) {
       id
       eventName
       eventDate
