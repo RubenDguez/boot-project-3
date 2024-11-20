@@ -29,7 +29,7 @@ export default function HelpBoard() {
     const [Posts, setPosts] = useState<Post[]>([]);
     const [open, setOpen] = useState(false);
     const [openOffered, setOpenOffered] = useState(false);
-    const [newPost, setNewPost] = useState({
+    const [newPost, setNewPost] = useState<Omit<Post, 'id' | 'status' | 'createdBy' | 'completedBy'>>({
         title: '',
         description: '',
         date: '',
