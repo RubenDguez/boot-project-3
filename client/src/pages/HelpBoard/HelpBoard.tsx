@@ -19,6 +19,7 @@ interface Post {
   description: string;
   date: string;
   status: 'open' | 'completed';
+  type: 'needed' | 'offered';
   createdBy: string;
   completedBy?: string;
 }
@@ -31,7 +32,8 @@ export default function HelpBoard() {
     const [newPost, setNewPost] = useState({
         title: '',
         description: '',
-        date: ''
+        date: '',
+        type: 'needed'
     });
 
     const handleAddPost = () => {
@@ -43,8 +45,7 @@ export default function HelpBoard() {
         };
         setPosts([...Posts, Post]);
         setOpen(false);
-        setOpenOffered(false);
-        setNewPost({ title: '', description: '', date: '' });
+        setNewPost({ title: '', description: '', date: '', type: 'needed' });
     };
 
     const handleComplete = (PostId: string) => {
@@ -55,13 +56,17 @@ export default function HelpBoard() {
         ));
     };
 
+    const getLabel = (type: 'needed' | 'offered') => {
+        return type === 'needed' ? 'Help Needed on: ' : 'Help Available on: ';
+};
+
     return (
         <Box sx={{ p: 3 }}>
             <Grid container spacing={3}>
                 <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <Typography variant="h2">Help Board</Typography>
                     <Box sx={{ display: 'flex', gap: 2 }}>
-                        <Button variant="contained" color="primary" onClick={() => setOpen(true)}>
+                        <Button variant="contained" color="secondary" onClick={() => setOpen(true)}>
                             Request Help
                         </Button>
                         <Button variant="contained" color="secondary" onClick={() => setOpenOffered(true)}>
@@ -78,9 +83,10 @@ export default function HelpBoard() {
                                     <CardContent>
                                         <Typography variant="h5">{post.title}</Typography>
                                         <Typography variant="body1">{post.description}</Typography>
-                                        <Typography variant="h6" color="primary">
+                                        <Typography variant="h6">{getLabel(post.type)}{post.date}</Typography>
+                                        {/* <Typography variant="h6" color="secondary">
                                            Help Needed on: {new Date(post.date).toLocaleDateString()}
-                                        </Typography>
+                                        </Typography> */}
                                         <Typography variant="caption" color={post.status === 'open' ? 'success.main' : 'text.secondary'}>
                                             Status: {post.status}
                                         </Typography>
@@ -92,7 +98,7 @@ export default function HelpBoard() {
                                                 sx={{ mt: 2 }}
                                                 onClick={() => handleComplete(post.id)}
                                             >
-                                                Complete Post
+                                              Offer Help
                                             </Button>
                                         )}
                                     </CardContent>
@@ -104,7 +110,7 @@ export default function HelpBoard() {
             </Grid>
 
             <Dialog open={open} onClose={() => setOpen(false)}>
-                <DialogTitle>Help Needed</DialogTitle>
+                <DialogTitle>Request Help Services</DialogTitle>
                 <DialogContent>
                     <TextField
                         fullWidth
@@ -129,6 +135,9 @@ export default function HelpBoard() {
                         type="date"
                         value={newPost.date}
                         onChange={(e) => setNewPost({...newPost, date: e.target.value})}
+                        InputLabelProps={{
+                            shrink: true,
+                        }}
                     />
                     <Button 
                         variant="contained" 
@@ -184,7 +193,7 @@ export default function HelpBoard() {
                         sx={{ mt: 2 }}
                         onClick={handleAddPost}
                     >
-                        Post Offer
+                        Post Help Offered
                     </Button>
                 </DialogContent>
             </Dialog>

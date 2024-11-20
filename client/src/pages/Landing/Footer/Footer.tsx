@@ -4,8 +4,10 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import XIcon from '@mui/icons-material/X';
 import { Box, IconButton, Typography } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 export default function Footer() {
+ const theme = useTheme();
   return (
     <Box
       component="footer"
@@ -15,27 +17,27 @@ export default function Footer() {
         justifyContent: 'center',
         alignItems: 'center',
         height: '10rem',
-        backgroundColor: 'black',
+        backgroundColor: '#34471f',
       }}
     >
       <Box>
-        <IconButton color="info">
+      <IconButton sx={{ color: theme.palette.tertiary.main }}>
           <GitHubIcon />
         </IconButton>
-        <IconButton color="info">
+        <IconButton sx={{ color: theme.palette.tertiary.main }}>
           <LinkedInIcon />
         </IconButton>
-        <IconButton color="info">
+        <IconButton sx={{ color: theme.palette.tertiary.main }}>
           <FacebookIcon />
         </IconButton>
-        <IconButton color="info">
+        <IconButton sx={{ color: theme.palette.tertiary.main }}>
           <InstagramIcon />
         </IconButton>
-        <IconButton color="info">
+        <IconButton sx={{ color: theme.palette.tertiary.main }}>
           <XIcon />
         </IconButton>
       </Box>
-      <Typography color="info">Project 3 - All rights reserved &copy; {new Date().getFullYear().toString()}</Typography>
+      <Typography sx={{ color: theme.palette.tertiary.main }}>Better Together - All rights reserved &copy; {new Date().getFullYear().toString()}</Typography>
     </Box>
   );
 }
