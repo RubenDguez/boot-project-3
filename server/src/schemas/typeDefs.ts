@@ -12,6 +12,7 @@ const typeDefs = gql`
     lastName: String
     username: String
     email: String
+    charities: [Charity]
   }
 
   type Post {
@@ -93,6 +94,7 @@ const typeDefs = gql`
     completePost(postId: ID!): Post
     addCharity(input: CharityInput!): User
     addEvent(input: EventInput!): Event
+    removeCharity(charityId: ID!): User
   }
 `;
 

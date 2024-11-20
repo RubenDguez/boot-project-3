@@ -76,3 +76,25 @@ export const COMPLETE_POST = gql`
         }
     }
 `;
+
+
+export const REMOVE_CHARITY = gql`
+  mutation RemoveCharity($charityId: ID!) {
+    removeCharity(charityId: $charityId) {
+      _id
+      email
+      firstName
+      lastName
+      username
+      charities {
+        _id
+        name
+        description
+        image
+        website
+        locationAddress
+        nonprofitTags
+      }
+    }
+  }
+`;
