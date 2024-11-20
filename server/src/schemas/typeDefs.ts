@@ -75,13 +75,13 @@ const typeDefs = gql`
   }
 
   type Query {
-    me(id:ID!): User
+    me: User
     posts: [Post]!
     post(id: ID!): Post
     searchCharities(city: String, cause: String): [Charity]
     events: [Event]
     users: [User!]!
-    findUserCharities(userId: ID!): [Charity]
+    findUserCharities: [Charity]
   }
 
   type Mutation {

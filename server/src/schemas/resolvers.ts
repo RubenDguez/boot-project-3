@@ -51,10 +51,13 @@ interface AddEvent {
 const resolvers = {
   Query: {
     me: async (_: unknown, _args: unknown, context: Context): Promise<User | null> => {
+      console.log("context", context.user);
+      
       if (!context.user) throw new AuthenticationError('Could not find user');
 
       return User.findOne({ _id: context.user._id });
     },
+
     users: async (): Promise<User[] | null> => {
       return User.find();
     },
@@ -77,11 +80,13 @@ const resolvers = {
         nonprofitTags: obj.tags,
       }))
     },
-    findUserCharities: async (_: unknown, { userId }: { userId: string }, context: Context): Promise<Array<Charity> | null> => {
-      if (!context.user) throw new AuthenticationError('Not Authorized');
-      if (context.user._id !== userId) throw new AuthenticationError('Not Authorized');
+    findUserCharities: async (_: unknown, __: unknown, context: Context): Promise<Array<Charity> | null> => {
+      console.log("context", context.user);
 
-      const user = await User.findOne({ _id: userId }).populate('charities');
+      if (!context.user) throw new AuthenticationError('Not Authorized');
+      // if (context.user._id !== userId) throw new AuthenticationError('Not Authorized');
+
+      const user = await User.findOne({ _id: context.user._id }).populate('charities');
       return user ? user.charities : null;
     },
     

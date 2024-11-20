@@ -6,6 +6,9 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import CardMedia from "@mui/material/CardMedia";
 import Charity from "./Charity.png";
+// import { useQuery } from '@apollo/client';
+
+// import { ALL_USERS } from "../../utils/queries";
 
 interface CalendarCardProps {
   key: number;
@@ -14,11 +17,21 @@ interface CalendarCardProps {
   details: string;
   location: string;
 }
+// const {data} = useQuery(ALL_USERS);
+// const { username } = useParams<{ username: string }>();
+// let userId: string | undefined;
+
+// if (data) {
+//   const user = data.users.find((user: { username: string }) => user.username === username);
+//   if (user) {
+//     userId = user._id;
+//   }
+// }
 
 const CalendarCard: React.FC<CalendarCardProps> = ({
   title,
   date,
-  details,
+  // details,
   location,
 }) => {
   return (

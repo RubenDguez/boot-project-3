@@ -1,14 +1,20 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
 import { Dayjs } from "dayjs";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { IconButton } from "@mui/material";
+import {
+  IconButton,
+  Select,
+  MenuItem,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
+import { USER_CHARITIES } from "../../utils/queries";
+import { useQuery } from "@apollo/client";
 
 interface AddEventProps {
   value: Dayjs | null;
@@ -16,10 +22,23 @@ interface AddEventProps {
 
 export default function AddEvent(AddEventProps: AddEventProps) {
   const [open, setOpen] = React.useState(false);
-  const [eventName, setEventName] = React.useState("");
+  const [charity, setCharity] = React.useState<string>("");
+  const [selectedCharity, setSelectedCharity] = React.useState<any>();
   const [eventLocation, setEventLocation] = React.useState("");
   const [eventDetails, setEventDetails] = React.useState("");
 
+  const { data } = useQuery(USER_CHARITIES);
+  console.log("ladata", data);
+  const charities = data?.findUserCharities || [];
+  console.log("i am charities", charities);
+  
+console.log("charityset location", eventLocation);
+
+  // const charityNames = charities.map((charity: any) => charity.name);
+  // console.log("i am charity names", charityNames);
+  // const locations = charities.map((charity: any) => charity.locationAddress);
+  // console.log("i am locations", locations);
+  // console.log("i am set charity", charity);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -49,9 +68,9 @@ export default function AddEvent(AddEventProps: AddEventProps) {
             const eventName = formJson.name;
             const eventLocation = formJson.location;
             const eventDetails = formJson.details;
-            const eventTime = formJson.time
+            const eventTime = formJson.time;
             console.log(formJson);
-          
+
             const events = JSON.parse(localStorage.getItem("events") || "[]");
             events.push({ eventName, eventLocation, eventDetails, eventTime });
             localStorage.setItem("events", JSON.stringify(events));
@@ -60,28 +79,31 @@ export default function AddEvent(AddEventProps: AddEventProps) {
           },
         }}
       >
-      
         <DialogTitle>AddEvent</DialogTitle>
         <DialogContent>
           <DialogContentText>
             Confirm Event Information before adding to the calendar.
           </DialogContentText>
-          <TextField
+          <Select
             autoFocus
             required
             margin="dense"
             id="name"
             name="name"
             label="Event Name"
-            value={eventName}
-            onChange={(event) => setEventName(event.target.value)}
+            value={charity}
+            onChange={(event) => setCharity(event.target.value)}
             type="text"
             fullWidth
             variant="standard"
-          />
-          <DialogContentText>
-            Add Event Location
-          </DialogContentText>
+          >
+            {charities.map((charity: any) => (
+              <MenuItem key={charity._id} value={charity.name}>
+                {charity.name}
+              </MenuItem>
+            ))}
+          </Select>
+          <DialogContentText>Add Event Location</DialogContentText>
           <TextField
             autoFocus
             required
@@ -95,9 +117,7 @@ export default function AddEvent(AddEventProps: AddEventProps) {
             value={eventLocation}
             onChange={(event) => setEventLocation(event.target.value)}
           />
-          <DialogContentText>
-            Event Details
-          </DialogContentText>
+          <DialogContentText>Event Details</DialogContentText>
           <TextField
             autoFocus
             required
@@ -109,12 +129,10 @@ export default function AddEvent(AddEventProps: AddEventProps) {
             fullWidth
             variant="standard"
             value={eventDetails}
-            onChange={(event) => setEventDetails(event.target.value)} 
+            onChange={(event) => setEventDetails(event.target.value)}
           />
-          <DialogContentText>
-            Confirm Time
-          </DialogContentText>
-          <TextField 
+          <DialogContentText>Confirm Time</DialogContentText>
+          <TextField
             autoFocus
             required
             margin="dense"

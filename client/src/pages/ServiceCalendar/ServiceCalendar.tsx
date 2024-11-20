@@ -44,6 +44,7 @@ export default function ServiceCalendar() {
       <Grid size={{lg:6,xs:12}}>
         <Stack spacing={1}>
           <AddEvent value={value} />
+          {/* <AddEvent value={value} />
           {JSON.parse(localStorage.getItem("events") || "[]").map((event: any, index: number) => (
             <CalendarCard 
             key={index} 
@@ -52,7 +53,7 @@ export default function ServiceCalendar() {
             details={event.eventDetails}
             location={event.eventLocation}
             />
-          ))}
+          ))} */}
           {/* <CalendarCard /> */}
         </Stack>
       </Grid>
