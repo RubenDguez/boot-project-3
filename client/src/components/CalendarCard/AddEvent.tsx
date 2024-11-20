@@ -22,17 +22,25 @@ interface AddEventProps {
 
 export default function AddEvent(AddEventProps: AddEventProps) {
   const [open, setOpen] = React.useState(false);
-  const [charity, setCharity] = React.useState<string>("");
-  const [selectedCharity, setSelectedCharity] = React.useState<any>();
-  const [eventLocation, setEventLocation] = React.useState("");
-  const [eventDetails, setEventDetails] = React.useState("");
+  const [charity, setCharity] = React.useState<any>({});
+  // we want set charity to be a single charity object
+  // const [charites, setCharities] = React.useState<any>();
+  // const [selectedCharity, setSelectedCharity] = React.useState<any>();
+  // const [eventLocation, setEventLocation] = React.useState("");
+  // const [eventDetails, setEventDetails] = React.useState("");
 
   const { data } = useQuery(USER_CHARITIES);
   console.log("ladata", data);
   const charities = data?.findUserCharities || [];
+  React.useEffect(() => {
+    setCharity(charities);
+  }, [data]);
+  console.log("i am set charity", charity);
+  const { name, locationAddress, description } = charity;
+  console.log("i am name", name);
   console.log("i am charities", charities);
   
-console.log("charityset location", eventLocation);
+// console.log("charityset location", eventLocation);
 
   // const charityNames = charities.map((charity: any) => charity.name);
   // console.log("i am charity names", charityNames);
@@ -65,16 +73,7 @@ console.log("charityset location", eventLocation);
             event.preventDefault();
             const formData = new FormData(event.currentTarget);
             const formJson = Object.fromEntries((formData as any).entries());
-            const eventName = formJson.name;
-            const eventLocation = formJson.location;
-            const eventDetails = formJson.details;
-            const eventTime = formJson.time;
             console.log(formJson);
-
-            const events = JSON.parse(localStorage.getItem("events") || "[]");
-            events.push({ eventName, eventLocation, eventDetails, eventTime });
-            localStorage.setItem("events", JSON.stringify(events));
-            console.log(eventName, eventLocation, eventDetails, eventTime);
             handleClose();
           },
         }}
@@ -84,25 +83,29 @@ console.log("charityset location", eventLocation);
           <DialogContentText>
             Confirm Event Information before adding to the calendar.
           </DialogContentText>
-          <Select
-            autoFocus
-            required
-            margin="dense"
-            id="name"
-            name="name"
-            label="Event Name"
-            value={charity}
-            onChange={(event) => setCharity(event.target.value)}
-            type="text"
-            fullWidth
-            variant="standard"
-          >
-            {charities.map((charity: any) => (
-              <MenuItem key={charity._id} value={charity.name}>
-                {charity.name}
-              </MenuItem>
-            ))}
-          </Select>
+            <Select
+              autoFocus
+              required
+              margin="dense"
+              id="name"
+              name="name"
+              label="Event Name"
+              value={name}
+              // need to the name value of the charity
+              onChange={(event) => {
+                const selectedCharity = charities.find((c: any) => c.name === event.target.value);
+                setCharity(selectedCharity);
+              }}
+              type="text"
+              fullWidth
+              variant="standard"
+            >
+              {charities?.map((charity: any) => (
+                <MenuItem key={charity.id} value={charity.name}>
+                  {charity.name}
+                </MenuItem>
+              ))}
+            </Select>
           <DialogContentText>Add Event Location</DialogContentText>
           <TextField
             autoFocus
@@ -114,8 +117,8 @@ console.log("charityset location", eventLocation);
             type="text"
             fullWidth
             variant="standard"
-            value={eventLocation}
-            onChange={(event) => setEventLocation(event.target.value)}
+            value={locationAddress}
+            
           />
           <DialogContentText>Event Details</DialogContentText>
           <TextField
@@ -128,8 +131,7 @@ console.log("charityset location", eventLocation);
             type="text"
             fullWidth
             variant="standard"
-            value={eventDetails}
-            onChange={(event) => setEventDetails(event.target.value)}
+            value={description}
           />
           <DialogContentText>Confirm Time</DialogContentText>
           <TextField
