@@ -12,3 +12,15 @@ export const GET_ME = gql`
   }
 `;
 
+export const SEARCH_CHARITIES = gql`
+  query Query($city: String, $cause: String) {
+    searchCharities(city: $city, cause: $cause) {
+      _id
+      description
+      image
+      locationAddress
+      name
+      website
+    }
+  }
+`;
