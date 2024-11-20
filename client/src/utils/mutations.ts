@@ -80,7 +80,6 @@ export const COMPLETE_POST = gql`
 export const CREATE_EVENT = gql`
   mutation CreateEvent($input: EventInput!) {
     createEvent(userInput: $input) {
-      id
       eventName
       eventDate
       eventLocation

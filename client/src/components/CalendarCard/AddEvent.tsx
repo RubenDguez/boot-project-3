@@ -14,7 +14,8 @@ import {
   TextField,
 } from "@mui/material";
 import { USER_CHARITIES } from "../../utils/queries";
-import { useQuery } from "@apollo/client";
+import { useQuery,useMutation } from "@apollo/client";
+import { CREATE_EVENT } from "../../utils/mutations";
 
 interface AddEventProps {
   value: Dayjs | null;
@@ -29,6 +30,7 @@ export default function AddEvent(AddEventProps: AddEventProps) {
   // const [eventLocation, setEventLocation] = React.useState("");
   // const [eventDetails, setEventDetails] = React.useState("");
 
+  const [createEvent] = useMutation(CREATE_EVENT);
   const { data } = useQuery(USER_CHARITIES);
   console.log("ladata", data);
   const charities = data?.findUserCharities || [];
@@ -36,7 +38,7 @@ export default function AddEvent(AddEventProps: AddEventProps) {
     setCharity(charities);
   }, [data]);
   console.log("i am set charity", charity);
-  const { name, locationAddress, description } = charity;
+  const { name, locationAddress, description,image } = charity;
   console.log("i am name", name);
   console.log("i am charities", charities);
   
@@ -54,7 +56,17 @@ export default function AddEvent(AddEventProps: AddEventProps) {
   const handleClose = () => {
     setOpen(false);
   };
-
+const handleSubmit = () => {
+  createEvent({
+    variables: {
+      image: image,
+      eventName: name,
+      eventLocation: locationAddress,
+      eventDate: AddEventProps.value?.format("YYYY-MM-DDTHH:mm"),
+      },
+    });
+    console.log("event props", createEvent);
+  }
   return (
     <React.Fragment>
       <IconButton
@@ -148,7 +160,7 @@ export default function AddEvent(AddEventProps: AddEventProps) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit">ADD</Button>
+          <Button type="submit" onClick={handleSubmit}>ADD</Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>
