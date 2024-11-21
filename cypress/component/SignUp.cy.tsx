@@ -23,7 +23,7 @@ describe('<SignUp />', () => {
   it('should display SignUp header', () => {
     cy.findByTestId('signup-header').should('exist');
     cy.findByTestId('signup-header').should('be.visible');
-    cy.findByTestId('signup-header').should('have.text', 'Sign Up');
+    cy.findByTestId('signup-header').should('have.text', 'SIGN UP');
   });
   it('should display SignUp form', () => {
     cy.findByTestId('signup-form').should('exist');
