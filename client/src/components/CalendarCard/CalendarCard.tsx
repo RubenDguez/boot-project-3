@@ -42,10 +42,10 @@ const CalendarCard: React.FC<CalendarCardProps> = ({
           <Typography gutterBottom variant="h5" component="div">
             {title}
           </Typography>
-          <Typography variant="body2" sx={{ color: "text.secondary" }}>
+          <Typography variant="body2" sx={{ color: "#34471F" }}>
             {date}
           </Typography>
-          <Typography variant="body2" sx={{ color: "text.secondary" }}>
+          <Typography variant="body2" sx={{ color: "#34471F" }}>
             {location}
           </Typography>
           {/* <Typography variant="body2" sx={{ color: 'text.secondary' }}>
