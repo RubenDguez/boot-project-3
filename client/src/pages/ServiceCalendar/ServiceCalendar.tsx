@@ -30,8 +30,23 @@ export default function ServiceCalendar() {
             sx={{
               height: "100%",
               backgroundColor: "#9AC171",
-              "& .MuiSvgIcon-root": { color: "#34471F" },
+              color: "#34471F",
+              "& .MuiSvgIcon-root": { color: "#34471F" }, // Change color of icons
               "& .MuiPickersToolbar-content": { textAlign: "center" },
+              "& .MuiPickersDay-root.Mui-selected": { backgroundColor: "#34471F" }, // Change selected day background color
+              "& .MuiPickersDay-root.Mui-selected:hover": { backgroundColor: "#34471F" }, // Change selected day hover background color
+              "& .MuiPickersDay-root:hover": { backgroundColor: "#9AC171" }, // Change day hover background color
+              "& .MuiPickersToolbarText-toolbarBtnSelected": { color: "#9AC171" }, // Change selected toolbar text color
+              "& .MuiPickersToolbarText-toolbarBtn": { color: "#34471f " }, // Change toolbar text color
+              "& .MuiPickersCalendarHeader-root": { color: "#34471f" }, // Change calendar header background and text color
+              "& .MuiPickersCalendarHeader-label": { color: "#34471f " }, // Change calendar header label color
+              "& .MuiPickersCalendarHeader-switchViewButton": { color: "#34471f " }, // Change calendar header switch view button color
+              "& .MuiPickersClock-pin": { backgroundColor: "#34471F" }, // Change clock pin color
+              "& .MuiPickersClockPointer-root": { backgroundColor: "#34471F" }, // Change clock pointer color
+              "& .MuiPickersClockPointer-thumb": { borderColor: "#34471F" }, // Change clock pointer thumb color
+              "& .MuiPickersClockNumber-root": { color: "#34471F" }, // Change clock number color
+              "& .MuiPickersClockNumber-root.Mui-selected": { color: "#9AC171" }, // Change selected clock number color
+              "& .MuiPickersClockNumber-root.Mui-selected:hover": { color: "#9AC171" }, 
             }}
             slotProps={{
               actionBar: {
