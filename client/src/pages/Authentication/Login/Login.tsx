@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Alert, Box, Button, Container, FormControl, Paper, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, Container, FormControl, Paper, TextField, Typography, useTheme } from '@mui/material';
 import { FormEvent, useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
@@ -15,6 +15,7 @@ export default function Login() {
   const { login } = useAuth({ needsAuth: false });
   const [Login] = useMutation(LOGIN_USER);
   const navigate = useNavigate();
+  const theme = useTheme();
 
   const [inputError, setInputError] = useState<IUser | null>(null);
   const [loginError, setLoginError] = useState<string | null>(null);
@@ -63,16 +64,16 @@ export default function Login() {
               justifyContent: 'end',
             }}
           >
-            <Button data-testid="back-button" color="secondary" onClick={() => navigate('/')}>
+            <Button data-testid="back-button" onClick={() => navigate('/')}>
               <ArrowBackIcon /> Back
             </Button>
           </Box>
           {loginError !== null && (
-            <Alert severity='error'>
-              <Typography>{loginError}</Typography>
+            <Alert severity="error" variant='filled'>
+              <Typography variant='caption' color='warning'>{loginError}</Typography>
             </Alert>
           )}
-          <Typography data-testid="login-header" variant="h4">
+          <Typography color="primary" data-testid="login-header" variant="h4">
             Login
           </Typography>
           <form
@@ -99,7 +100,7 @@ export default function Login() {
                 inputRef={usernameInputRef}
                 label="Username / Email"
                 helperText={inputError?.username}
-                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } } }}
+                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } }, input: { sx: { color: theme.palette.text.secondary } } }}
               />
             </FormControl>
             <FormControl>
@@ -114,11 +115,11 @@ export default function Login() {
                 inputRef={passwordInputRef}
                 label="Password"
                 helperText={inputError?.password}
-                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } } }}
+                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } }, input: { sx: { color: theme.palette.text.secondary } } }}
               />
             </FormControl>
             <FormControl>
-              <Button data-testid="submit" id="submit" type="submit" variant="outlined" color="secondary">
+              <Button data-testid="submit" id="submit" type="submit" variant="outlined">
                 Submit
               </Button>
             </FormControl>

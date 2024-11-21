@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Alert, Box, Button, Container, FormControl, Paper, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, Container, FormControl, Paper, TextField, Typography, useTheme } from '@mui/material';
 import { FormEvent, useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
@@ -18,6 +18,7 @@ export default function SignUp() {
   const { login } = useAuth({ needsAuth: false });
   const [addUser] = useMutation(ADD_USER);
   const navigate = useNavigate();
+  const theme = useTheme();
 
   const [inputError, setInputError] = useState<Partial<IUser & { passwordMatch: string }> | null>(null);
   const [loginError, setLoginError] = useState<string | null>(null);
@@ -86,8 +87,8 @@ export default function SignUp() {
       <Container maxWidth="sm">
         <Paper elevation={4} sx={{ padding: '2rem 5rem 3rem 5rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           {loginError !== null && (
-            <Alert severity="error">
-              <Typography>{loginError}</Typography>
+            <Alert severity="error" variant='filled'>
+              <Typography variant='caption' color='warning'>{loginError}</Typography>
             </Alert>
           )}
           <Box
@@ -97,7 +98,7 @@ export default function SignUp() {
               justifyContent: 'end',
             }}
           >
-            <Button data-testid="back-button" color="secondary" onClick={() => navigate('/')}>
+            <Button data-testid="back-button" onClick={() => navigate('/')}>
               <ArrowBackIcon /> Back
             </Button>
           </Box>
@@ -128,7 +129,7 @@ export default function SignUp() {
                 inputRef={firstNameInputRef}
                 label="First Name"
                 helperText={inputError?.firstName}
-                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } } }}
+                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } }, input: { sx: { color: theme.palette.text.secondary } } }}
               />
             </FormControl>
             <FormControl>
@@ -143,7 +144,7 @@ export default function SignUp() {
                 inputRef={lastNameInputRef}
                 label="Last Name"
                 helperText={inputError?.lastName}
-                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } } }}
+                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } }, input: { sx: { color: theme.palette.text.secondary } } }}
               />
             </FormControl>
             <FormControl>
@@ -158,7 +159,7 @@ export default function SignUp() {
                 inputRef={usernameInputRef}
                 label="Username"
                 helperText={inputError?.username}
-                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } } }}
+                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } }, input: { sx: { color: theme.palette.text.secondary } } }}
               />
             </FormControl>
             <FormControl>
@@ -173,7 +174,7 @@ export default function SignUp() {
                 inputRef={emailInputRef}
                 label="Email"
                 helperText={inputError?.email}
-                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } } }}
+                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } }, input: { sx: { color: theme.palette.text.secondary } } }}
               />
             </FormControl>
             <FormControl>
@@ -188,7 +189,7 @@ export default function SignUp() {
                 inputRef={passwordInputRef}
                 label="Password"
                 helperText={inputError?.password}
-                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } } }}
+                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } }, input: { sx: { color: theme.palette.text.secondary } } }}
               />
             </FormControl>
             <FormControl>
@@ -203,7 +204,7 @@ export default function SignUp() {
                 inputRef={passwordMatchInputRef}
                 label="Match Password"
                 helperText={inputError?.passwordMatch}
-                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } } }}
+                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } }, input: { sx: { color: theme.palette.text.secondary } } }}
               />
             </FormControl>
             <FormControl>
