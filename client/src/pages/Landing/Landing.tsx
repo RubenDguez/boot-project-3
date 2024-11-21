@@ -12,7 +12,7 @@ export default function Landing() {
           backgroundColor: 'secondary.main',
         }}
       >
-        <Typography color="tertiary.main">Additional information in this section</Typography>
+        <Typography color="tertiary.main"></Typography>
       </Box>
       <Footer />
     </Container>

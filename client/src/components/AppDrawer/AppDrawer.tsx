@@ -1,7 +1,7 @@
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import HomeIcon from '@mui/icons-material/Home';
 import LogoutIcon from '@mui/icons-material/Logout';
-import NotListedLocationIcon from '@mui/icons-material/NotListedLocation';
+import HandshakeIcon from '@mui/icons-material/Handshake';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import { Avatar, Divider, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -20,7 +20,7 @@ const drawerOptions1 = [
   { label: 'Home', icon: <HomeIcon />, to: '/app' },
   { label: 'Charity Search', icon: <VolunteerActivismIcon />, to: '/app/charity-search' },
   { label: 'Service Calendar', icon: <CalendarMonthIcon />, to: '/app/service-calendar' },
-  { label: 'Help Board', icon: <NotListedLocationIcon />, to: '/app/help-board' },
+  { label: 'Help Board', icon: <HandshakeIcon />, to: '/app/help-board' },
 ];
 
 export default function AppDrawer({ open, setOpen }: { open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {

@@ -29,24 +29,26 @@ export default function HelpBoard() {
     const [Posts, setPosts] = useState<Post[]>([]);
     const [open, setOpen] = useState(false);
     const [openOffered, setOpenOffered] = useState(false);
-    const [newPost, setNewPost] = useState({
+    const [newPost, setNewPost] = useState<Omit<Post, 'id' | 'status' | 'createdBy' | 'completedBy'>>({
         title: '',
         description: '',
         date: '',
         type: 'needed'
     });
 
-    const handleAddPost = () => {
-        const Post: Post = {
-            id: Date.now().toString(),
-            ...newPost,
-            status: 'open',
-            createdBy: 'currentUser', // You'll want to get this from your auth context
+    const handleAddPost = (type: 'needed' | 'offered') => {
+            const Post: Post = {
+                id: Date.now().toString(),
+                ...newPost,
+                status: 'open',
+                type,
+                createdBy: 'currentUser', // You'll want to get this from your auth context
+            };
+            setPosts([...Posts, Post]);
+            setOpen(false);
+            setOpenOffered(false);
+            setNewPost({ title: '', description: '', date: '', type: 'needed' });
         };
-        setPosts([...Posts, Post]);
-        setOpen(false);
-        setNewPost({ title: '', description: '', date: '', type: 'needed' });
-    };
 
     const handleComplete = (PostId: string) => {
         setPosts(Posts.map(Post => 
@@ -61,57 +63,92 @@ export default function HelpBoard() {
 };
 
     return (
-        <Box sx={{ p: 3 }}>
+        <Box sx={{ p: 2 }}>
             <Grid container spacing={3}>
-                <Grid item xs={12} sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Grid item xs={10} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <Typography variant="h2">Help Board</Typography>
-                    <Box sx={{ display: 'flex', gap: 2 }}>
-                        <Button variant="contained" color="secondary" onClick={() => setOpen(true)}>
-                            Request Help
-                        </Button>
-                        <Button variant="contained" color="secondary" onClick={() => setOpenOffered(true)}>
-                            Offer Help
-                        </Button>
-                    </Box>
                 </Grid>
                 
                 <Grid item xs={12}>
+                    <Grid container spacing={5} justifyContent="center" alignItems="center">
+                        <Grid item xs={12} md={3}>
+                            
+                            <Button variant="contained" color="secondary" onClick={() => setOpen(true)}>
+                              post a help request
+                            </Button>
+                        </Grid>
+                        <Grid item xs={12} md={3}>
+                     
+                            <Button variant="contained" color="secondary" onClick={() => setOpenOffered(true)}>
+                                post a help offer
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                
+                <Grid item xs={10}>
                     <Grid container spacing={2}>
-                        {Posts && Posts.length > 0 && Posts.map((post) => (
-                            <Grid item xs={12} md={6} lg={4} key={post.id}>
-                                <Card>
+                    <Grid item xs={10} md={3}>
+                           
+                            {Posts.filter(post => post.type === 'needed').map((post) => (
+                                <Card key={post.id} sx={{ backgroundColor: post.status === 'open' ? '#e7decd' : '#34471f', mb: 2 }}>
                                     <CardContent>
-                                        <Typography variant="h5">{post.title}</Typography>
-                                        <Typography variant="body1">{post.description}</Typography>
-                                        <Typography variant="h6">{getLabel(post.type)}{post.date}</Typography>
-                                        {/* <Typography variant="h6" color="secondary">
-                                           Help Needed on: {new Date(post.date).toLocaleDateString()}
-                                        </Typography> */}
-                                        <Typography variant="caption" color={post.status === 'open' ? 'success.main' : 'text.secondary'}>
-                                            Status: {post.status}
-                                        </Typography>
-                                        {post.status === 'open' && (
-                                            <Button 
-                                                variant="contained" 
-                                                color="success" 
-                                                fullWidth 
-                                                sx={{ mt: 2 }}
-                                                onClick={() => handleComplete(post.id)}
-                                            >
-                                              Offer Help
-                                            </Button>
-                                        )}
-                                    </CardContent>
-                                </Card>
+                                            <Typography variant="h6" color="#698f3f" sx={{ textAlign: 'center' }}>{post.title}</Typography>
+                                            <Typography variant="body1" color='black' sx={{ textAlign: 'center' }}>{post.description}</Typography>
+                                            <Typography variant="h6" color="#34471f" sx={{ textAlign: 'center' }}>{getLabel(post.type)}{post.date}</Typography>
+                                            <Typography variant="caption" color={post.status === 'open' ? 'success.main' : 'text.secondary'} sx={{ textAlign: 'center' }}>
+                                                Status: {post.status}
+                                            </Typography>
+                                            {post.status === 'open' && (
+                                                <Button 
+                                                    variant="contained" 
+                                                    color="secondary" 
+                                                    fullWidth 
+                                                    sx={{ mt: 2 }}
+                                                    onClick={() => handleComplete(post.id)}
+                                                >
+                                                  Offer Help
+                                                </Button>
+                                            )}
+                                        </CardContent>
+                                    </Card>
+                            ))}
                             </Grid>
-                        ))}
+                            <Grid item xs={10} md={3}>
+                               
+                                {Posts.filter(post => post.type === 'offered').map((post) => (
+                                    <Card key={post.id} sx={{ backgroundColor: post.status === 'open' ? '#e7decd' : '#34471f', mb: 2 }}>
+                                        <CardContent>
+                                            <Typography variant="h6" color="#698f3f" sx={{ textAlign: 'center' }}>{post.title}</Typography>
+                                            <Typography variant="body1" color='black' sx={{ textAlign: 'center' }}>{post.description}</Typography>
+                                            <Typography variant="h6" color="#34471f" sx={{ textAlign: 'center' }}>{getLabel(post.type)}{post.date}</Typography>
+                                            <Typography variant="caption" color={post.status === 'open' ? 'success.main' : 'text.secondary'} sx={{ textAlign: 'center' }}>
+                                                Status: {post.status}
+                                            </Typography>
+                                            {post.status === 'open' && (
+                                                <Button 
+                                                    variant="contained" 
+                                                    color="secondary" 
+                                                    fullWidth 
+                                                    sx={{ mt: 2 }}
+                                                    onClick={() => handleComplete(post.id)}
+                                                >
+                                                  Accept Help
+                                                </Button>
+                                            )}
+                                        </CardContent>
+                                    </Card>
+                                ))}
+                            </Grid>
                     </Grid>
                 </Grid>
             </Grid>
 
+            
+
             <Dialog open={open} onClose={() => setOpen(false)}>
-                <DialogTitle>Request Help Services</DialogTitle>
-                <DialogContent>
+                <DialogTitle sx={{ backgroundColor: '#34471f', color: 'white', textAlign: 'center' }}>Request Help Services</DialogTitle>
+                <DialogContent sx={{ backgroundColor: '#698f3f' }}>
                     <TextField
                         fullWidth
                         label="Post Title"
@@ -144,7 +181,7 @@ export default function HelpBoard() {
                         color="secondary" 
                         fullWidth 
                         sx={{ mt: 2 }}
-                        onClick={handleAddPost}
+                        onClick={() => handleAddPost('needed')}
                     >
                         Post Help Needed
                     </Button>
@@ -156,8 +193,8 @@ export default function HelpBoard() {
                 onClose={() => setOpenOffered(false)}
                 aria-labelledby="offer-dialog-title"
             >
-                <DialogTitle id="offer-dialog-title">Offer Help Services</DialogTitle>
-                <DialogContent>
+                <DialogTitle id="offer-dialog-title" sx={{ backgroundColor: '#34471f', color: 'white', textAlign: 'center' }}>Offer Help Services</DialogTitle>
+                <DialogContent sx={{ backgroundColor: '#698f3f' }}>
                     <TextField
                         fullWidth
                         label="Post Title"
@@ -191,7 +228,7 @@ export default function HelpBoard() {
                         color="secondary" 
                         fullWidth 
                         sx={{ mt: 2 }}
-                        onClick={handleAddPost}
+                        onClick={() => handleAddPost('offered')}
                     >
                         Post Help Offered
                     </Button>

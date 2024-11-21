@@ -71,7 +71,7 @@ export default function SearchAppBar({ setOpenDrawer }: { setOpenDrawer: Dispatc
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}>
-            HELP SEEKER
+            BETTER TOGETHER
           </Typography>
           <Search>
             <SearchIconWrapper>

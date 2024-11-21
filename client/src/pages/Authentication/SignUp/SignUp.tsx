@@ -102,8 +102,8 @@ export default function SignUp() {
               <ArrowBackIcon /> Back
             </Button>
           </Box>
-          <Typography data-testid="signup-header" variant="h4" color="primary">
-            Sign Up
+          <Typography data-testid="signup-header" variant="h4" color="primary" sx={{ textAlign: 'center', color: '#e7decd' }}>
+            SIGN UP
           </Typography>
           <form
             data-testid="signup-form"
@@ -115,6 +115,7 @@ export default function SignUp() {
               flexDirection: 'column',
               gap: '2rem',
               width: '100%',
+            
             }}
           >
             <FormControl>

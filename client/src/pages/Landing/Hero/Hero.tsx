@@ -34,7 +34,7 @@ export default function Hero() {
           top: '25%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
-          width: '50%',
+          width: '90%',
           height: 'auto',
         }}
       />
@@ -51,7 +51,7 @@ export default function Hero() {
         }}
       >
         <Box>
-          <Typography>BETTER TOGETHER</Typography>
+          <Typography>"We are Better Together."</Typography>
         </Box>
         <Box>
           <Button variant="text" size="small" color="inherit" onClick={() => navigate('/login')}>
