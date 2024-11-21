@@ -28,8 +28,8 @@ export default function Login() {
     e.preventDefault();
 
     const inputData: IUser = {
-      username: usernameInputRef.current?.value ?? '',
-      password: passwordInputRef.current?.value ?? '',
+      username: usernameInputRef.current?.value.trim() ?? '',
+      password: passwordInputRef.current?.value.trim() ?? '',
     };
 
     if (!inputData.username || !inputData.password) {

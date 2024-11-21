@@ -35,11 +35,11 @@ export default function SignUp() {
     e.preventDefault();
 
     const inputData: IUser = {
-      firstName: firstNameInputRef.current?.value ?? '',
-      lastName: lastNameInputRef.current?.value ?? '',
-      username: usernameInputRef.current?.value ?? '',
-      email: emailInputRef.current?.value ?? '',
-      password: passwordInputRef.current?.value ?? '',
+      firstName: firstNameInputRef.current?.value.trim() ?? '',
+      lastName: lastNameInputRef.current?.value.trim() ?? '',
+      username: usernameInputRef.current?.value.trim() ?? '',
+      email: emailInputRef.current?.value.trim() ?? '',
+      password: passwordInputRef.current?.value.trim() ?? '',
     };
 
     if (!inputData.firstName || !inputData.lastName || !inputData.username || !inputData.email || !inputData.password) {
@@ -55,7 +55,7 @@ export default function SignUp() {
       return;
     }
 
-    if (inputData.password !== passwordMatchInputRef.current?.value) {
+    if (inputData.password !== passwordMatchInputRef.current?.value.trim()) {
       setInputError((inputError) => ({ ...inputError, passwordMatch: 'Passwords do not match' }));
       return;
     }
