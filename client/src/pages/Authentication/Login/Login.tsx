@@ -101,10 +101,8 @@ export default function Login() {
                 helperText={inputError?.username}
                 InputProps={{
                   sx: {
-                    '& .MuiInputBase-input::placeholder': {
                       color: '#e7decd',
                     },
-                  },
                 }}
               />
             </FormControl>
@@ -121,10 +119,8 @@ export default function Login() {
                 label="Password"
                 helperText={inputError?.password}
                 InputProps={{
-                  sx: {
-                    '& .MuiInputBase-input::placeholder': {
-                      color: '#e7decd',
-                    },
+                 sx: {
+                    color: '#e7decd',
                   },
                 }}
               />
