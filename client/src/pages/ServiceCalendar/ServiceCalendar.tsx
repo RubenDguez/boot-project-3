@@ -10,6 +10,9 @@ import CalendarCard from "../../components/CalendarCard/CalendarCard";
 import AddEvent from "../../components/CalendarCard/AddEvent";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import { useQuery } from '@apollo/client';
+import { GET_EVENTS } from "../../utils/queries";
+
 
 export default function ServiceCalendar() {
   const [value, setValue] = React.useState<Dayjs | null>(dayjs("2022-04-17"));
@@ -17,6 +20,11 @@ export default function ServiceCalendar() {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
   console.log(value);
   useAuth();
+  const {data} = useQuery(GET_EVENTS);
+  const events = data?.me.events || [];
+  console.log("getevents query", events);
+  
+  console.log("getevents query", data);
 
   return (
     <Grid container spacing={2}>
@@ -44,16 +52,17 @@ export default function ServiceCalendar() {
       <Grid size={{lg:6,xs:12}}>
         <Stack spacing={1}>
           <AddEvent value={value} />
-          {/* <AddEvent value={value} />
-          {JSON.parse(localStorage.getItem("events") || "[]").map((event: any, index: number) => (
-            <CalendarCard 
-            key={index} 
-            title={event.eventName}
-            date={event.eventTime}
-            details={event.eventDetails}
-            location={event.eventLocation}
-            />
-          ))} */}
+          {}
+          {events.map((event: any) => {
+            return (
+              <CalendarCard
+                key={event._id}
+                title={event.eventName}
+                date={event.eventDate}
+                location={event.eventLocation}
+              />
+            );
+          })}
           {/* <CalendarCard /> */}
         </Stack>
       </Grid>

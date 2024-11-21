@@ -6,18 +6,14 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import CardMedia from "@mui/material/CardMedia";
 import Charity from "./Charity.png";
-// import { useQuery } from '@apollo/client';
-
-// import { ALL_USERS } from "../../utils/queries";
 
 interface CalendarCardProps {
   key: number;
   title: string;
   date: string;
-  details: string;
   location: string;
 }
-// const {data} = useQuery(ALL_USERS);
+
 // const { username } = useParams<{ username: string }>();
 // let userId: string | undefined;
 
@@ -35,7 +31,8 @@ const CalendarCard: React.FC<CalendarCardProps> = ({
   location,
 }) => {
   return (
-    <Card
+    <>
+        <Card
       sx={{
         backgroundColor: "#9AC171",
         display: "flex",
@@ -80,6 +77,8 @@ const CalendarCard: React.FC<CalendarCardProps> = ({
         alt="random"
       />
     </Card>
+
+    </>
   );
 };
 

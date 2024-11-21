@@ -26,9 +26,9 @@ export default function AddEvent(AddEventProps: AddEventProps) {
   const [charity, setCharity] = React.useState<any>({});
   // we want set charity to be a single charity object
   // const [charites, setCharities] = React.useState<any>();
-  // const [selectedCharity, setSelectedCharity] = React.useState<any>();
-  // const [eventLocation, setEventLocation] = React.useState("");
-  // const [eventDetails, setEventDetails] = React.useState("");
+  const [eventDetails, setEventDetails] = React.useState<any>();
+  const [eventLocation, setEventLocation] = React.useState("");
+  const [eventTime, setEventTime] = React.useState("");
 
   const [createEvent] = useMutation(CREATE_EVENT);
   const { data } = useQuery(USER_CHARITIES);
@@ -38,17 +38,9 @@ export default function AddEvent(AddEventProps: AddEventProps) {
     setCharity(charities);
   }, [data]);
   console.log("i am set charity", charity);
-  const { name, locationAddress, description,image } = charity;
+  const { name, locationAddress, description, image } = charity;
   console.log("i am name", name);
   console.log("i am charities", charities);
-  
-// console.log("charityset location", eventLocation);
-
-  // const charityNames = charities.map((charity: any) => charity.name);
-  // console.log("i am charity names", charityNames);
-  // const locations = charities.map((charity: any) => charity.locationAddress);
-  // console.log("i am locations", locations);
-  // console.log("i am set charity", charity);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -56,17 +48,24 @@ export default function AddEvent(AddEventProps: AddEventProps) {
   const handleClose = () => {
     setOpen(false);
   };
-const handleSubmit = () => {
-  createEvent({
-    variables: {
-      image: image,
-      eventName: name,
-      eventLocation: locationAddress,
-      eventDate: AddEventProps.value?.format("YYYY-MM-DDTHH:mm"),
+
+  const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      await createEvent({
+      variables: {
+        eventImage: image,
+        eventName: name,
+        eventLocation: eventLocation,
+        eventDate: eventTime,
       },
     });
-    console.log("event props", createEvent);
-  }
+    handleClose();
+    } catch (error) {
+      console.log("Error creating event:", error);
+    }
+  };
+
   return (
     <React.Fragment>
       <IconButton
@@ -81,13 +80,7 @@ const handleSubmit = () => {
         onClose={handleClose}
         PaperProps={{
           component: "form",
-          onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
-            event.preventDefault();
-            const formData = new FormData(event.currentTarget);
-            const formJson = Object.fromEntries((formData as any).entries());
-            console.log(formJson);
-            handleClose();
-          },
+          onSubmit: handleSubmit,
         }}
       >
         <DialogTitle>AddEvent</DialogTitle>
@@ -113,7 +106,9 @@ const handleSubmit = () => {
               variant="standard"
             >
               {charities?.map((charity: any) => (
-                <MenuItem key={charity.id} value={charity.name}>
+                <MenuItem 
+                key={charity.id} 
+                value={charity.name}>
                   {charity.name}
                 </MenuItem>
               ))}
@@ -130,7 +125,7 @@ const handleSubmit = () => {
             fullWidth
             variant="standard"
             value={locationAddress}
-            
+            onChange={(event) => setEventLocation(event.target.value)}
           />
           <DialogContentText>Event Details</DialogContentText>
           <TextField
@@ -144,6 +139,7 @@ const handleSubmit = () => {
             fullWidth
             variant="standard"
             value={description}
+            onChange={(event) => setEventDetails(event.target.value)}
           />
           <DialogContentText>Confirm Time</DialogContentText>
           <TextField
@@ -156,13 +152,16 @@ const handleSubmit = () => {
             fullWidth
             variant="standard"
             defaultValue={AddEventProps.value?.format("YYYY-MM-DDTHH:mm")}
+            onChange={(event) => setEventTime(event.target.value)}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button type="submit" onClick={handleSubmit}>ADD</Button>
+          <Button type="submit">ADD</Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>
   );
 }
+
+
