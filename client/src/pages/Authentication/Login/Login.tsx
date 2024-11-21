@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Alert, Box, Button, Container, FormControl, Paper, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, Container, FormControl, Paper, TextField, Typography, GlobalStyles } from '@mui/material';
 import { FormEvent, useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
@@ -54,6 +54,22 @@ export default function Login() {
 
   return (
     <Box sx={{ display: 'grid', height: '100vh', gridTemplateRows: 'auto', alignItems: 'center' }}>
+      <GlobalStyles
+           styles={{
+            'input:-webkit-autofill': {
+              WebkitBoxShadow: '0 0 0 1000px #e7decd inset',
+              WebkitTextFillColor: '#000000',
+            },
+            'input:-webkit-autofill:focus': {
+              WebkitBoxShadow: '0 0 0 1000px #e7decd inset',
+              WebkitTextFillColor: '#000000',
+            },
+            'input:-webkit-autofill:hover': {
+              WebkitBoxShadow: '0 0 0 1000px #e7decd inset',
+              WebkitTextFillColor: '#000000',
+            },
+        }}
+      />
       <Container maxWidth="sm">
         <Paper elevation={4} sx={{ padding: '2rem 5rem 3rem 5rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           <Box
