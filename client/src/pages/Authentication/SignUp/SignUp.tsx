@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 import { Alert, Box, Button, Container, FormControl, FormHelperText, Paper, TextField, Typography, GlobalStyles } from '@mui/material';
 import { FormEvent, useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -144,11 +145,13 @@ export default function SignUp() {
                 variant="standard"
                 inputRef={firstNameInputRef}
                 label="First Name"
+
                 InputProps={{
                   sx: {
                       color: '#e7decd',
                     },
                 }}
+
                 />
                 {inputError?.firstName && (
                   <FormHelperText sx={{ color: 'white' }}>
@@ -167,11 +170,13 @@ export default function SignUp() {
                 variant="standard"
                 inputRef={lastNameInputRef}
                 label="Last Name"
+
                 InputProps={{
                   sx: {
                       color: '#e7decd',
                     },
                 }}
+
                 />
                 {inputError?.lastName && (
                   <FormHelperText sx={{ color: 'white' }}>
@@ -190,11 +195,13 @@ export default function SignUp() {
                 variant="standard"
                 inputRef={usernameInputRef}
                 label="Username"
+
                 InputProps={{
                   sx: {
                       color: '#e7decd',
                     },
                 }}
+
                 />
                 {inputError?.username && (
                   <FormHelperText sx={{ color: 'white' }}>

@@ -48,6 +48,7 @@ export default function ServiceCalendar() {
               "& .MuiPickersClockNumber-root.Mui-selected": { color: "#9AC171" }, // Change selected clock number color
               "& .MuiPickersClockNumber-root.Mui-selected:hover": { color: "#9AC171" }, 
               "& .MuiTypography-root": { color: "#34471F" }, // Change typography color
+
             }}
             slotProps={{
               actionBar: {
