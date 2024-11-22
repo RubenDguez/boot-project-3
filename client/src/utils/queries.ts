@@ -12,15 +12,6 @@ export const GET_ME = gql`
   }
 `;
 
-export const ALL_USERS = gql`
-query Users {
-  users {
-    _id
-    username
-  }
-}
-`;
-
 export const SEARCH_CHARITIES = gql`
   query Query($city: String, $cause: String) {
     searchCharities(city: $city, cause: $cause) {

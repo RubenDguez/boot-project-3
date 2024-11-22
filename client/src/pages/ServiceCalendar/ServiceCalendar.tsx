@@ -36,7 +36,7 @@ export default function ServiceCalendar() {
             value={value}
             onChange={(newValue) => setValue(newValue)}
             sx={{
-              height: "100%",
+              maxHeight: '500px',
               backgroundColor: "#9AC171",
               "& .MuiSvgIcon-root": { color: "#34471F" },
               "& .MuiPickersToolbar-content": { textAlign: "center" },

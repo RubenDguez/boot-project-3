@@ -51,15 +51,10 @@ interface AddEvent {
 const resolvers = {
   Query: {
     me: async (_: unknown, _args: unknown, context: Context): Promise<User | null> => {
-      console.log("context", context.user);
       
       if (!context.user) throw new AuthenticationError('Could not find user');
 
       return User.findOne({ _id: context.user._id });
-    },
-
-    users: async (): Promise<User[] | null> => {
-      return User.find();
     },
 
     searchCharities: async (_: unknown, _args: {city: String, cause: String}, _context: Context): Promise<Array<Charity> | null> => {
@@ -81,7 +76,6 @@ const resolvers = {
       }))
     },
     findUserCharities: async (_: unknown, __: unknown, context: Context): Promise<Array<Charity> | null> => {
-      console.log("context", context.user);
 
       if (!context.user) throw new AuthenticationError('Not Authorized');
       // if (context.user._id !== userId) throw new AuthenticationError('Not Authorized');

@@ -80,7 +80,6 @@ const typeDefs = gql`
     post(id: ID!): Post
     searchCharities(city: String, cause: String): [Charity]
     events: [Event]
-    users: [User!]!
     findUserCharities: [Charity]
   }
 

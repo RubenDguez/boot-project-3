@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { USER_CHARITIES } from "../../utils/queries";
 import { useQuery,useMutation } from "@apollo/client";
-import { CREATE_EVENT } from "../../utils/mutations";
+import { ADD_EVENT } from "../../utils/mutations";
 
 interface AddEventProps {
   value: Dayjs | null;
@@ -25,22 +25,18 @@ export default function AddEvent(AddEventProps: AddEventProps) {
   const [open, setOpen] = React.useState(false);
   const [charity, setCharity] = React.useState<any>({});
   // we want set charity to be a single charity object
-  // const [charites, setCharities] = React.useState<any>();
-  const [eventDetails, setEventDetails] = React.useState<any>();
-  const [eventLocation, setEventLocation] = React.useState("");
-  const [eventTime, setEventTime] = React.useState("");
 
-  const [createEvent] = useMutation(CREATE_EVENT);
+  const [createEvent] = useMutation(ADD_EVENT);
   const { data } = useQuery(USER_CHARITIES);
-  console.log("ladata", data);
+  // console.log("ladata", data);
   const charities = data?.findUserCharities || [];
   React.useEffect(() => {
     setCharity(charities);
   }, [data]);
-  console.log("i am set charity", charity);
+  // console.log("i am set charity", charity);
   const { name, locationAddress, description, image } = charity;
-  console.log("i am name", name);
-  console.log("i am charities", charities);
+  // console.log("i am name", name);
+  // console.log("i am charities", charities);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -51,13 +47,28 @@ export default function AddEvent(AddEventProps: AddEventProps) {
 
   const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log({
+      variables: {
+        input:{
+        eventImage: image,
+        eventName: name,
+        eventLocation: locationAddress,
+        eventDate: AddEventProps.value?.format("YYYY-MM-DDTHH:mm"),
+ 
+        }
+      },
+    });
+    
     try {
       await createEvent({
       variables: {
+        input:{
         eventImage: image,
         eventName: name,
-        eventLocation: eventLocation,
-        eventDate: eventTime,
+        eventLocation: locationAddress,
+        eventDate: AddEventProps.value?.format("YYYY-MM-DDTHH:mm"),
+
+        }
       },
     });
     handleClose();
@@ -113,33 +124,31 @@ export default function AddEvent(AddEventProps: AddEventProps) {
                 </MenuItem>
               ))}
             </Select>
-          <DialogContentText>Add Event Location</DialogContentText>
+          <DialogContentText>Charity Name</DialogContentText>
           <TextField
             autoFocus
             required
             margin="dense"
             id="location"
             name="location"
-            label="Event Location"
             type="text"
             fullWidth
             variant="standard"
             value={locationAddress}
-            onChange={(event) => setEventLocation(event.target.value)}
+            disabled
           />
-          <DialogContentText>Event Details</DialogContentText>
+          <DialogContentText>Event Location</DialogContentText>
           <TextField
             autoFocus
             required
             margin="dense"
             id="details"
             name="details"
-            label="Event Details"
             type="text"
             fullWidth
             variant="standard"
             value={description}
-            onChange={(event) => setEventDetails(event.target.value)}
+            disabled
           />
           <DialogContentText>Confirm Time</DialogContentText>
           <TextField
@@ -152,7 +161,7 @@ export default function AddEvent(AddEventProps: AddEventProps) {
             fullWidth
             variant="standard"
             defaultValue={AddEventProps.value?.format("YYYY-MM-DDTHH:mm")}
-            onChange={(event) => setEventTime(event.target.value)}
+            disabled
           />
         </DialogContent>
         <DialogActions>

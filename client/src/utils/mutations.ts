@@ -66,7 +66,7 @@ export const CREATE_POST = gql`
 `;
 
 export const COMPLETE_POST = gql`
-    mutation CompletePost($postId: ID!) {
+    mutation completePost($postId: ID!) {
         completePost(postId: $postId) {
             _id
             status
@@ -77,9 +77,9 @@ export const COMPLETE_POST = gql`
     }
 `;
 // create event for user calendar
-export const CREATE_EVENT = gql`
-  mutation CreateEvent($input: EventInput!) {
-    createEvent(userInput: $input) {
+export const ADD_EVENT = gql`
+  mutation addEvent($input: EventInput!) {
+    addEvent(input: $input) {
       eventName
       eventDate
       eventLocation
