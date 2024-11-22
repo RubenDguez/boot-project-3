@@ -95,6 +95,10 @@ const typeDefs = gql`
     addCharity(input: CharityInput!): User
     addEvent(input: EventInput!): Event
     removeCharity(charityId: ID!): User
+    addRequest(input: RequestInput!): User
+    removeRequest(requestId: ID!): User
+    offerHelp(requestId: ID!): User
+    completeRequest(requestId: ID!): User
   }
 `;
 

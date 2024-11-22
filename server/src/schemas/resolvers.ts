@@ -108,6 +108,31 @@ const resolvers = {
         User.findOneAndUpdate({ _id: context.user._id }, { $pull: { charities: { _id: charityId } } }, { new: true });
     },
 
+    addRequest: async (_: unknown, { input }: { input: { charityId: string; message: string } }, context: Context): Promise<User | null> => {
+      if (!context.user) throw new AuthenticationError('Not Authorized');
+      return await
+        User.findOneAndUpdate({ _id: context.user._id }, { $push: { requests: input } }, { new: true });
+    },
+
+    removeRequest: async (_: unknown, { requestId }: { requestId: string }, context: Context): Promise<User | null> => {
+      if (!context.user) throw new AuthenticationError('Not Authorized');
+      return await
+        User.findOneAndUpdate({ _id: context.user._id }, { $pull: { requests: { _id: requestId } } }, { new: true });
+    },
+
+    offerHelp: async (_: unknown, { requestId }: { requestId: string }, context: Context): Promise<User | null> => {
+      if (!context.user) throw new AuthenticationError('Not Authorized');
+      return await
+        User.findOneAndUpdate({ _id: context.user._id }, { $push: { offers: requestId } }, { new: true });
+    },
+
+    completeRequest: async (_: unknown, { requestId }: { requestId: string }, context: Context): Promise<User | null> => {
+      if (!context.user) throw new AuthenticationError('Not Authorized');
+      return await
+        User.findOneAndUpdate({ _id: context.user._id }, { $push: { completed: requestId } }, { new: true });
+    },
+    
+
     addEvent: async (_: unknown, { input }: AddEvent, context: Context): Promise<Event | null> => {
       if (!context.user) throw new AuthenticationError('Not Authorized');
 
