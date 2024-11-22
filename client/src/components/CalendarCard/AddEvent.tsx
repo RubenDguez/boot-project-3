@@ -13,7 +13,7 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
-import { USER_CHARITIES } from "../../utils/queries";
+import { USER_CHARITIES,GET_EVENTS } from "../../utils/queries";
 import { useQuery,useMutation } from "@apollo/client";
 import { ADD_EVENT } from "../../utils/mutations";
 
@@ -27,12 +27,13 @@ export default function AddEvent(AddEventProps: AddEventProps) {
   // we want set charity to be a single charity object
 
   const [createEvent] = useMutation(ADD_EVENT);
-  const { data } = useQuery(USER_CHARITIES);
+  const { data: userCharitiesData } = useQuery(USER_CHARITIES);
+  const { data: eventsData } = useQuery(GET_EVENTS);
   // console.log("ladata", data);
-  const charities = data?.findUserCharities || [];
+  const charities = userCharitiesData?.findUserCharities || [];
   React.useEffect(() => {
     setCharity(charities);
-  }, [data]);
+  }, [userCharitiesData]);
   // console.log("i am set charity", charity);
   const { name, locationAddress, description, image } = charity;
   // console.log("i am name", name);
@@ -46,19 +47,7 @@ export default function AddEvent(AddEventProps: AddEventProps) {
   };
 
   const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log({
-      variables: {
-        input:{
-        eventImage: image,
-        eventName: name,
-        eventLocation: locationAddress,
-        eventDate: AddEventProps.value?.format("YYYY-MM-DDTHH:mm"),
- 
-        }
-      },
-    });
-    
+    event.preventDefault();    
     try {
       await createEvent({
       variables: {
@@ -67,9 +56,9 @@ export default function AddEvent(AddEventProps: AddEventProps) {
         eventName: name,
         eventLocation: locationAddress,
         eventDate: AddEventProps.value?.format("YYYY-MM-DDTHH:mm"),
-
-        }
+        },
       },
+      refetchQueries: [GET_EVENTS ],
     });
     handleClose();
     } catch (error) {

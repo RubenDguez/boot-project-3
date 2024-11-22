@@ -18,13 +18,12 @@ export default function ServiceCalendar() {
   const [value, setValue] = React.useState<Dayjs | null>(dayjs("2022-04-17"));
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-  console.log(value);
+  // console.log(value);
   useAuth();
   const {data} = useQuery(GET_EVENTS);
   const events = data?.me.events || [];
-  console.log("getevents query", events);
-  
-  console.log("getevents query", data);
+  // console.log("getevents query", events);
+  // console.log("getevents query", data);
 
   return (
     <Grid container spacing={2}>
