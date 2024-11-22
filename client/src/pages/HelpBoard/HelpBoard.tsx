@@ -119,7 +119,7 @@ export default function HelpBoard() {
                                 {Posts.filter(post => post.type === 'offered').map((post) => (
                                     <Card key={post.id} sx={{ backgroundColor: post.status === 'open' ? '#e7decd' : '#34471f', mb: 2 }}>
                                         <CardContent>
-                                            <Typography variant="h6" color="#698f3f" sx={{ textAlign: 'center' }}>{post.title}</Typography>
+                                            <Typography variant="h6" color="#34471f" sx={{ textAlign: 'center' }}>{post.title}</Typography>
                                             <Typography variant="body1" color='black' sx={{ textAlign: 'center' }}>{post.description}</Typography>
                                             <Typography variant="h6" color="#34471f" sx={{ textAlign: 'center' }}>{getLabel(post.type)}{post.date}</Typography>
                                             <Typography variant="caption" color={post.status === 'open' ? 'success.main' : 'text.secondary'} sx={{ textAlign: 'center' }}>
