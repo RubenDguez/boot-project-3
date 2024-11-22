@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 
 const drawerOptions1 = [
-  { label: 'Home', icon: <HomeIcon />, to: '/app/home' },
+  { label: 'Home', icon: <HomeIcon />, to: '/app' },
   { label: 'Charity Search', icon: <VolunteerActivismIcon />, to: '/app/charity-search' },
   { label: 'Service Calendar', icon: <CalendarMonthIcon />, to: '/app/service-calendar' },
   { label: 'Help Board', icon: <HandshakeIcon />, to: '/app/help-board' },
