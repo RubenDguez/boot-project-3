@@ -79,7 +79,7 @@ export default function Login() {
               justifyContent: 'end',
             }}
           >
-            <Button data-testid="back-button" color="secondary" onClick={() => navigate('/')}>
+            <Button data-testid="back-button" color="primary" onClick={() => navigate('/')}>
               <ArrowBackIcon /> Back
             </Button>
           </Box>
@@ -142,7 +142,7 @@ export default function Login() {
               />
             </FormControl>
             <FormControl>
-              <Button data-testid="submit" id="submit" type="submit" variant="outlined" color="secondary">
+              <Button data-testid="submit" id="submit" type="submit" variant="outlined" color="primary">
                 Submit
               </Button>
             </FormControl>
