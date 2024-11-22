@@ -90,6 +90,7 @@ const typeDefs = gql`
     completePost(postId: ID!): Post
     addCharity(input: CharityInput!): User
     addEvent(input: EventInput!):Event
+    deleteEvent(eventId: ID!): Event
   }
 `;
 

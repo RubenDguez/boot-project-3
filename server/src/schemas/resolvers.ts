@@ -124,7 +124,19 @@ const resolvers = {
       );
 
       return updatedUser ? input : null;
-    }
+    },
+
+    deleteEvent: async (_: unknown, { eventId }: { eventId: string }, context: Context): Promise<Event | null> => {
+      if (!context.user) throw new AuthenticationError('Not Authorized');
+
+      const updatedUser = await User.findOneAndUpdate(
+        { _id: context.user._id },
+        { $pull: { events: { _id: eventId } } },
+        { new: true }
+      );
+
+      return updatedUser ? null : null;
+    },
   },
 };
 

@@ -12,9 +12,10 @@ import {
   DialogContentText,
   DialogTitle,
   TextField,
+  Box,
 } from "@mui/material";
-import { USER_CHARITIES,GET_EVENTS } from "../../utils/queries";
-import { useQuery,useMutation } from "@apollo/client";
+import { USER_CHARITIES, GET_EVENTS } from "../../utils/queries";
+import { useQuery, useMutation } from "@apollo/client";
 import { ADD_EVENT } from "../../utils/mutations";
 
 interface AddEventProps {
@@ -29,7 +30,7 @@ export default function AddEvent(AddEventProps: AddEventProps) {
   const [createEvent] = useMutation(ADD_EVENT);
   const { data: userCharitiesData } = useQuery(USER_CHARITIES);
   const { data: eventsData } = useQuery(GET_EVENTS);
-  // console.log("ladata", data);
+  console.log("Events", eventsData);
   const charities = userCharitiesData?.findUserCharities || [];
   React.useEffect(() => {
     setCharity(charities);
@@ -46,35 +47,37 @@ export default function AddEvent(AddEventProps: AddEventProps) {
     setOpen(false);
   };
 
-  const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();    
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     try {
       await createEvent({
-      variables: {
-        input:{
-        eventImage: image,
-        eventName: name,
-        eventLocation: locationAddress,
-        eventDate: AddEventProps.value?.format("YYYY-MM-DDTHH:mm"),
+        variables: {
+          input: {
+            eventImage: image,
+            eventName: name,
+            eventLocation: locationAddress,
+            eventDate: AddEventProps.value?.format("YYYY-MM-DDTHH:mm"),
+          },
         },
-      },
-      refetchQueries: [GET_EVENTS ],
-    });
-    handleClose();
+        refetchQueries: [GET_EVENTS],
+      });
+      handleClose();
     } catch (error) {
       console.log("Error creating event:", error);
     }
   };
 
   return (
-    <React.Fragment>
-      <IconButton
-        aria-label="add event"
-        sx={{ color: "#E7DECD" }}
-        onClick={handleClickOpen}
-      >
-        <AddCircleIcon fontSize="large" />
-      </IconButton>
+    <Box>
+      <Box sx={{width:'100%',display:'flex',justifyContent:'center'}}>
+        <IconButton
+          aria-label="add event"
+          sx={{ color: "#E7DECD" }}
+          onClick={handleClickOpen}
+        >
+          <AddCircleIcon fontSize="large" />
+        </IconButton>
+      </Box>
       <Dialog
         open={open}
         onClose={handleClose}
@@ -88,31 +91,31 @@ export default function AddEvent(AddEventProps: AddEventProps) {
           <DialogContentText>
             Confirm Event Information before adding to the calendar.
           </DialogContentText>
-            <Select
-              autoFocus
-              required
-              margin="dense"
-              id="name"
-              name="name"
-              label="Event Name"
-              value={name}
-              // need to the name value of the charity
-              onChange={(event) => {
-                const selectedCharity = charities.find((c: any) => c.name === event.target.value);
-                setCharity(selectedCharity);
-              }}
-              type="text"
-              fullWidth
-              variant="standard"
-            >
-              {charities?.map((charity: any) => (
-                <MenuItem 
-                key={charity.id} 
-                value={charity.name}>
-                  {charity.name}
-                </MenuItem>
-              ))}
-            </Select>
+          <Select
+            autoFocus
+            required
+            margin="dense"
+            id="name"
+            name="name"
+            label="Event Name"
+            value={name}
+            // need to the name value of the charity
+            onChange={(event) => {
+              const selectedCharity = charities.find(
+                (c: any) => c.name === event.target.value
+              );
+              setCharity(selectedCharity);
+            }}
+            type="text"
+            fullWidth
+            variant="standard"
+          >
+            {charities?.map((charity: any) => (
+              <MenuItem key={charity.id} value={charity.name}>
+                {charity.name}
+              </MenuItem>
+            ))}
+          </Select>
           <DialogContentText>Charity Name</DialogContentText>
           <TextField
             autoFocus
@@ -158,8 +161,6 @@ export default function AddEvent(AddEventProps: AddEventProps) {
           <Button type="submit">ADD</Button>
         </DialogActions>
       </Dialog>
-    </React.Fragment>
+    </Box>
   );
 }
-
-
