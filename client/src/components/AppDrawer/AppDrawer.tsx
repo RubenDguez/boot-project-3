@@ -19,8 +19,8 @@ import useAuth from '../../hooks/useAuth';
 const drawerOptions1 = [
   { label: 'Home', icon: <HomeIcon />, to: '/app' },
   { label: 'Charity Search', icon: <VolunteerActivismIcon />, to: '/app/charity-search' },
-  { label: 'Service Calendar', icon: <CalendarMonthIcon />, to: '/app/service-calendar' },
   { label: 'Help Board', icon: <HandshakeIcon />, to: '/app/help-board' },
+  { label: 'Service Calendar', icon: <CalendarMonthIcon />, to: '/app/service-calendar' },
 ];
 
 export default function AppDrawer({ open, setOpen }: { open: boolean; setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
@@ -51,7 +51,7 @@ export default function AppDrawer({ open, setOpen }: { open: boolean; setOpen: R
     <div>
       <Drawer open={open} onClose={() => setOpen(false)} PaperProps={{ sx: { backgroundColor: '#9ac171', color: '#2e382e' } }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: '2rem', justifyContent: 'center', alignItems: 'center', padding: '2rem 0px' }}>
-          <Avatar sx={{ backgroundColor: '#34471f', color: 'white', width: 112, height: 112 }} alt="Better Together Logo" src="/logoimage.png" />
+          <Avatar sx={{ backgroundColor: '#698f3f  ', color: 'white', width: 120, height: 112  }} alt="Better Together Logo" src="/logorepeat.png" />
           <Typography variant="h5">Better Together</Typography>
         </Box>
         <Divider />
