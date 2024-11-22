@@ -17,8 +17,17 @@ export default function NotFound() {
         alignItems: 'center'
       }}>
         <Typography variant='h4' sx={{ borderRight: '2px solid black', paddingRight: '2rem' }}>404</Typography>
-        <Typography variant='button'>This page was not found</Typography>
+        <Typography variant='h6' >Woah! You've gone BANANAS!</Typography>
       </Box>
-    </Box>
+      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '2rem' }}>
+      <iframe
+          src="https://giphy.com/embed/H8uuXYln5pxVVLFn7k"
+          height="270"
+          frameBorder="0"
+          allowFullScreen
+          title="Bananas GIF"
+        ></iframe>
+      </Box>
+    </Box> 
   );
 }
