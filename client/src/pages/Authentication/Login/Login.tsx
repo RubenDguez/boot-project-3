@@ -1,6 +1,6 @@
 import { useMutation } from '@apollo/client';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Alert, Box, Button, Container, FormControl, Paper, TextField, Typography } from '@mui/material';
+import { Alert, Box, Button, Container, FormControl, Paper, TextField, Typography, GlobalStyles } from '@mui/material';
 import { FormEvent, useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
@@ -54,6 +54,22 @@ export default function Login() {
 
   return (
     <Box sx={{ display: 'grid', height: '100vh', gridTemplateRows: 'auto', alignItems: 'center' }}>
+      <GlobalStyles
+           styles={{
+            'input:-webkit-autofill': {
+              WebkitBoxShadow: '0 0 0 1000px #e7decd inset',
+              WebkitTextFillColor: '#000000',
+            },
+            'input:-webkit-autofill:focus': {
+              WebkitBoxShadow: '0 0 0 1000px #e7decd inset',
+              WebkitTextFillColor: '#000000',
+            },
+            'input:-webkit-autofill:hover': {
+              WebkitBoxShadow: '0 0 0 1000px #e7decd inset',
+              WebkitTextFillColor: '#000000',
+            },
+        }}
+      />
       <Container maxWidth="sm">
         <Paper elevation={4} sx={{ padding: '2rem 5rem 3rem 5rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           <Box
@@ -63,7 +79,7 @@ export default function Login() {
               justifyContent: 'end',
             }}
           >
-            <Button data-testid="back-button" color="secondary" onClick={() => navigate('/')}>
+            <Button data-testid="back-button" color="primary" onClick={() => navigate('/')}>
               <ArrowBackIcon /> Back
             </Button>
           </Box>
@@ -72,8 +88,8 @@ export default function Login() {
               <Typography>{loginError}</Typography>
             </Alert>
           )}
-          <Typography data-testid="login-header" variant="h4">
-            Login
+          <Typography data-testid="login-header" variant="h4" sx={{ textAlign: 'center', color: '#e7decd' }}>
+        LOGIN
           </Typography>
           <form
             data-testid="login-form"
@@ -99,7 +115,11 @@ export default function Login() {
                 inputRef={usernameInputRef}
                 label="Username / Email"
                 helperText={inputError?.username}
-                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } } }}
+                InputProps={{
+                  sx: {
+                      color: '#e7decd',
+                    },
+                }}
               />
             </FormControl>
             <FormControl>
@@ -114,11 +134,15 @@ export default function Login() {
                 inputRef={passwordInputRef}
                 label="Password"
                 helperText={inputError?.password}
-                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } } }}
+                InputProps={{
+                 sx: {
+                    color: '#e7decd',
+                  },
+                }}
               />
             </FormControl>
             <FormControl>
-              <Button data-testid="submit" id="submit" type="submit" variant="outlined" color="secondary">
+              <Button data-testid="submit" id="submit" type="submit" variant="outlined" color="primary">
                 Submit
               </Button>
             </FormControl>

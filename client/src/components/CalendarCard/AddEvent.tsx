@@ -86,9 +86,11 @@ export default function AddEvent(AddEventProps: AddEventProps) {
           onSubmit: handleSubmit,
         }}
       >
-        <DialogTitle>AddEvent</DialogTitle>
+      
+        <DialogTitle sx={{ backgroundColor: '#698f3f', color: 'white', textAlign: 'center' }} >Add Event</DialogTitle>
         <DialogContent>
-          <DialogContentText>
+          <br></br>
+          <DialogContentText sx={{ color: '#9ac171', textAlign: 'center' }}>
             Confirm Event Information before adding to the calendar.
           </DialogContentText>
           <Select
@@ -154,6 +156,11 @@ export default function AddEvent(AddEventProps: AddEventProps) {
             variant="standard"
             defaultValue={AddEventProps.value?.format("YYYY-MM-DDTHH:mm")}
             disabled
+            InputProps={{
+              sx: {
+                color: 'primary.main', // Change the color of the date text here
+              },
+            }}
           />
         </DialogContent>
         <DialogActions>

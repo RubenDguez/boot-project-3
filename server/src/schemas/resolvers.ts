@@ -1,6 +1,4 @@
-import { User } from '../models/index.js';
-import { Charity } from '../models/index.js';
-// import Event from '../models/event.js';
+import { User, Charity } from '../models/index.js';
 import fetch from 'node-fetch';
 
 interface Event {
@@ -56,14 +54,11 @@ const resolvers = {
 
       return User.findOne({ _id: context.user._id });
     },
-
     searchCharities: async (_: unknown, _args: {city: String, cause: String}, _context: Context): Promise<Array<Charity> | null> => {
       const {REACT_APP_EVERY_API_KEY} = process.env;
       const response = await fetch(`https://partners.every.org/v0.2/search/${_args.city}?causes=${_args.cause}&apiKey=${REACT_APP_EVERY_API_KEY}`);
       const json = await response.json();
       const data = await json
-
-      // console.log(data);
 
       return data.nonprofits.map((obj: any) => ({
         _id: obj.ein,
@@ -112,6 +107,12 @@ const resolvers = {
     addCharity: async (_: unknown, { input }: { input: Charity }, context: Context): Promise<User | null> => {
       if (!context.user) throw new AuthenticationError('Not Authorized');
       return await User.findOneAndUpdate({ _id: context.user._id }, { $push: { charities: input } }, { new: true }).populate('charities');
+    },
+
+    removeCharity: async (_: unknown, { charityId }: { charityId: string }, context: Context): Promise<User | null> => {
+      if (!context.user) throw new AuthenticationError('Not Authorized');
+      return await
+        User.findOneAndUpdate({ _id: context.user._id }, { $pull: { charities: { _id: charityId } } }, { new: true });
     },
 
     addEvent: async (_: unknown, { input }: AddEvent, context: Context): Promise<Event | null> => {

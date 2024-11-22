@@ -50,6 +50,14 @@ const typeDefs = gql`
     eventImage: String!
   }
 
+  type Event {
+    _id: ID!
+    eventName: String!
+    eventDate: String!
+    eventLocation: String!
+    eventImage: String!
+  }
+
   input UserInput {
     firstName: String!
     lastName: String!
@@ -79,6 +87,7 @@ const typeDefs = gql`
     posts: [Post]!
     post(id: ID!): Post
     searchCharities(city: String, cause: String): [Charity]
+    searchCharities(city: String, cause: String): [Charity]
     events: [Event]
     findUserCharities: [Charity]
   }
@@ -89,6 +98,8 @@ const typeDefs = gql`
     createPost(title: String!, description: String!, payment: String!): Post
     completePost(postId: ID!): Post
     addCharity(input: CharityInput!): User
+    addEvent(input: EventInput!): Event
+    removeCharity(charityId: ID!): User
     addEvent(input: EventInput!):Event
     deleteEvent(eventId: ID!): Event
   }

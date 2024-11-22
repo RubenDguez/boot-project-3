@@ -9,10 +9,10 @@ export default function Landing() {
       <Box
         component="section"
         sx={{
-          backgroundColor: 'black',
+          backgroundColor: 'secondary.main',
         }}
       >
-        <Typography color="info">Additional information in this section</Typography>
+        <Typography color="tertiary.main"></Typography>
       </Box>
       <Footer />
     </Container>

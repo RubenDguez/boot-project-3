@@ -50,6 +50,26 @@ export const ADD_CHARITY = gql`
     }
   }
 `;
+export const ADD_CHARITY = gql`
+  mutation AddCharity($input: CharityInput!) {
+    addCharity(input: $input) {
+      _id
+      email
+      firstName
+      lastName
+      username
+      charities {
+        _id
+        name
+        description
+        image
+        website
+        locationAddress
+        nonprofitTags
+      }
+    }
+  }
+`;
 export const CREATE_POST = gql`
     mutation CreatePost($title: String!, $description: String!, $payment: String!) {
         createPost(title: $title, description: $description, payment: $payment) {
@@ -92,6 +112,29 @@ export const DELETE_EVENT = gql`
   mutation deleteEvent($eventId: ID!) {
     deleteEvent(eventId: $eventId) {
       _id
+    }
+  }
+`;
+
+
+
+export const REMOVE_CHARITY = gql`
+  mutation RemoveCharity($charityId: ID!) {
+    removeCharity(charityId: $charityId) {
+      _id
+      email
+      firstName
+      lastName
+      username
+      charities {
+        _id
+        name
+        description
+        image
+        website
+        locationAddress
+        nonprofitTags
+      }
     }
   }
 `;
