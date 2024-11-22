@@ -1,8 +1,10 @@
-import { Schema, model, type Document } from 'mongoose';
-import bcrypt from 'bcrypt';
-import type {CharityDocument} from './charity.js';
-import CharitySchema from './charity.js';
-import EventSchema from './event.js';
+import { Schema, model, type Document } from "mongoose";
+import bcrypt from "bcrypt";
+import type { CharityDocument } from "./charity.js";
+import CharitySchema from "./charity.js";
+import EventSchema from "./event.js";
+import helpBoardSchema from "./helpBoard.js";
+import type { HelpBoardDocoument } from "./helpBoard.js";
 
 export interface UserDocument extends Document {
   _id: string;
@@ -11,8 +13,9 @@ export interface UserDocument extends Document {
   username: string;
   email: string;
   password: string;
-  charities:  CharityDocument[];
-  events: typeof EventSchema[];
+  charities: CharityDocument[];
+  helpBoards: HelpBoardDocoument[];
+  events: (typeof EventSchema)[];
   isCorrectPassword(password: string): Promise<boolean>;
 }
 
@@ -37,21 +40,22 @@ const userSchema = new Schema<UserDocument>(
       type: String,
       required: true,
       unique: true,
-      match: [/.+@.+\..+/, 'Must use a valid email address'],
+      match: [/.+@.+\..+/, "Must use a valid email address"],
     },
     password: {
       type: String,
       required: true,
     },
-    charities: [
-      CharitySchema
-    ],
+    charities: [CharitySchema],
     events: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Event',
-      }
-    ]
+        ref: "Event",
+      },
+    ],
+    helpBoards: [helpBoardSchema],
+    
+
   },
   {
     toJSON: {
@@ -60,8 +64,8 @@ const userSchema = new Schema<UserDocument>(
   }
 );
 
-userSchema.pre('save', async function (next) {
-  if (this.isNew || this.isModified('password')) {
+userSchema.pre("save", async function (next) {
+  if (this.isNew || this.isModified("password")) {
     const saltRounds = 10;
     this.password = await bcrypt.hash(this.password, saltRounds);
   }
@@ -73,6 +77,6 @@ userSchema.methods.isCorrectPassword = async function (password: string) {
   return await bcrypt.compare(password, this.password);
 };
 
-const User = model<UserDocument>('User', userSchema);
+const User = model<UserDocument>("User", userSchema);
 
 export default User;

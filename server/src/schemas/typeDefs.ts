@@ -13,48 +13,17 @@ const typeDefs = gql`
     username: String
     email: String
     charities: [Charity]
-  }
-
-  type Post {
-  _id: ID!
-  title: String!
-  description: String!
-  payment: String!
-  status: String!
-  createdBy: User!
-  completedBy: User
-  createdAt: String!
-}
-
-  type Auth {
-    token: ID!
-    user: User
+    helpBoards: [HelpBoard]
   }
 
   type Charity {
     _id: ID!
     name: String!
     description: String!
-    image: String
-    website: String
+    image: String!
+    website: String!
     locationAddress: String!
-    # nonprofitTags: [String]!
-  }
-
-  type Event {
-    _id: ID!
-    eventName: String!
-    eventDate: String!
-    eventLocation: String!
-    eventImage: String!
-  }
-
-  type Event {
-    _id: ID!
-    eventName: String!
-    eventDate: String!
-    eventLocation: String!
-    eventImage: String!
+    nonprofitTags: [String]!
   }
 
   input UserInput {
@@ -73,32 +42,39 @@ const typeDefs = gql`
     locationAddress: String!
     nonprofitTags: [String]!
   }
-  input EventInput {
-    eventName: String!
-    eventDate: String!
-    eventLocation: String!
-    eventImage: String!
+
+  type HelpBoard {
+    _id: ID!
+    title: String!
+    description: String!
+    date: String!
+    status: String!
+    createdBy: String!
+    completedBy: String
+  }
+
+  input HelpBoardInput {
+    title: String!
+    description: String!
+    date: String!
+    status: String!
+    createdBy: String!
+    completedBy: String
   }
 
   type Query {
     me: User
-    posts: [Post]!
-    post(id: ID!): Post
-    searchCharities(city: String, cause: String): [Charity]
+    charities: [Charity]
+    charity(_id: ID!): Charity
   }
 
   type Mutation {
     login(username: String!, password: String!): Auth
     addUser(input: UserInput!): Auth
-    createPost(title: String!, description: String!, payment: String!): Post
-    completePost(postId: ID!): Post
     addCharity(input: CharityInput!): User
-    addEvent(input: EventInput!): Event
     removeCharity(charityId: ID!): User
-    addRequest(input: RequestInput!): User
-    removeRequest(requestId: ID!): User
-    offerHelp(requestId: ID!): User
-    completeRequest(requestId: ID!): User
+    addHelpBoard(input: HelpBoardInput!): User
+    removeHelpBoard(helpBoardId: ID!): User
   }
 `;
 
