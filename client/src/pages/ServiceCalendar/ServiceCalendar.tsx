@@ -68,18 +68,17 @@ export default function ServiceCalendar() {
       <Grid size={{lg:6,xs:12}}>
         <Stack spacing={1}>
           <AddEvent value={value} />
-          {}
           {events.map((event: any) => {
             return (
               <CalendarCard
-                key={event._id}
-                title={event.eventName}
-                date={event.eventDate}
-                location={event.eventLocation}
+              id={event._id}
+              key={event._id}
+              title={event.eventName}
+              date={event.eventDate}
+              location={event.eventLocation}
               />
             );
           })}
-          {/* <CalendarCard /> */}
         </Stack>
       </Grid>
     </Grid>

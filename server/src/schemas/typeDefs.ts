@@ -89,7 +89,6 @@ const typeDefs = gql`
     searchCharities(city: String, cause: String): [Charity]
     events: [Event]
     findUserCharities: [Charity]
-    searchCharities(city: String, cause: String): [Charity]
   }
 
   type Mutation {

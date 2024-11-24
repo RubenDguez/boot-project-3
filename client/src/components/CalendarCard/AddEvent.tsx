@@ -25,20 +25,15 @@ interface AddEventProps {
 export default function AddEvent(AddEventProps: AddEventProps) {
   const [open, setOpen] = React.useState(false);
   const [charity, setCharity] = React.useState<any>({});
-  // we want set charity to be a single charity object
-
   const [createEvent] = useMutation(ADD_EVENT);
   const { data: userCharitiesData } = useQuery(USER_CHARITIES);
   const { data: eventsData } = useQuery(GET_EVENTS);
-  console.log("Events", eventsData);
+  // console.log("Events", eventsData);
   const charities = userCharitiesData?.findUserCharities || [];
   React.useEffect(() => {
     setCharity(charities);
   }, [userCharitiesData]);
-  // console.log("i am set charity", charity);
   const { name, locationAddress, description, image } = charity;
-  // console.log("i am name", name);
-  // console.log("i am charities", charities);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -86,7 +81,6 @@ export default function AddEvent(AddEventProps: AddEventProps) {
           onSubmit: handleSubmit,
         }}
       >
-      
         <DialogTitle sx={{ backgroundColor: '#698f3f', color: 'white', textAlign: 'center' }} >Add Event</DialogTitle>
         <DialogContent>
           <br></br>
@@ -101,7 +95,6 @@ export default function AddEvent(AddEventProps: AddEventProps) {
             name="name"
             label="Event Name"
             value={name}
-            // need to the name value of the charity
             onChange={(event) => {
               const selectedCharity = charities.find(
                 (c: any) => c.name === event.target.value
