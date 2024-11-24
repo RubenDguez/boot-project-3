@@ -27,6 +27,15 @@ interface AddUser {
 interface Context {
   user?: User;
 }
+
+interface AddEvent {
+  input: {
+    eventName: string;
+    eventDate: string;
+    eventLocation: string;
+    eventImage: string;
+  };
+}
 interface Charity {
   _id: string;
   name: string;
@@ -126,6 +135,8 @@ const resolvers = {
         { $push: { charities: input } },
         { new: true }
       );
+
+      return updatedUser ? input : null;
     },
 
   

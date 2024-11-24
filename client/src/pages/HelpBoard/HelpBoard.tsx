@@ -21,7 +21,12 @@ interface Post {
   status: 'open' | 'completed';
   createdBy: string;
   completedBy?: string;
+  type: 'needed' | 'offered';
 }
+
+const getLabel = (type: 'needed' | 'offered') => {
+    return type === 'needed' ? 'Needed by: ' : 'Offered on: ';
+};
 
 export default function HelpBoard() {
     useAuth();
@@ -31,7 +36,8 @@ export default function HelpBoard() {
     const [newPost, setNewPost] = useState<Omit<Post, 'id' | 'status' | 'createdBy' | 'completedBy'>>({
         title: '',
         description: '',
-        date: ''
+        date: '',
+        type: 'needed',
     });
 
     const handleAddPost = (type: 'needed' | 'offered') => {
