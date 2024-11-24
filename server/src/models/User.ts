@@ -47,13 +47,8 @@ const userSchema = new Schema<UserDocument>(
       required: true,
     },
     charities: [CharitySchema],
-    events: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Event",
-      },
-    ],
-    helpBoards: [helpBoardSchema]
+    events: [EventSchema],
+    helpBoards: [helpBoardSchema],
   },
   {
     toJSON: {

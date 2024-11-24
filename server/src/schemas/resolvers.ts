@@ -1,4 +1,4 @@
-import { User, Charity, HelpBoard } from "../models/index.js";
+import { User, Charity, HelpBoard, Event } from "../models/index.js";
 import { AuthenticationError, signToken } from "../utils/auth.js";
 
 import fetch from 'node-fetch';

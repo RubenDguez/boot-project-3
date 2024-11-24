@@ -17,6 +17,7 @@ const typeDefs = gql`
     helpBoards: [HelpBoard]
   }
 
+
   type Post {
   _id: ID!
   title: String!
@@ -28,10 +29,6 @@ const typeDefs = gql`
   createdAt: String!
   }
 
-  type Auth {
-    token: ID!
-    user: User
-  }
 
   type Charity {
     _id: ID!
@@ -41,6 +38,14 @@ const typeDefs = gql`
     website: String!
     locationAddress: String!
     nonprofitTags: [String]!
+  }
+
+  type Event {
+    _id: ID!
+    eventName: String!
+    eventDate: String!
+    eventLocation: String!
+    eventImage: String!
   }
 
   input UserInput {
