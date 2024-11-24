@@ -56,6 +56,8 @@ export default function AddEvent(AddEventProps: AddEventProps) {
         },
         refetchQueries: [GET_EVENTS],
       });
+      console.log("Event created");
+
       handleClose();
     } catch (error) {
       console.log("Error creating event:", error);

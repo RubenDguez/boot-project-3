@@ -72,7 +72,7 @@ const typeDefs = gql`
     image: String!
     website: String!
     locationAddress: String!
-    nonprofitTags: [String]!
+    nonprofitTags: [String]
   }
 
   input EventInput {
@@ -96,7 +96,7 @@ const typeDefs = gql`
     addUser(input: UserInput!): Auth
     createPost(title: String!, description: String!, payment: String!): Post
     completePost(postId: ID!): Post
-    addCharity(input: CharityInput!): User
+    addCharity(input: CharityInput!): Charity
     removeCharity(charityId: ID!): User
     addEvent(input: EventInput!):Event
     deleteEvent(eventId: ID!): Event

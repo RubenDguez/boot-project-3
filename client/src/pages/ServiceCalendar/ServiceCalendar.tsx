@@ -76,6 +76,7 @@ export default function ServiceCalendar() {
               title={event.eventName}
               date={event.eventDate}
               location={event.eventLocation}
+              image={event.eventImage}
               />
             );
           })}

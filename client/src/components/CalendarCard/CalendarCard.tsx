@@ -9,6 +9,7 @@ interface CalendarCardProps {
   title: string;
   date: string;
   location: string;
+  image: string;
 }
 
 const CalendarCard: React.FC<CalendarCardProps> = ({
@@ -16,6 +17,7 @@ const CalendarCard: React.FC<CalendarCardProps> = ({
   date,
   location,
   id,
+  image
 }) => {
   const { data } = useQuery(GET_EVENTS);
   const [deleteEvent] = useMutation(DELETE_EVENT);
@@ -52,7 +54,7 @@ const CalendarCard: React.FC<CalendarCardProps> = ({
           <CardMedia
             component="img"
             sx={{ width: "150px", display: { xs: "none", sm: "flex" } }}
-            image={Charity}
+            image={image}
             alt="random"
           />
           <Box sx={{width:'100%'}}>
