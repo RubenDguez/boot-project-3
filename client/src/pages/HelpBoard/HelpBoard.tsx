@@ -13,8 +13,6 @@ import {
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
 
-
-
 interface Post {
   id: string;
   title: string;

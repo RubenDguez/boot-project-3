@@ -98,3 +98,64 @@ export const REMOVE_CHARITY = gql`
     }
   }
 `;
+
+export const ADD_HELP_BOARD = gql`
+  mutation AddHelpBoard($input: HelpBoardInput!) {
+    addHelpBoard(input: $input) {
+      _id
+      firstName
+      lastName
+      username
+      email
+      charities {
+        _id
+        name
+        description
+        image
+        website
+        locationAddress
+        nonprofitTags
+      }
+      helpBoards {
+        _id
+        title
+        description
+        date
+        status
+        createdBy
+        completedBy
+      }
+    }
+  }
+`;
+
+
+export const REMOVE_HELP_BOARD = gql`
+  mutation RemoveHelpBoard($helpBoardId: ID!) {
+    removeHelpBoard(helpBoardId: $helpBoardId) {
+      _id
+      firstName
+      lastName
+      username
+      email
+      charities {
+        _id
+        name
+        description
+        image
+        website
+        locationAddress
+        nonprofitTags
+      }
+      helpBoards {
+        _id
+        title
+        description
+        date
+        status
+        createdBy
+        completedBy
+      }
+    }
+  }
+`;
