@@ -99,6 +99,7 @@ const typeDefs = gql`
     searchCharities(city: String, cause: String): [Charity]
     events: [Event]
     findUserCharities: [Charity]
+    findAllHelpBoards: [HelpBoard]
   }
 
   type Mutation {

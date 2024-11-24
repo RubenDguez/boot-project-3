@@ -53,11 +53,10 @@ export const ADD_CHARITY = gql`
 `;
 export const CREATE_POST = gql`
     mutation CreatePost($title: String!, $description: String!, $payment: String!) {
-        createPost(title: $title, description: $description, payment: $payment) {
+        createPost(title: $title, description: $description) {
             _id
             title
             description
-            payment
             status
             createdBy {
                 username
@@ -123,20 +122,29 @@ export const REMOVE_CHARITY = gql`
 export const ADD_HELP_BOARD = gql`
   mutation AddHelpBoard($input: HelpBoardInput!) {
     addHelpBoard(input: $input) {
+    firstName
+    lastName
+    helpBoards {
+      _id
+      title
+      description
+      date
+      status
+      createdBy
+      completedBy
+    }
+  }
+  }
+`;
+
+
+export const REMOVE_HELP_BOARD = gql`
+  mutation RemoveHelpBoard($helpBoardId: ID!) {
+    removeHelpBoard(helpBoardId: $helpBoardId) {
       _id
       firstName
       lastName
-      username
-      email
-      charities {
-        _id
-        name
-        description
-        image
-        website
-        locationAddress
-        nonprofitTags
-      }
+     
       helpBoards {
         _id
         title
@@ -151,31 +159,15 @@ export const ADD_HELP_BOARD = gql`
 `;
 
 
-export const REMOVE_HELP_BOARD = gql`
-  mutation RemoveHelpBoard($helpBoardId: ID!) {
-    removeHelpBoard(helpBoardId: $helpBoardId) {
+export const FindAllPosts = gql`
+  query FindAllPosts {
+    findAllPosts {
       _id
-      firstName
-      lastName
-      username
-      email
-      charities {
-        _id
-        name
-        description
-        image
-        website
-        locationAddress
-        nonprofitTags
-      }
-      helpBoards {
-        _id
-        title
-        description
-        date
-        status
-        createdBy
-        completedBy
+      title
+      description
+      status
+      createdBy {
+        username
       }
     }
   }

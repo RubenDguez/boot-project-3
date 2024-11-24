@@ -88,6 +88,14 @@ const resolvers = {
       const user = await User.findOne({ _id: context.user._id }).populate('charities');
       return user ? user.charities : null;
     },
+
+    findAllHelpBoards: async (_: unknown, __: unknown, context: Context): Promise<Array<HelpBoard> | null> => {
+      if (!context.user) throw new AuthenticationError('Not Authorized');
+      const user = await User.findOne({ _id: context.user._id }).populate('helpBoards');
+      return user ? (user.helpBoards as HelpBoard[]) : null;
+    
+    },
+    
     
   },
 
