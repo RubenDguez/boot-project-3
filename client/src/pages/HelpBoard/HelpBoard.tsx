@@ -66,7 +66,7 @@ export default function HelpBoard() {
         <Box sx={{ p: 2 }}>
             <Grid container spacing={3}>
                 <Grid item xs={10} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-                    <Typography variant="h2">Help Board</Typography>
+                    <Typography variant="h2"></Typography>
                 </Grid>
                 
                 <Grid item xs={12}>
@@ -91,18 +91,18 @@ export default function HelpBoard() {
                     <Grid item xs={10} md={3}>
                            
                             {Posts.filter(post => post.type === 'needed').map((post) => (
-                                <Card key={post.id} sx={{ backgroundColor: post.status === 'open' ? '#e7decd' : '#34471f', mb: 2 }}>
+                                <Card key={post.id} sx={{ backgroundColor: post.status === 'open' ? '#34471f' : '#698f3f', mb: 2 }}>
                                     <CardContent>
                                             <Typography variant="h6" color="#698f3f" sx={{ textAlign: 'center' }}>{post.title}</Typography>
                                             <Typography variant="body1" color='black' sx={{ textAlign: 'center' }}>{post.description}</Typography>
-                                            <Typography variant="h6" color="#34471f" sx={{ textAlign: 'center' }}>{getLabel(post.type)}{post.date}</Typography>
+                                            <Typography variant="h6" color="#e7decd" sx={{ textAlign: 'center' }}>{getLabel(post.type)}{post.date}</Typography>
                                             <Typography variant="caption" color={post.status === 'open' ? 'success.main' : 'text.secondary'} sx={{ textAlign: 'center' }}>
                                                 Status: {post.status}
                                             </Typography>
                                             {post.status === 'open' && (
                                                 <Button 
                                                     variant="contained" 
-                                                    color="secondary" 
+                                                    color="primary" 
                                                     fullWidth 
                                                     sx={{ mt: 2 }}
                                                     onClick={() => handleComplete(post.id)}
@@ -117,9 +117,9 @@ export default function HelpBoard() {
                             <Grid item xs={10} md={3}>
                                
                                 {Posts.filter(post => post.type === 'offered').map((post) => (
-                                    <Card key={post.id} sx={{ backgroundColor: post.status === 'open' ? '#e7decd' : '#34471f', mb: 2 }}>
+                                    <Card key={post.id} sx={{ backgroundColor: post.status === 'open' ? '#e7decd' : '#698f3f', mb: 2 }}>
                                         <CardContent>
-                                            <Typography variant="h6" color="#34471f" sx={{ textAlign: 'center' }}>{post.title}</Typography>
+                                            <Typography variant="h6" color="#698f3f" sx={{ textAlign: 'center' }}>{post.title}</Typography>
                                             <Typography variant="body1" color='black' sx={{ textAlign: 'center' }}>{post.description}</Typography>
                                             <Typography variant="h6" color="#34471f" sx={{ textAlign: 'center' }}>{getLabel(post.type)}{post.date}</Typography>
                                             <Typography variant="caption" color={post.status === 'open' ? 'success.main' : 'text.secondary'} sx={{ textAlign: 'center' }}>

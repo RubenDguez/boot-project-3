@@ -48,6 +48,9 @@ export default function CharitySearch() {
         onChange={(e) => setCity(e.target.value)}
         variant="outlined"
         margin="normal"
+        sx={{ width: '20%', marginBottom: "2rem", backgroundColor: '#9ac171', color: '#34471f', borderRadius: '2px' }}
+      InputProps={{ 
+        style: {color: '#9ac171'}}}
       />
       <TextField
         label="Cause"
