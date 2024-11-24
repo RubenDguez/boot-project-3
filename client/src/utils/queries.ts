@@ -24,3 +24,30 @@ export const SEARCH_CHARITIES = gql`
     }
   }
 `;
+// find user's charities
+export const USER_CHARITIES = gql`
+query FindUserCharities {
+  findUserCharities {
+    _id
+    name
+    description
+    image
+    website
+    locationAddress
+  }
+}
+`;
+// find user's events
+export const GET_EVENTS = gql`
+  query MyEvents {
+  me {
+    events {
+      _id
+      eventName
+      eventDate
+      eventLocation
+      eventImage
+    }
+  }
+}
+`;

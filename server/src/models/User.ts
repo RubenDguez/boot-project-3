@@ -53,9 +53,7 @@ const userSchema = new Schema<UserDocument>(
         ref: "Event",
       },
     ],
-    helpBoards: [helpBoardSchema],
-    
-
+    helpBoards: [helpBoardSchema]
   },
   {
     toJSON: {

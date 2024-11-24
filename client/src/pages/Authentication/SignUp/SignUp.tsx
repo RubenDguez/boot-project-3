@@ -1,6 +1,7 @@
 import { useMutation } from '@apollo/client';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Alert, Box, Button, Container, FormControl, Paper, TextField, Typography } from '@mui/material';
+
+import { Alert, Box, Button, Container, FormControl, FormHelperText, Paper, TextField, Typography, GlobalStyles } from '@mui/material';
 import { FormEvent, useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
@@ -83,6 +84,22 @@ export default function SignUp() {
 
   return (
     <Box sx={{ display: 'grid', height: '100vh', gridTemplateRows: 'auto', alignItems: 'center' }}>
+       <GlobalStyles
+           styles={{
+            'input:-webkit-autofill': {
+              WebkitBoxShadow: '0 0 0 1000px #e7decd inset',
+              WebkitTextFillColor: '#000000',
+            },
+            'input:-webkit-autofill:focus': {
+              WebkitBoxShadow: '0 0 0 1000px #e7decd inset',
+              WebkitTextFillColor: '#000000',
+            },
+            'input:-webkit-autofill:hover': {
+              WebkitBoxShadow: '0 0 0 1000px #e7decd inset',
+              WebkitTextFillColor: '#000000',
+            },
+        }}
+      />
       <Container maxWidth="sm">
         <Paper elevation={4} sx={{ padding: '2rem 5rem 3rem 5rem', display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           {loginError !== null && (
@@ -97,12 +114,12 @@ export default function SignUp() {
               justifyContent: 'end',
             }}
           >
-            <Button data-testid="back-button" color="secondary" onClick={() => navigate('/')}>
+            <Button data-testid="back-button" color="primary" onClick={() => navigate('/')}>
               <ArrowBackIcon /> Back
             </Button>
           </Box>
-          <Typography data-testid="signup-header" variant="h4" color="primary">
-            Sign Up
+          <Typography data-testid="signup-header" variant="h4" color="primary" sx={{ textAlign: 'center', color: '#e7decd' }}>
+            SIGN UP
           </Typography>
           <form
             data-testid="signup-form"
@@ -114,6 +131,7 @@ export default function SignUp() {
               flexDirection: 'column',
               gap: '2rem',
               width: '100%',
+            
             }}
           >
             <FormControl>
@@ -127,9 +145,19 @@ export default function SignUp() {
                 variant="standard"
                 inputRef={firstNameInputRef}
                 label="First Name"
-                helperText={inputError?.firstName}
-                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } } }}
-              />
+
+                InputProps={{
+                  sx: {
+                      color: '#e7decd',
+                    },
+                }}
+
+                />
+                {inputError?.firstName && (
+                  <FormHelperText sx={{ color: 'white' }}>
+                    {inputError.firstName}
+                  </FormHelperText>
+                )}
             </FormControl>
             <FormControl>
               <TextField
@@ -142,9 +170,19 @@ export default function SignUp() {
                 variant="standard"
                 inputRef={lastNameInputRef}
                 label="Last Name"
-                helperText={inputError?.lastName}
-                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } } }}
-              />
+
+                InputProps={{
+                  sx: {
+                      color: '#e7decd',
+                    },
+                }}
+
+                />
+                {inputError?.lastName && (
+                  <FormHelperText sx={{ color: 'white' }}>
+                    {inputError.lastName}
+                  </FormHelperText>
+                )}
             </FormControl>
             <FormControl>
               <TextField
@@ -157,9 +195,19 @@ export default function SignUp() {
                 variant="standard"
                 inputRef={usernameInputRef}
                 label="Username"
-                helperText={inputError?.username}
-                slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } } }}
-              />
+
+                InputProps={{
+                  sx: {
+                      color: '#e7decd',
+                    },
+                }}
+
+                />
+                {inputError?.username && (
+                  <FormHelperText sx={{ color: 'white' }}>
+                    {inputError.username}
+                  </FormHelperText>
+                )}
             </FormControl>
             <FormControl>
               <TextField
@@ -174,6 +222,11 @@ export default function SignUp() {
                 label="Email"
                 helperText={inputError?.email}
                 slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } } }}
+                InputProps={{
+                  sx: {
+                      color: '#e7decd',
+                    },
+                }}
               />
             </FormControl>
             <FormControl>
@@ -189,6 +242,11 @@ export default function SignUp() {
                 label="Password"
                 helperText={inputError?.password}
                 slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } } }}
+                InputProps={{
+                  sx: {
+                      color: '#e7decd',
+                    },
+                }}
               />
             </FormControl>
             <FormControl>
@@ -204,6 +262,11 @@ export default function SignUp() {
                 label="Match Password"
                 helperText={inputError?.passwordMatch}
                 slotProps={{ formHelperText: { sx: { color: (t) => t.palette.error.main } } }}
+                InputProps={{
+                  sx: {
+                      color: '#e7decd',
+                    },
+                }}
               />
             </FormControl>
             <FormControl>

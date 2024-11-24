@@ -1,14 +1,22 @@
 import * as React from "react";
-import Button from "@mui/material/Button";
 import { Dayjs } from "dayjs";
-import TextField from "@mui/material/TextField";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-import { IconButton } from "@mui/material";
+import {
+  IconButton,
+  Select,
+  MenuItem,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  TextField,
+  Box,
+} from "@mui/material";
+import { USER_CHARITIES, GET_EVENTS } from "../../utils/queries";
+import { useQuery, useMutation } from "@apollo/client";
+import { ADD_EVENT } from "../../utils/mutations";
 
 interface AddEventProps {
   value: Dayjs | null;
@@ -16,10 +24,21 @@ interface AddEventProps {
 
 export default function AddEvent(AddEventProps: AddEventProps) {
   const [open, setOpen] = React.useState(false);
-  const [eventName, setEventName] = React.useState("");
-  const [eventLocation, setEventLocation] = React.useState("");
-  const [eventDetails, setEventDetails] = React.useState("");
+  const [charity, setCharity] = React.useState<any>({});
+  // we want set charity to be a single charity object
 
+  const [createEvent] = useMutation(ADD_EVENT);
+  const { data: userCharitiesData } = useQuery(USER_CHARITIES);
+  const { data: eventsData } = useQuery(GET_EVENTS);
+  console.log("Events", eventsData);
+  const charities = userCharitiesData?.findUserCharities || [];
+  React.useEffect(() => {
+    setCharity(charities);
+  }, [userCharitiesData]);
+  // console.log("i am set charity", charity);
+  const { name, locationAddress, description, image } = charity;
+  // console.log("i am name", name);
+  // console.log("i am charities", charities);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -28,93 +47,105 @@ export default function AddEvent(AddEventProps: AddEventProps) {
     setOpen(false);
   };
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+      await createEvent({
+        variables: {
+          input: {
+            eventImage: image,
+            eventName: name,
+            eventLocation: locationAddress,
+            eventDate: AddEventProps.value?.format("YYYY-MM-DDTHH:mm"),
+          },
+        },
+        refetchQueries: [GET_EVENTS],
+      });
+      handleClose();
+    } catch (error) {
+      console.log("Error creating event:", error);
+    }
+  };
+
   return (
-    <React.Fragment>
-      <IconButton
-        aria-label="add event"
-        sx={{ color: "#E7DECD" }}
-        onClick={handleClickOpen}
-      >
-        <AddCircleIcon fontSize="large" />
-      </IconButton>
+    <Box>
+      <Box sx={{width:'100%',display:'flex',justifyContent:'center'}}>
+        <IconButton
+          aria-label="add event"
+          sx={{ color: "#E7DECD" }}
+          onClick={handleClickOpen}
+        >
+          <AddCircleIcon fontSize="large" />
+        </IconButton>
+      </Box>
       <Dialog
         open={open}
         onClose={handleClose}
         PaperProps={{
           component: "form",
-          onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
-            event.preventDefault();
-            const formData = new FormData(event.currentTarget);
-            const formJson = Object.fromEntries((formData as any).entries());
-            const eventName = formJson.name;
-            const eventLocation = formJson.location;
-            const eventDetails = formJson.details;
-            const eventTime = formJson.time
-            console.log(formJson);
-          
-            const events = JSON.parse(localStorage.getItem("events") || "[]");
-            events.push({ eventName, eventLocation, eventDetails, eventTime });
-            localStorage.setItem("events", JSON.stringify(events));
-            console.log(eventName, eventLocation, eventDetails, eventTime);
-            handleClose();
-          },
+          onSubmit: handleSubmit,
         }}
       >
       
-        <DialogTitle>AddEvent</DialogTitle>
+        <DialogTitle sx={{ backgroundColor: '#698f3f', color: 'white', textAlign: 'center' }} >Add Event</DialogTitle>
         <DialogContent>
-          <DialogContentText>
+          <br></br>
+          <DialogContentText sx={{ color: '#9ac171', textAlign: 'center' }}>
             Confirm Event Information before adding to the calendar.
           </DialogContentText>
-          <TextField
+          <Select
             autoFocus
             required
             margin="dense"
             id="name"
             name="name"
             label="Event Name"
-            value={eventName}
-            onChange={(event) => setEventName(event.target.value)}
+            value={name}
+            // need to the name value of the charity
+            onChange={(event) => {
+              const selectedCharity = charities.find(
+                (c: any) => c.name === event.target.value
+              );
+              setCharity(selectedCharity);
+            }}
             type="text"
             fullWidth
             variant="standard"
-          />
-          <DialogContentText>
-            Add Event Location
-          </DialogContentText>
+          >
+            {charities?.map((charity: any) => (
+              <MenuItem key={charity.id} value={charity.name}>
+                {charity.name}
+              </MenuItem>
+            ))}
+          </Select>
+          <DialogContentText>Charity Name</DialogContentText>
           <TextField
             autoFocus
             required
             margin="dense"
             id="location"
             name="location"
-            label="Event Location"
             type="text"
             fullWidth
             variant="standard"
-            value={eventLocation}
-            onChange={(event) => setEventLocation(event.target.value)}
+            value={locationAddress}
+            disabled
           />
-          <DialogContentText>
-            Event Details
-          </DialogContentText>
+          <DialogContentText>Event Location</DialogContentText>
           <TextField
             autoFocus
             required
             margin="dense"
             id="details"
             name="details"
-            label="Event Details"
             type="text"
             fullWidth
             variant="standard"
-            value={eventDetails}
-            onChange={(event) => setEventDetails(event.target.value)} 
+            value={description}
+            disabled
           />
-          <DialogContentText>
-            Confirm Time
-          </DialogContentText>
-          <TextField 
+          <DialogContentText>Confirm Time</DialogContentText>
+          <TextField
             autoFocus
             required
             margin="dense"
@@ -124,6 +155,12 @@ export default function AddEvent(AddEventProps: AddEventProps) {
             fullWidth
             variant="standard"
             defaultValue={AddEventProps.value?.format("YYYY-MM-DDTHH:mm")}
+            disabled
+            InputProps={{
+              sx: {
+                color: 'primary.main', // Change the color of the date text here
+              },
+            }}
           />
         </DialogContent>
         <DialogActions>
@@ -131,6 +168,6 @@ export default function AddEvent(AddEventProps: AddEventProps) {
           <Button type="submit">ADD</Button>
         </DialogActions>
       </Dialog>
-    </React.Fragment>
+    </Box>
   );
 }

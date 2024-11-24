@@ -22,6 +22,11 @@ export default function useAuth(options: { needsAuth: boolean } = {needsAuth: tr
     }
   }, []);
 
+  const getProfile = useCallback(() => {
+    // jwtDecode is used to decode the JWT token and return its payload.
+    return jwtDecode<UserToken>(localStorage.getItem('id_token') || '');
+}, []) 
+
   const getToken = useCallback(() => {
     return localStorage.getItem('id_token');
   }, []);
@@ -46,5 +51,5 @@ export default function useAuth(options: { needsAuth: boolean } = {needsAuth: tr
     }
   }, []);
 
-  return { getToken, loggedIn, login, logout, isTokenExpired };
+  return { getToken, loggedIn, login, logout, isTokenExpired, getProfile };
 }

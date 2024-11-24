@@ -6,5 +6,5 @@ import Landing from './Landing/Landing';
 import Main from './Main/Main';
 import NotFound from './NotFound/NotFound';
 import ServiceCalendar from './ServiceCalendar/ServiceCalendar';
-
-export { About, Authentication, CharitySearch, HelpBoard, Landing, Main, NotFound, ServiceCalendar };
+import Home from './Home/Home';
+export { About, Authentication, CharitySearch, HelpBoard, Landing, Main, NotFound, ServiceCalendar, Home };

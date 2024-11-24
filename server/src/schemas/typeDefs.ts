@@ -12,8 +12,25 @@ const typeDefs = gql`
     lastName: String
     username: String
     email: String
+    events: [Event]
     charities: [Charity]
     helpBoards: [HelpBoard]
+  }
+
+  type Post {
+  _id: ID!
+  title: String!
+  description: String!
+  payment: String!
+  status: String!
+  createdBy: User!
+  completedBy: User
+  createdAt: String!
+  }
+
+  type Auth {
+    token: ID!
+    user: User
   }
 
   type Charity {
@@ -59,13 +76,24 @@ const typeDefs = gql`
     date: String!
     status: String!
     createdBy: String!
-    completedBy: String
+    completedBy: String}
+    
+  input EventInput {
+    eventName: String!
+    eventDate: String!
+    eventLocation: String!
+    eventImage: String!
   }
 
   type Query {
     me: User
     charities: [Charity]
     charity(_id: ID!): Charity
+    posts: [Post]!
+    post(id: ID!): Post
+    searchCharities(city: String, cause: String): [Charity]
+    events: [Event]
+    findUserCharities: [Charity]
   }
 
   type Mutation {
@@ -75,6 +103,8 @@ const typeDefs = gql`
     removeCharity(charityId: ID!): User
     addHelpBoard(input: HelpBoardInput!): User
     removeHelpBoard(helpBoardId: ID!): User
+    addEvent(input: EventInput!):Event
+    deleteEvent(eventId: ID!): Event
   }
 `;
 

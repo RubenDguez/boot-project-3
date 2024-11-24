@@ -30,6 +30,7 @@ export const ADD_USER = gql`
   }
 `;
 
+
 export const ADD_CHARITY = gql`
   mutation AddCharity($input: CharityInput!) {
     addCharity(input: $input) {
@@ -66,7 +67,7 @@ export const CREATE_POST = gql`
 `;
 
 export const COMPLETE_POST = gql`
-    mutation CompletePost($postId: ID!) {
+    mutation completePost($postId: ID!) {
         completePost(postId: $postId) {
             _id
             status
@@ -76,6 +77,26 @@ export const COMPLETE_POST = gql`
         }
     }
 `;
+// create event for user calendar
+export const ADD_EVENT = gql`
+  mutation addEvent($input: EventInput!) {
+    addEvent(input: $input) {
+      eventName
+      eventDate
+      eventLocation
+      eventImage
+    }
+  }
+`;
+
+export const DELETE_EVENT = gql`
+  mutation deleteEvent($eventId: ID!) {
+    deleteEvent(eventId: $eventId) {
+      _id
+    }
+  }
+`;
+
 
 
 export const REMOVE_CHARITY = gql`
