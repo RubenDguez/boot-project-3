@@ -55,21 +55,21 @@ const CalendarCard: React.FC<CalendarCardProps> = ({
             component="img"
             sx={{ width: "150px", display: { xs: "none", sm: "flex" } }}
             image={image}
-            alt="random"
+            alt="event image"
           />
           <Box sx={{width:'100%'}}>
             <CardContent>
               <Typography gutterBottom variant="h5" component="div">
-                {title}
+          {title}
               </Typography>
               <Divider />
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', padding: '0.5rem' }} >
-              <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                <strong>Where: </strong>{location}
-              </Typography>  
-              <Typography variant="body2" sx={{ color: "text.secondary" }}>
-                <strong>When: </strong>{DateTime.fromISO(date).toLocaleString(DateTime.DATETIME_MED)}
-              </Typography>
+          <Typography variant="body2" sx={{ color: "text.secondary" }}>
+            <strong>Where: </strong>{location}
+          </Typography>  
+          <Typography variant="body2" sx={{ color: "text.secondary" }}>
+            <strong>When: </strong>{DateTime.fromISO(date).toLocaleString(DateTime.DATETIME_MED)}
+          </Typography>
               </Box>
             </CardContent>
             <CardActions sx={{ display: 'flex', justifyContent: 'end' }}>

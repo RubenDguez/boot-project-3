@@ -28,7 +28,6 @@ export default function AddEvent(AddEventProps: AddEventProps) {
   const [createEvent] = useMutation(ADD_EVENT);
   const { data: userCharitiesData } = useQuery(USER_CHARITIES);
   const { data: eventsData } = useQuery(GET_EVENTS);
-  // console.log("Events", eventsData);
   const charities = userCharitiesData?.findUserCharities || [];
   React.useEffect(() => {
     setCharity(charities);

@@ -46,25 +46,16 @@ const [AddCharity] = useMutation(ADD_CHARITY);
 const handleAdd = async (id: string) => {
   console.log("Adding charity with id:", id);
   setCharity(data?.searchCharities.find((charity) => charity._id === id) as Charity);
-  console.log({
-    variables: {
-      description: description,
-      image: image,
-      locationAddress: locationAddress,
-      name: name,
-      website: website,
-    }
-  });
   
     try {
       await AddCharity({
         variables: {
           input:{
-            description: charity?.description,
-            image: charity?.image,
-            locationAddress: charity?.locationAddress,
-            name: charity?.name,
-            website: charity?.website,
+            description: description,
+            image: image,
+            locationAddress: locationAddress,
+            name: name,
+            website: website,
           }
         },
       });
@@ -104,7 +95,7 @@ const handleAdd = async (id: string) => {
               <Typography>{charity.locationAddress}</Typography>
               <Typography>{charity.website}</Typography>
               <img src={charity.image} alt={charity.name} />
-              <Button onClick={() => handleAdd(charity._id)} sx={{color:'white'}}>Add to Calendar</Button>
+              <Button onClick={() => handleAdd(charity._id)} sx={{color:'white'}}>Add To Calendar</Button>
             </div>
           ))}
         </div>
