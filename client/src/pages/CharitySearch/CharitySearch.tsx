@@ -57,15 +57,14 @@ const handleAdd = async (id: string) => {
   });
   
     try {
-      await setCharity;
       await AddCharity({
         variables: {
           input:{
-            description: charity.description,
-            image: charity.image,
-            locationAddress: charity.locationAddress,
-            name: charity.name,
-            website: charity.website,
+            description: charity?.description,
+            image: charity?.image,
+            locationAddress: charity?.locationAddress,
+            name: charity?.name,
+            website: charity?.website,
           }
         },
       });
