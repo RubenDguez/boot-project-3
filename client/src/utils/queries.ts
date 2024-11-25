@@ -53,15 +53,16 @@ export const GET_EVENTS = gql`
 `;
 
 export const FIND_ALL_POST = gql`
-  query FindAllPosts {
-    findAllPosts {
-      _id
-      title
-      description
-      date
-      status
-      createdBy
-      completedBy
-    }
+  query Query {
+  findAllHelpBoards {
+    _id
+    title
+    description
+    date
+    status
+    createdBy
+    completedBy
   }
+}
 `;
+
