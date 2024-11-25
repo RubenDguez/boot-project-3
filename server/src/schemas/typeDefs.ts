@@ -108,7 +108,6 @@ const typeDefs = gql`
     addCharity(input: CharityInput!): User
     createPost(title: String!, description: String!, payment: String!): Post
     completePost(postId: ID!): Post
-    addCharity(input: CharityInput!): Charity
     removeCharity(charityId: ID!): User
     addHelpBoard(input: HelpBoardInput!): User
     removeHelpBoard(helpBoardId: ID!): User
