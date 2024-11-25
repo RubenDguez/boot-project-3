@@ -35,19 +35,11 @@ export const ADD_CHARITY = gql`
   mutation AddCharity($input: CharityInput!) {
     addCharity(input: $input) {
       _id
-      email
-      firstName
-      lastName
-      username
-      charities {
-        _id
-        name
-        description
-        image
-        website
-        locationAddress
-        nonprofitTags
-      }
+      name
+      description
+      locationAddress
+      website
+      image
     }
   }
 `;

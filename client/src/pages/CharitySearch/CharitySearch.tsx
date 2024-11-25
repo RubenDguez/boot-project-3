@@ -1,10 +1,10 @@
 import { Typography } from '@mui/material';
 import useAuth from '../../hooks/useAuth';
 import {SEARCH_CHARITIES} from '../../utils/queries';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { useState } from 'react';
-import { Button, TextField } from '@mui/material';
-
+import { Button, TextField, Box } from '@mui/material';
+import { ADD_CHARITY } from '../../utils/mutations';
 
 interface Charity {
   _id: string;
@@ -34,9 +34,34 @@ export default function CharitySearch() {
 
   const [city, setCity] = useState('');
   const [cause, setCause] = useState('');
-
+  const [charity, setCharity] = useState<Charity>();
+  const {name, description, image, locationAddress, website} = charity || {};
+  console.log('I am set: ',charity);
+  
   const handleSearch = () => {
     refetch({ city, cause });
+  };
+  
+const [AddCharity] = useMutation(ADD_CHARITY);
+const handleAdd = async (id: string) => {
+  console.log("Adding charity with id:", id);
+  setCharity(data?.searchCharities.find((charity) => charity._id === id) as Charity);
+  
+    try {
+      await AddCharity({
+        variables: {
+          input:{
+            description: description,
+            image: image,
+            locationAddress: locationAddress,
+            name: name,
+            website: website,
+          }
+        },
+      });
+    } catch (error) {
+      console.error("Error adding charity:", error);
+    }
   };
 
   return (
@@ -64,12 +89,13 @@ export default function CharitySearch() {
       {!loading && !error && data && (
         <div>
           {data.searchCharities.map((charity) => (
-            <div key={charity._id}>
+            <div key={charity._id} id={charity._id}>
               <Typography variant="h6">{charity.name}</Typography>
               <Typography>{charity.description}</Typography>
               <Typography>{charity.locationAddress}</Typography>
               <Typography>{charity.website}</Typography>
               <img src={charity.image} alt={charity.name} />
+              <Button onClick={() => handleAdd(charity._id)} sx={{color:'white'}}>Add To Calendar</Button>
             </div>
           ))}
         </div>

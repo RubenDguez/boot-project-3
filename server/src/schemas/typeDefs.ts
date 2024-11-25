@@ -62,7 +62,7 @@ const typeDefs = gql`
     image: String!
     website: String!
     locationAddress: String!
-    nonprofitTags: [String]!
+    nonprofitTags: [String]
   }
 
   type HelpBoard {
@@ -106,6 +106,9 @@ const typeDefs = gql`
     login(username: String!, password: String!): Auth
     addUser(input: UserInput!): Auth
     addCharity(input: CharityInput!): User
+    createPost(title: String!, description: String!, payment: String!): Post
+    completePost(postId: ID!): Post
+    addCharity(input: CharityInput!): Charity
     removeCharity(charityId: ID!): User
     addHelpBoard(input: HelpBoardInput!): User
     removeHelpBoard(helpBoardId: ID!): User
