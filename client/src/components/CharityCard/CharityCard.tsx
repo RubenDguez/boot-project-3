@@ -14,6 +14,8 @@ interface CharityCardProps {
 }
 
 const CharityCard: React.FC<CharityCardProps> = ({ name, description, location, website, onAdd, title, id, image }) => {
+  const defaultImage = "./logo.png ";
+  
   return (
     <Card sx={{ 
         marginBottom: '1rem',  
@@ -30,9 +32,9 @@ const CharityCard: React.FC<CharityCardProps> = ({ name, description, location, 
         >    
         <CardMedia
             component="img"
-            sx={{ width: "150px", display: { xs: "none", sm: "flex" } }}
-            image={image}
-            alt="event image"
+            sx={{ width: "250px", display: { xs: "none", sm: "flex" } }}
+            image={image || defaultImage}
+            alt="charity image"
           />
           <Box sx={{width:'100%'}}>
       <CardContent>
@@ -49,13 +51,11 @@ const CharityCard: React.FC<CharityCardProps> = ({ name, description, location, 
                     <strong>Charity Location:</strong>{location}</Typography>
                     </Box>
             </CardContent>
-                    {/* code to remove charity from profile */}
-            {/* <CardActions sx={{ display: 'flex', justifyContent: 'end' }}>
-              <Button size="small" onClick={() => handleDelete(id)}>Remove Charity</Button>
-            </CardActions> */}
+            <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Button variant="contained" color="secondary" onClick={onAdd}>
             save to favorite charities
           </Button>
+          </CardActions>
         </Box>
         </Box>
     </Card>
