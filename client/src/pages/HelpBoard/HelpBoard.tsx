@@ -8,7 +8,9 @@ import {
   DialogContent,
   TextField,
   Box,
-  Grid
+  Grid, 
+  useMediaQuery, 
+  useTheme
 } from "@mui/material";
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
@@ -26,6 +28,8 @@ interface Post {
 
 export default function HelpBoard() {
     useAuth();
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
     const [Posts, setPosts] = useState<Post[]>([]);
     const [open, setOpen] = useState(false);
     const [openOffered, setOpenOffered] = useState(false);
@@ -42,7 +46,7 @@ export default function HelpBoard() {
                 ...newPost,
                 status: 'open',
                 type,
-                createdBy: 'currentUser', // You'll want to get this from your auth context
+                createdBy: 'currentUser', 
             };
             setPosts([...Posts, Post]);
             setOpen(false);
@@ -65,11 +69,11 @@ export default function HelpBoard() {
     return (
         <Box sx={{ p: 2 }}>
             <Grid container spacing={3}>
-                <Grid item xs={10} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <Typography variant="h2">Help Board</Typography>
                 </Grid>
                 
-                <Grid item xs={12}>
+                <Grid item xs={12} md={6}>
                     <Grid container spacing={5} justifyContent="center" alignItems="center">
                         <Grid item xs={12} md={3}>
                             
