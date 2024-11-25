@@ -26,74 +26,74 @@ interface SearchCharitiesVars {
 }
 
 const availableCauses = [
-'Adoption',
-'Afghanistan',
-'Animals',
-'Art',
-'Athletics',
-'Autism',
-'Black-led',
-'Buddhism',
-'Cancer',
-'Cats',
-'Christianity',
-'Climate',
-'Conservation',
-'Coronavirus',
-'Culture',
-'Dance',
-'Disabilities',
-'Disease',
-'Dogs',
-'Education',
-'Environment',
-'Film and TV',
-'Food-security',
-'Freepress',
-'Gender-equality',
-'Health',
-'Hinduism',
-'Housing',
-'Humans',
-'Hurricane-ian',
-'Immigrants',
-'Indigenous-led',
-'Indigenous-peoples',
-'Islam',
-'Judaism',
-'Justice',
-'Latine-led',
-'Legal',
-'LGBT',
-'Libraries',
-'Mental-health',
-'Museums',
-'Music',
-'Oceans',
-'Parks',
-'Poverty',
-'Racial Justice',
-'Radio',
-'Refugees',
-'Religion',
-'Research',
-'Science',
-'Seniors',
-'Space',
-'Theater',
-'Transgender',
-'Ukraine',
-'Veterans',
-'Voting Rights',
-'Water',
-'Wildfires',
-'Women-led',
-'Womens Health',
-'Youth',
+  'Adoption',
+  'Afghanistan',
+  'Animals',
+  'Art',
+  'Athletics',
+  'Autism',
+  'Black-led',
+  'Buddhism',
+  'Cancer',
+  'Cats',
+  'Christianity',
+  'Climate',
+  'Conservation',
+  'Coronavirus',
+  'Culture',
+  'Dance',
+  'Disabilities',
+  'Disease',
+  'Dogs',
+  'Education',
+  'Environment',
+  'Film and TV',
+  'Food-security',
+  'Freepress',
+  'Gender-equality',
+  'Health',
+  'Hinduism',
+  'Housing',
+  'Humans',
+  'Hurricane-ian',
+  'Immigrants',
+  'Indigenous-led',
+  'Indigenous-peoples',
+  'Islam',
+  'Judaism',
+  'Justice',
+  'Latine-led',
+  'Legal',
+  'LGBT',
+  'Libraries',
+  'Mental-health',
+  'Museums',
+  'Music',
+  'Oceans',
+  'Parks',
+  'Poverty',
+  'Racial Justice',
+  'Radio',
+  'Refugees',
+  'Religion',
+  'Research',
+  'Science',
+  'Seniors',
+  'Space',
+  'Theater',
+  'Transgender',
+  'Ukraine',
+  'Veterans',
+  'Voting Rights',
+  'Water',
+  'Wildfires',
+  'Women-led',
+  'Womens Health',
+  'Youth',
 ];
 
 export default function CharitySearch() {
- useAuth();
+  useAuth();
   const { loading, error, data, refetch } = useQuery<SearchCharitiesData, SearchCharitiesVars>(
     SEARCH_CHARITIES
   );
@@ -101,9 +101,9 @@ export default function CharitySearch() {
   const [city, setCity] = useState('');
   const [cause, setCause] = useState('');
   const [charity, setCharity] = useState<Charity>();
-  const {name, description, image, locationAddress, website} = charity || {};
+  const { name, description, image, locationAddress, website } = charity || {};
   const [searchError, setSearchError] = useState<string | null>(null);
-  
+
   const handleSearch = () => {
     refetch({ city, cause }).then((result) => {
       if (result.data.searchCharities.length === 0) {
@@ -113,16 +113,16 @@ export default function CharitySearch() {
       }
     });
   };
-  
-const [AddCharity] = useMutation(ADD_CHARITY);
-const handleAdd = async (id: string) => {
-  console.log("Adding charity with id:", id);
-  setCharity(data?.searchCharities.find((charity) => charity._id === id) as Charity);
-  
+
+  const [AddCharity] = useMutation(ADD_CHARITY);
+  const handleAdd = async (id: string) => {
+    console.log("Adding charity with id:", id);
+    setCharity(data?.searchCharities.find((charity) => charity._id === id) as Charity);
+
     try {
       await AddCharity({
         variables: {
-          input:{
+          input: {
             description: description,
             image: image,
             locationAddress: locationAddress,
@@ -136,29 +136,55 @@ const handleAdd = async (id: string) => {
     }
   };
 
+  const handleAddToCalendar = (id: string) => {
+    console.log("Adding charity to calendar with id:", id);
+  };
+
   if (loading) return <Typography>Loading...</Typography>;
   if (error) return <Typography>Error: {error.message}</Typography>;
+
+  const defaultImage = './logo.png';
 
   return (
     <Box sx={{ padding: '2rem' }}>
       <Typography variant="h4" sx={{ marginBottom: '1rem' }}>Search Charities</Typography>
-      <TextField
+     
+      <Box sx={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '1rem' }}>
+         <TextField
         label="Type a City"
         value={city}
         onChange={(e) => setCity(e.target.value)}
         variant="outlined"
         margin="normal"
-     
+        sx={{
+          backgroundColor: 'secondary.main', // Change the background color
+          '& .MuiInputBase-root': {
+            color: '#e7decd', // Change the text color
+          },
+          '& .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'secondary.main', // Change the border color
+          },
+          '&:hover .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'secondary.main', // Change the border color on hover
+          },
+          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+            borderColor: 'secondary.main', // Change the border color when focused
+          },
+        }}
+
       />
-     <FormControl margin="normal">
-     <InputLabel sx={{ color: 'primary.main' }}>Cause</InputLabel>
+
+      <FormControl margin="normal" sx={{ minWidth: 200 }}>
+        <InputLabel sx={{ color: 'white' }}></InputLabel>
         <Select
+         label="Select A Cause"
           value={cause}
           onChange={(e) => setCause(e.target.value)}
           variant="outlined"
           displayEmpty
           sx={{
-            color: 'primary.main', // Change the text color of the selected item
+            backgroundColor: 'secondary.main', // Change the background color
+            color: 'secondary.main', // Change the text color of the selected item
             '.MuiOutlinedInput-notchedOutline': {
               borderColor: 'primary', // Change the border color
             },
@@ -183,7 +209,7 @@ const handleAdd = async (id: string) => {
             },
           }}
         >
-           <MenuItem value="" disabled sx={{ fontFamily: 'Arial, sans-serif', fontStyle: 'italic', color: 'black'}}>
+          <MenuItem value="" disabled sx={{ fontFamily: 'Arial, sans-serif', fontStyle: 'italic', color: 'black' }}>
             <em>Select a cause</em>
           </MenuItem>
           {availableCauses.map((cause) => (
@@ -193,26 +219,38 @@ const handleAdd = async (id: string) => {
           ))}
         </Select>
       </FormControl>
-      <Button variant="contained" color="primary" onClick={handleSearch} sx={{ marginTop: '1rem' }}>
+
+      <Button variant="contained" color="primary" onClick={handleSearch} sx={{
+        marginTop: '1rem',
+        backgroundColor: 'primary.dark', // Change the background color
+        color: 'white', // Change the text color
+        '&:hover': {
+          backgroundColor: 'primary.main', // Change the background color on hover
+        },
+      }}>
         Search
       </Button>
+      </Box>
+
       {searchError && <Alert severity="error">{searchError}</Alert>}
+
       <Box sx={{ marginTop: '2rem' }}>
         {data?.searchCharities.map((charity) => (
           <Box key={charity._id}>
             <CharityCard
               id={charity._id}
               name={charity.name}
+              title={charity.name}
               description={charity.description}
               location={charity.locationAddress}
               website={charity.website}
-              image={charity.image || ''}
+              image={charity.image || 'defaultImage'}
               onAdd={() => handleAdd(charity._id)}
             />
-            <Button variant="contained" color="secondary" onClick={() => handleAdd(charity._id)}> 
+            <Button variant="contained" color="secondary" onClick={() => handleAdd(charity._id)}>
               Add Charity
             </Button>
-            <Button onClick={() => handleAdd(charity._id)} sx={{color:'white'}}>Add To Calendar</Button>
+            <Button onClick={() => handleAdd(charity._id)} sx={{ color: 'white' }}>Add To Calendar</Button>
           </Box>
         ))}
       </Box>
