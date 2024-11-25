@@ -1,10 +1,11 @@
-import { Typography, Button, TextField, Box, Select, MenuItem, FormControl, InputLabel, Alert } from '@mui/material';
+import { Typography, Button, TextField, Box, Select, MenuItem, FormControl, InputLabel, Alert, useMediaQuery } from '@mui/material';
 import useAuth from '../../hooks/useAuth';
 import { SEARCH_CHARITIES } from '../../utils/queries';
 import { useQuery, useMutation } from '@apollo/client';
 import { useState } from 'react';
 import { ADD_CHARITY } from '../../utils/mutations';
 import CharityCard from '../../components/CharityCard/CharityCard';
+import { useTheme } from '@mui/material/styles';
 
 interface Charity {
   _id: string;
@@ -93,7 +94,9 @@ const availableCauses = [
 ];
 
 export default function CharitySearch() {
-  useAuth();
+  useAuth(); 
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const { loading, error, data, refetch } = useQuery<SearchCharitiesData, SearchCharitiesVars>(
     SEARCH_CHARITIES
   );
@@ -162,16 +165,20 @@ export default function CharitySearch() {
             color: '#e7decd', // Change the text color
           },
           '& .MuiOutlinedInput-notchedOutline': {
-            borderColor: 'secondary.main', // Change the border color
+            borderColor: 'primary', // Change the border color
           },
           '&:hover .MuiOutlinedInput-notchedOutline': {
-            borderColor: 'secondary.main', // Change the border color on hover
+            borderColor: 'primary', // Change the border color on hover
           },
           '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-            borderColor: 'secondary.main', // Change the border color when focused
+            borderColor: 'black', // Change the border color when focused
           },
         }}
-
+        InputLabelProps={{
+          sx: {
+            color: 'white', // Change the label font color
+          },
+        }}
       />
 
       <FormControl margin="normal" sx={{ minWidth: 200 }}>
@@ -244,13 +251,10 @@ export default function CharitySearch() {
               description={charity.description}
               location={charity.locationAddress}
               website={charity.website}
-              image={charity.image || 'defaultImage'}
+              image={charity.image || defaultImage}
               onAdd={() => handleAdd(charity._id)}
+              onAddToCalendar={() => handleAddToCalendar(charity._id)}
             />
-            <Button variant="contained" color="secondary" onClick={() => handleAdd(charity._id)}>
-              Add Charity
-            </Button>
-            <Button onClick={() => handleAdd(charity._id)} sx={{ color: 'white' }}>Add To Calendar</Button>
           </Box>
         ))}
       </Box>
