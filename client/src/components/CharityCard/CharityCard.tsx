@@ -10,10 +10,11 @@ interface CharityCardProps {
   location: string;
   website?: string;
   onAdd: () => void;
-  image: string;
+  image?: string;
+  onAddToCalendar: () => void;
 }
 
-const CharityCard: React.FC<CharityCardProps> = ({ name, description, location, website, onAdd, title, id, image }) => {
+const CharityCard: React.FC<CharityCardProps> = ({ name, description, location, website, onAdd, onAddToCalendar, title, id, image }) => {
   const defaultImage = "./logo.png ";
   
   return (
@@ -32,7 +33,7 @@ const CharityCard: React.FC<CharityCardProps> = ({ name, description, location, 
         >    
         <CardMedia
             component="img"
-            sx={{ width: "250px", display: { xs: "none", sm: "flex" } }}
+            sx={{ width: "250px", height: "150px", objectFit: "contain", display: { xs: "none", sm: "flex" } }}
             image={image || defaultImage}
             alt="charity image"
           />
@@ -51,10 +52,13 @@ const CharityCard: React.FC<CharityCardProps> = ({ name, description, location, 
                     <strong>Charity Location:</strong>{location}</Typography>
                     </Box>
             </CardContent>
-            <CardActions sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <CardActions sx={{ display: 'flex', justifyContent: 'space-evenly' }}>
           <Button variant="contained" color="secondary" onClick={onAdd}>
-            save to favorite charities
+            Save to Favorites
           </Button>
+          <Button variant="contained" color="primary" onClick={onAddToCalendar}>
+                Add to Calendar
+              </Button>
           </CardActions>
         </Box>
         </Box>
@@ -63,5 +67,6 @@ const CharityCard: React.FC<CharityCardProps> = ({ name, description, location, 
 };
 
 export default CharityCard;
+
 
 
