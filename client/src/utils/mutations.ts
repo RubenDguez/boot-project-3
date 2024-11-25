@@ -118,33 +118,9 @@ export const REMOVE_CHARITY = gql`
     }
   }
 `;
-
-export const ADD_HELP_BOARD = gql`
+export const ADD_POST = gql`
   mutation AddHelpBoard($input: HelpBoardInput!) {
     addHelpBoard(input: $input) {
-    firstName
-    lastName
-    helpBoards {
-      _id
-      title
-      description
-      date
-      status
-      createdBy
-      completedBy
-    }
-  }
-  }
-`;
-
-
-export const REMOVE_HELP_BOARD = gql`
-  mutation RemoveHelpBoard($helpBoardId: ID!) {
-    removeHelpBoard(helpBoardId: $helpBoardId) {
-      _id
-      firstName
-      lastName
-     
       helpBoards {
         _id
         title
@@ -158,17 +134,16 @@ export const REMOVE_HELP_BOARD = gql`
   }
 `;
 
-
-export const FindAllPosts = gql`
-  query FindAllPosts {
-    findAllPosts {
-      _id
-      title
-      description
-      status
-      createdBy {
-        username
+export const REMOVE_HELP_BOARD = gql`
+  mutation removeHelpBoard($helpBoardId: ID!) {
+    removeHelpBoard(helpBoardId: $helpBoardId) {
+      helpBoards {
+        _id
+        title
+        description
       }
     }
   }
 `;
+
+

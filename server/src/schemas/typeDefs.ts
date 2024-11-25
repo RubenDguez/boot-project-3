@@ -78,7 +78,7 @@ const typeDefs = gql`
   input HelpBoardInput {
     title: String!
     description: String!
-    date: String!
+    date: String
     status: String!
     createdBy: String!
     completedBy: String}
