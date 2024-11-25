@@ -146,7 +146,7 @@ export default function CharitySearch() {
   if (loading) return <Typography>Loading...</Typography>;
   if (error) return <Typography>Error: {error.message}</Typography>;
 
-  const defaultImage = './logo.png';
+  const defaultImage = '/logo.png';
 
   return (
     <Box sx={{ padding: '2rem' }}>
@@ -251,7 +251,7 @@ export default function CharitySearch() {
               description={charity.description}
               location={charity.locationAddress}
               website={charity.website}
-              image={charity.image || defaultImage}
+              image={charity.image?? defaultImage}
               onAdd={() => handleAdd(charity._id)}
               onAddToCalendar={() => handleAddToCalendar(charity._id)}
             />

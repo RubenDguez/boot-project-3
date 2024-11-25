@@ -1,4 +1,5 @@
 import User from './User.js';
 import Charity from './charity.js';
 import Event from './event.js';
-export { User , Charity, Event };
+import HelpBoard from './helpBoard.js';
+export { User , Charity, Event, HelpBoard };

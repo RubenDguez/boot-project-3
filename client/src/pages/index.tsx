@@ -7,4 +7,4 @@ import Main from './Main/Main';
 import NotFound from './NotFound/NotFound';
 import ServiceCalendar from './ServiceCalendar/ServiceCalendar';
 import Home from './Home/Home';
-export { About, Authentication, CharitySearch, HelpBoard, Landing, Main, NotFound, ServiceCalendar, };
+export { About, Authentication, CharitySearch, HelpBoard, Landing, Main, NotFound, ServiceCalendar, Home };
