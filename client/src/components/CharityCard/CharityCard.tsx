@@ -21,7 +21,7 @@ const CharityCard: React.FC<CharityCardProps> = ({ name, description, location, 
         display: "flex",
         justifyContent: "space-around",
         alignItems: "center",
-        height: "150px",
+        height: "200px",
         }}>
         <Box
           sx={{
@@ -54,7 +54,7 @@ const CharityCard: React.FC<CharityCardProps> = ({ name, description, location, 
               <Button size="small" onClick={() => handleDelete(id)}>Remove Charity</Button>
             </CardActions> */}
           <Button variant="contained" color="secondary" onClick={onAdd}>
-            Add Charity to My Saved Charities
+            save to favorite charities
           </Button>
         </Box>
         </Box>
@@ -63,3 +63,5 @@ const CharityCard: React.FC<CharityCardProps> = ({ name, description, location, 
 };
 
 export default CharityCard;
+
+

@@ -51,3 +51,5 @@ export const GET_EVENTS = gql`
   }
 }
 `;
+
+

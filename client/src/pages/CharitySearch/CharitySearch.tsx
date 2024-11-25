@@ -136,6 +136,9 @@ const handleAdd = async (id: string) => {
     }
   };
 
+  if (loading) return <Typography>Loading...</Typography>;
+  if (error) return <Typography>Error: {error.message}</Typography>;
+
   return (
     <Box sx={{ padding: '2rem' }}>
       <Typography variant="h4" sx={{ marginBottom: '1rem' }}>Search Charities</Typography>
@@ -148,6 +151,7 @@ const handleAdd = async (id: string) => {
      
       />
      <FormControl margin="normal">
+     <InputLabel sx={{ color: 'primary.main' }}>Cause</InputLabel>
         <Select
           value={cause}
           onChange={(e) => setCause(e.target.value)}
@@ -192,32 +196,31 @@ const handleAdd = async (id: string) => {
       <Button variant="contained" color="primary" onClick={handleSearch} sx={{ marginTop: '1rem' }}>
         Search
       </Button>
-      {loading && <Typography>Loading...</Typography>}
-      {error && <Typography>Error: {error.message}</Typography>}
-      {!loading && !error && data && (
-     <Box sx={{ marginTop: '2rem' }}>
-          {data.searchCharities.map((charity) => (
-     <Box key={charity._id} sx={{ marginBottom: '1rem' }}>
-              <Typography variant="h6">{charity.name}</Typography>
-              <Typography>{charity.description}</Typography>
-              <Typography>{charity.locationAddress}</Typography>
-              <img src={charity.image} alt={charity.name} />
-              
-              {charity.website && (
-                <Typography>
-                  <a href={charity.website} target="_blank" rel="noopener noreferrer">
-                    {charity.website}
-                  </a>
-                </Typography>
-              )}
-                <Button variant="contained" color="secondary" onClick={() => handleAdd(charity._id)}> 
-                  Add Charity
-                </Button>
-              <Button onClick={() => handleAdd(charity._id)} sx={{color:'white'}}>Add To Calendar</Button>
-            </Box>
-          ))}
-        </Box>
-      )}
+      {searchError && <Alert severity="error">{searchError}</Alert>}
+      <Box sx={{ marginTop: '2rem' }}>
+        {data?.searchCharities.map((charity) => (
+          <Box key={charity._id}>
+            <CharityCard
+              id={charity._id}
+              name={charity.name}
+              description={charity.description}
+              location={charity.locationAddress}
+              website={charity.website}
+              image={charity.image || ''}
+              onAdd={() => handleAdd(charity._id)}
+            />
+            <Button variant="contained" color="secondary" onClick={() => handleAdd(charity._id)}> 
+              Add Charity
+            </Button>
+            <Button onClick={() => handleAdd(charity._id)} sx={{color:'white'}}>Add To Calendar</Button>
+          </Box>
+        ))}
+      </Box>
     </Box>
   );
 }
+
+{/* <Button variant="contained" color="secondary" onClick={() => handleAdd(charity._id)}> 
+Add Charity
+</Button>
+<Button onClick={() => handleAdd(charity._id)} sx={{color:'white'}}>Add To Calendar</Button> */}
