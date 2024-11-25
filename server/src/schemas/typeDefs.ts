@@ -38,7 +38,6 @@ const typeDefs = gql`
     image: String
     website: String
     locationAddress: String!
-    nonprofitTags: [String]!
   }
 
   type Event {
@@ -63,7 +62,6 @@ const typeDefs = gql`
     image: String!
     website: String!
     locationAddress: String!
-    nonprofitTags: [String]
   }
 
   type HelpBoard {

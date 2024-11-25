@@ -1,3 +1,4 @@
+import { CharityDocument } from "../models/charity.js";
 import { User, Charity, HelpBoard, Event } from "../models/index.js";
 import { AuthenticationError, signToken } from "../utils/auth.js";
 
@@ -81,7 +82,7 @@ const resolvers = {
         nonprofitTags: obj.tags,
       }))
     },
-    findUserCharities: async (_: unknown, __: unknown, context: Context): Promise<Array<Charity> | null> => {
+    findUserCharities: async (_: unknown, __: unknown, context: Context): Promise<Array<CharityDocument> | null> => {
 
       if (!context.user) throw new AuthenticationError('Not Authorized');
       // if (context.user._id !== userId) throw new AuthenticationError('Not Authorized');
@@ -141,7 +142,7 @@ const resolvers = {
 
       const updatedUser = await User.findOneAndUpdate(
         { _id: context.user._id },
-        { $push: { charities: input } },
+        { $push: { events: input } },
         { new: true }
       );
 

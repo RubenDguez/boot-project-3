@@ -14,7 +14,6 @@ interface Charity {
   image?: string;
   website?: string;
   locationAddress: string;
-  nonprofitTags: string[];
 }
 
 interface SearchCharitiesData {

@@ -47,7 +47,7 @@ export default function AddEvent(AddEventProps: AddEventProps) {
       await createEvent({
         variables: {
           input: {
-            eventImage: image,
+            eventImage: image ?? 'helloworld',
             eventName: name,
             eventLocation: locationAddress,
             eventDate: AddEventProps.value?.format("YYYY-MM-DDTHH:mm"),
@@ -106,8 +106,8 @@ export default function AddEvent(AddEventProps: AddEventProps) {
             fullWidth
             variant="standard"
           >
-            {charities?.map((charity: any) => (
-              <MenuItem key={charity.id} value={charity.name}>
+            {charities?.map((charity: any, index: number) => (
+              <MenuItem key={charity.id + index.toString()} value={charity.name}>
                 {charity.name}
               </MenuItem>
             ))}
