@@ -1,16 +1,5 @@
 import { 
-  Typography, 
-  Card, 
-  CardContent, 
-  Button, 
-  Dialog, 
-  DialogTitle, 
-  DialogContent,
-  TextField,
-  Box,
-  Grid, 
-  useMediaQuery, 
-  useTheme
+  Typography, Card, CardContent, Button, Dialog, DialogTitle, DialogContent, TextField, Box, Grid, useMediaQuery, useTheme
 } from "@mui/material";
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth";
@@ -73,7 +62,7 @@ export default function HelpBoard() {
                     <Typography variant="h2">Help Board</Typography>
                 </Grid>
                 
-                <Grid item xs={12} md={6}>
+                <Grid item xs={12}>
                     <Grid container spacing={5} justifyContent="center" alignItems="center">
                         <Grid item xs={12} md={3}>
                             
