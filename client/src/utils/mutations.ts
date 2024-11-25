@@ -121,6 +121,7 @@ export const ADD_POST = gql`
         status
         createdBy
         completedBy
+        type
       }
     }
   }

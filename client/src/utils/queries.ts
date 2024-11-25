@@ -62,6 +62,7 @@ export const FIND_ALL_POST = gql`
     status
     createdBy
     completedBy
+    type
   }
 }
 `;

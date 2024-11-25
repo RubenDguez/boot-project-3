@@ -54,6 +54,7 @@ interface HelpBoard {
   status: string;
   createdBy: string;
   completedBy: string;
+  type: string;
 }
 
 const resolvers = {
@@ -157,7 +158,7 @@ const resolvers = {
       if (!context.user) throw new AuthenticationError("Not Authorized");
       return await User.findOneAndUpdate(
         { _id: context.user._id },
-        { $push: { helpBoards: input } },
+        { $push: { helpBoards:{...input, createdBy:context.user._id} } },
         { new: true }
       );
     },

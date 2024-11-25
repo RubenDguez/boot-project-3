@@ -8,6 +8,7 @@ export interface HelpBoardDocoument extends Document {
   status: "open" | "completed";
   createdBy: string;
   completedBy?: string;
+  type: string;
 }
 
 const helpBoardSchema = new Schema<HelpBoardDocoument>({
@@ -17,6 +18,7 @@ const helpBoardSchema = new Schema<HelpBoardDocoument>({
   status: { type: String, required: true },
   createdBy: { type: String, required: true },
   completedBy: { type: String },
+  type: { type: String, required: true },
 });
 
 export default helpBoardSchema;

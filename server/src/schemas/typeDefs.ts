@@ -27,6 +27,7 @@ const typeDefs = gql`
   createdBy: User!
   completedBy: User
   createdAt: String!
+  type: String!
   }
 
 
@@ -34,8 +35,8 @@ const typeDefs = gql`
     _id: ID!
     name: String!
     description: String!
-    image: String!
-    website: String!
+    image: String
+    website: String
     locationAddress: String!
     nonprofitTags: [String]!
   }
@@ -72,16 +73,19 @@ const typeDefs = gql`
     date: String!
     status: String!
     createdBy: String!
-    completedBy: String
+    completedBy: String!
+    type: String!
   }
 
   input HelpBoardInput {
     title: String!
     description: String!
-    date: String
+    date: String!
     status: String!
     createdBy: String!
-    completedBy: String}
+    completedBy: String!
+    type: String!
+  }
     
   input EventInput {
     eventName: String!
