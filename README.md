@@ -113,6 +113,12 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
 
 ---
 
+### Deployment
+
+Please the follow this link to the deployed app: [Better Together](https://boot-project-3.onrender.com/)
+
+---
+
 ### Contact the team
 
 |  | Name | GitHub |
