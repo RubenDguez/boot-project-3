@@ -7,7 +7,6 @@ export interface CharityDocument extends Document {
   image: string;
   website: string;
   locationAddress: string;
-  nonprofitTags: string[];
 }
 
 const CharitySchema = new Schema<CharityDocument>({

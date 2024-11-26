@@ -1,6 +1,6 @@
-import { Schema, model, type Document } from "mongoose";
+import { Schema, type Document } from "mongoose";
 
-export interface IhelBoard extends Document {
+export interface HelpBoardDocoument extends Document {
   id: string;
   title: string;
   description: string;
@@ -8,32 +8,17 @@ export interface IhelBoard extends Document {
   status: "open" | "completed";
   createdBy: string;
   completedBy?: string;
+  type: string;
 }
 
-const HelpBoardSchema = new Schema<IhelBoard>({
-  title: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  date: {
-    type: String,
-    required: true,
-  },
-  status: {
-    type: String,
-    required: true,
-  },
-  createdBy: {
-    type: String,
-    required: true,
-  },
-  completedBy: {
-    type: String,
-  },
+const helpBoardSchema = new Schema<HelpBoardDocoument>({
+  title: { type: String, required: true },
+  description: { type: String, required: true },
+  date: { type: String, required: true },
+  status: { type: String, required: true },
+  createdBy: { type: String, required: true },
+  completedBy: { type: String },
+  type: { type: String, required: true },
 });
 
-export default model<IhelBoard>("HelpBoard", HelpBoardSchema);
+export default helpBoardSchema;

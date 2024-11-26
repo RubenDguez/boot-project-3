@@ -35,29 +35,20 @@ export const ADD_CHARITY = gql`
   mutation AddCharity($input: CharityInput!) {
     addCharity(input: $input) {
       _id
-      email
-      firstName
-      lastName
-      username
-      charities {
-        _id
-        name
-        description
-        image
-        website
-        locationAddress
-        nonprofitTags
-      }
+      name
+      description
+      locationAddress
+      website
+      image
     }
   }
 `;
 export const CREATE_POST = gql`
     mutation CreatePost($title: String!, $description: String!, $payment: String!) {
-        createPost(title: $title, description: $description, payment: $payment) {
+        createPost(title: $title, description: $description) {
             _id
             title
             description
-            payment
             status
             createdBy {
                 username
@@ -119,3 +110,33 @@ export const REMOVE_CHARITY = gql`
     }
   }
 `;
+export const ADD_POST = gql`
+  mutation AddHelpBoard($input: HelpBoardInput!) {
+    addHelpBoard(input: $input) {
+      helpBoards {
+        _id
+        title
+        description
+        date
+        status
+        createdBy
+        completedBy
+        type
+      }
+    }
+  }
+`;
+
+export const REMOVE_HELP_BOARD = gql`
+  mutation removeHelpBoard($helpBoardId: ID!) {
+    removeHelpBoard(helpBoardId: $helpBoardId) {
+      helpBoards {
+        _id
+        title
+        description
+      }
+    }
+  }
+`;
+
+
